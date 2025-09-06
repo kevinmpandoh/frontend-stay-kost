@@ -6,26 +6,23 @@ import { usePreferenceStore } from "../preference.store";
 import { useRules } from "@/features/rules/useRules";
 import { Rules } from "@/features/rules/rules.type";
 
-export default function KeamananStep() {
-  const keamanan = usePreferenceStore((state) => state.keamanan);
-  const setKeamanan = usePreferenceStore((state) => state.setKeamanan);
-  const { rules } = useRules();
+export default function RulesStep() {
+  const { rules, setRules } = usePreferenceStore();
+  const { rules: rulesList } = useRules();
 
   const toggle = (id: string) => {
-    setKeamanan(
-      keamanan.includes(id)
-        ? keamanan.filter((x) => x !== id)
-        : [...keamanan, id],
+    setRules(
+      rules.includes(id) ? rules.filter((x) => x !== id) : [...rules, id],
     );
   };
 
-  if (rules.isLoading) return <p>Memuat keamanan...</p>;
+  if (rulesList.isLoading) return <p>Memuat keamanan...</p>;
 
   return (
     <div className="grid max-w-3xl grid-cols-2 gap-4 md:grid-cols-3">
-      {rules.data.map((item: Rules) => {
-        const isSelected = keamanan.includes(item._id);
-        const Icon = RULE_ICONS[item.name]?.icon || DEFAULT_RULE_ICON;
+      {rulesList.data.map((item: Rules) => {
+        const isSelected = rules.includes(item._id);
+        // const Icon = RULE_ICONS[item.name]?.icon || DEFAULT_RULE_ICON;
 
         return (
           <button
@@ -39,11 +36,12 @@ export default function KeamananStep() {
                 : "border-[#D9D9D9] bg-white",
             )}
           >
-            <Icon
-              className={`h-5 w-5 ${
+            {/* <Icon
+              size={18}
+              className={`h-8 w-8 ${
                 isSelected ? "text-primary" : "text-gray-700"
               }`}
-            />
+            /> */}
             <span className="text-sm font-medium text-gray-800">
               {item.name}
             </span>

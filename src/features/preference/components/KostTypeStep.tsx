@@ -1,12 +1,11 @@
 import { Bed, Building2, Home } from "lucide-react";
 import { usePreferenceStore } from "../preference.store";
 
-export default function JenisKostStep() {
-  const jenisKost = usePreferenceStore((state) => state.jenisKost);
-  const setJenisKost = usePreferenceStore((state) => state.setJenisKost);
+export default function KostTypeStep() {
+  const { kostType, setKostType } = usePreferenceStore();
 
-  const handleClick = (value: string) => {
-    setJenisKost(value);
+  const handleClick = (value: "putra" | "putri" | "campur") => {
+    setKostType(value);
   };
 
   const options = [
@@ -17,8 +16,8 @@ export default function JenisKostStep() {
 
   return (
     <div className="grid grid-cols-3 gap-4">
-      {options.map((item) => {
-        const isSelected = jenisKost === item.value;
+      {options.map((item: any) => {
+        const isSelected = kostType === item.value;
 
         return (
           <button
@@ -26,8 +25,8 @@ export default function JenisKostStep() {
             onClick={() => handleClick(item.value)}
             className={`flex flex-col items-center rounded-xl border p-3 transition ${
               isSelected
-                ? "border-blue-300 bg-blue-50"
-                : "bg-white hover:bg-blue-50"
+                ? "border-primary-300 bg-primary-50"
+                : "hover:bg-primary-50 bg-white"
             } `}
           >
             {item.icon}

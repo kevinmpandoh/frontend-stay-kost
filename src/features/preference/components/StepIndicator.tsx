@@ -13,7 +13,7 @@ export default function StepIndicator({ steps, step }: StepIndicatorProps) {
           key={index}
           className={`relative flex ${
             step > index
-              ? "w-full text-indigo-600 after:absolute after:top-3 after:left-4 after:inline-block after:h-0.5 after:w-full after:bg-indigo-600 after:content-[''] lg:after:top-5"
+              ? "text-primary-600 after:bg-primary-600 w-full after:absolute after:top-3 after:left-4 after:inline-block after:h-0.5 after:w-full after:content-[''] lg:after:top-5"
               : step === index && index !== 4
                 ? "w-full text-gray-900 after:absolute after:top-3 after:left-4 after:inline-block after:h-0.5 after:w-full after:bg-gray-200 after:content-[''] lg:after:top-5"
                 : index === 4
@@ -25,9 +25,9 @@ export default function StepIndicator({ steps, step }: StepIndicatorProps) {
             <span
               className={`h-6 w-6 ${
                 step > index
-                  ? "border-2 border-transparent bg-indigo-600 text-white"
+                  ? "bg-primary-600 border-2 border-transparent text-white"
                   : step === index
-                    ? "border-2 border-indigo-600 bg-indigo-50 text-indigo-600"
+                    ? "border-primary-600 bg-primary-50 text-primary-600 border-2"
                     : "border-2 border-gray-200 bg-gray-50 text-gray-500"
               } mx-auto mb-3 flex items-center justify-center rounded-full text-sm lg:h-10 lg:w-10`}
             >

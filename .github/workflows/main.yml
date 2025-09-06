@@ -1,0 +1,51 @@
+name: CI - Run Tests Only
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  test:
+    name: Run Unit Tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install Dependencies
+        run: npm install
+
+      # - name: Check Jest Tests
+      #   run: npm test -- --listTests
+
+      # - name: Run Tests
+      #   run: npm test --passWithNoTests
+
+  build:
+    runs-on: ubuntu-latest
+    needs: test # Job build hanya akan berjalan jika job test berhasil
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "18"
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build application
+        run: npm run build

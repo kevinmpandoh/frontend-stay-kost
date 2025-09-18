@@ -1,4 +1,4 @@
-import VerifyOTPForm from "@/features/auth/register/VerifyOTP";
+import VerifyOTPForm from "@/features/auth/components/VerifyOTP";
 
 const VerifyPage = () => {
   return (

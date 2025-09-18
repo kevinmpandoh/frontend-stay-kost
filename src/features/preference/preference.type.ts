@@ -1,11 +1,9 @@
 export interface PreferencePayload {
   address: {
-    type: string;
     coordinates: {
       lat: number;
       lng: number;
     };
-    detail: string;
   };
   price: {
     min: number;

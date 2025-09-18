@@ -1,4 +1,4 @@
-import { facilityService } from "@/features/facility/facility.service";
+import { facilityService } from "@/features/facility/services/facility.service";
 import { useQuery } from "@tanstack/react-query";
 
 export const useFacility = () => {

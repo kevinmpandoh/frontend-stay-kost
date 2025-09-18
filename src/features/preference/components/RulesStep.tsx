@@ -3,7 +3,7 @@
 import { RULE_ICONS, DEFAULT_RULE_ICON } from "@/constants/rules";
 import { cn } from "@/lib/utils";
 import { usePreferenceStore } from "../preference.store";
-import { useRules } from "@/features/rules/useRules";
+import { useRules } from "@/features/rules/hooks/useRules";
 import { Rules } from "@/features/rules/rules.type";
 
 export default function RulesStep() {

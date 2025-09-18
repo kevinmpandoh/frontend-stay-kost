@@ -8,9 +8,10 @@ import PriceStep from "./components/PriceStep";
 import FasilitasStep from "./components/FasilitasStep";
 
 import { usePreferenceStore } from "./preference.store";
-import { usePreference } from "./usePreference";
+import { usePreference } from "./hooks/usePreference";
 import KostTypeStep from "./components/KostTypeStep";
 import RulesStep from "./components/RulesStep";
+import { useRouter } from "next/navigation";
 
 const steps = ["Lokasi", "Harga", "Jenis Kost", "Fasilitas", "Keamanan"];
 
@@ -43,15 +44,8 @@ const stepContent = [
 
 export default function PreferenceContent() {
   const [step, setStep] = useState(0);
+  const router = useRouter();
 
-  // const {
-  //   location,
-  //   price,
-  //   jenisKost,
-  //   kostFacilities,
-  //   roomFacilities,
-  //   keamanan,
-  // } = usePreferenceStore();
   const { savePreferences } = usePreference();
   const {
     location,
@@ -104,6 +98,7 @@ export default function PreferenceContent() {
 
     savePreferences.mutate(payload, {
       onSuccess: () => {
+        router.push("/");
         reset();
       },
     });

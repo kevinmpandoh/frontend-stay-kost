@@ -1,3 +1,4 @@
+import { useAuthStore } from "@/stores/auth.store";
 import axios, { AxiosError } from "axios";
 
 const api = axios.create({
@@ -23,17 +24,22 @@ api.interceptors.response.use(
           return api.request(error.config);
         }
       } catch (refreshError) {
-        console.error("Refresh token gagal, redirect ke login");
-        window.location.href = "/login";
+        console.error("Refresh token gagal → logout");
+        const { logout } = useAuthStore.getState();
+        logout();
+
+        if (typeof window !== "undefined") {
+          window.location.href = "/login";
+        }
       }
     }
 
-    if (status === 403) {
-      // Arahkan ke halaman forbidden
-      if (typeof window !== "undefined") {
-        window.location.replace("/forbidden");
-      }
-    }
+    // if (status === 403) {
+    //   // Arahkan ke halaman forbidden
+    //   if (typeof window !== "undefined") {
+    //     window.location.replace("/forbidden");
+    //   }
+    // }
     if (status === 400) {
       // Validasi request salah → tampilkan pesan error
       return Promise.reject(error);

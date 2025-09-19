@@ -29,7 +29,6 @@ const TenantPaymentList = () => {
     return <h1>Payment Tidak Ada</h1>;
   }
 
-  console.log(tenantPayment, "TESs");
   return (
     <div className="space-y-4">
       {tenantPayment.map((data: any) => {

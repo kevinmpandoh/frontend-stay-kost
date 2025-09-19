@@ -30,7 +30,6 @@ export const KostOwnerService = {
   },
   editKost: async (kostId: string, data: any): Promise<any> => {
     try {
-      console.log(data, "DATA");
       const response = await api.put(`/owner/kost/${kostId}`, data);
       return response.data;
     } catch (error) {

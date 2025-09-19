@@ -30,6 +30,14 @@ import { Info } from "lucide-react";
 import { useConfirm } from "@/hooks/useConfirmModal";
 import FilterBar from "@/components/common/FitlerBar";
 import SearchInput from "@/components/common/SearchInput";
+import StatusFilter from "@/components/common/StatusFilter";
+
+const statusList = [
+  { key: "all", label: "Semua" },
+  { key: "pending", label: "Pending" },
+  { key: "processed", label: "Sedang di proses" },
+  { key: "failed", label: "Gagal" },
+];
 
 const AdminPayout = () => {
   const [selectedDetail, setSelectedDetail] = useState<any | null>(null);
@@ -60,6 +68,7 @@ const AdminPayout = () => {
 
       <FilterBar>
         <SearchInput />
+        <StatusFilter statusList={statusList} />
       </FilterBar>
 
       {isLoading && <h1>Loading</h1>}
@@ -76,7 +85,7 @@ const AdminPayout = () => {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {payouts?.map((payout: any, index: number) => {
+          {payouts?.data?.map((payout: any, index: number) => {
             const rekeningLengkap =
               payout?.method &&
               payout?.channel &&
@@ -171,7 +180,7 @@ const AdminPayout = () => {
               </TableRow>
             );
           })}
-          {!payouts?.length && (
+          {!payouts?.data?.length && (
             <TableRow>
               <TableCell colSpan={8} className="py-4 text-center text-black">
                 Tidak ada data payout saat ini.

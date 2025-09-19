@@ -50,7 +50,7 @@ export default function FilterSelect({
 
   return (
     <Select value={value} onValueChange={handleChange}>
-      <SelectTrigger className="w-[180px]">
+      <SelectTrigger className="w-[180px] bg-white py-6">
         <SelectValue placeholder={placeholder} />
       </SelectTrigger>
       <SelectContent>

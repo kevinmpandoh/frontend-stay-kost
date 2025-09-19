@@ -63,8 +63,6 @@ export default function StepAlamatKost() {
   const { setCurrentStep, setOnNext, alamatKost, kostId } =
     useCreateKostStore();
 
-  console.log(alamatKost, "ALAMAT KOST");
-
   const { saveAddress } = useOwnerKost(kostId ?? "");
   const router = useRouter();
 
@@ -76,7 +74,6 @@ export default function StepAlamatKost() {
     setCurrentStep(2);
     setOnNext(
       handleSubmit((data) => {
-        console.log(data, kostId);
         if (!kostId) return;
 
         saveAddress({

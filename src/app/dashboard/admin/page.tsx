@@ -3,11 +3,11 @@
 import React from "react";
 // import { BillingHistory } from "./BillingHistory";
 // import ManageKost from "./ManageKost";
-import Chart from "./Chart";
+import Chart from "../../../components/common/Chart";
 import { Calendar, CreditCard, DoorClosed, User } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useDashboard } from "@/features/dashboard/hooks/useDashboard";
-import StatCard from "../owner/StatCard";
+import StatCard from "../../../components/common/StatCard";
 import { PayoutHistory } from "./PayoutHistory";
 // import { useDashboard } from "@/features/dashboard/hooks/useDashboard";
 

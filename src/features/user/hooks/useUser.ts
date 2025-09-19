@@ -19,7 +19,6 @@ export const useUser = () => {
   const updateCurrentUser = useMutation({
     mutationFn: userService.updateCurrent,
     onSuccess: (res) => {
-      console.log(res, "RES");
       setUser(res);
       toast.success("Profile berhasil di ubah");
       queryClient.invalidateQueries({ queryKey: ["user-current"] });
@@ -72,7 +71,6 @@ export const useUser = () => {
       return response;
     },
     onSuccess: (data) => {
-      console.log(data, "TES");
       if (data?.url) {
         // Update state user
         setUser({ ...user, photo: data.url } as User);

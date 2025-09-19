@@ -4,7 +4,7 @@ import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { SectionTitle } from "./SectionTitle";
-import { DEFAULT_FACILITY_ICON, FACILITY_ICONS } from "@/constants/facilities";
+import { FACILITY_ICONS } from "@/constants/facilities";
 import Link from "next/link";
 import { format } from "date-fns";
 import { id } from "date-fns/locale";
@@ -69,7 +69,7 @@ export default function KostRoomVariantCarousel({
                 <div className="mb-2 flex flex-wrap space-x-2.5 text-sm text-gray-600">
                   {variant.facilities.map((key, index) => {
                     const facility = FACILITY_ICONS[key];
-                    const Icon = facility?.icon || DEFAULT_FACILITY_ICON;
+                    const Icon = facility?.icon;
 
                     return (
                       <div key={index} className="mb-1 flex items-center gap-1">

@@ -2,7 +2,7 @@
 
 import { useEffect } from "react";
 import { useFacilities } from "@/features/facility/hooks/useFacility";
-import { FACILITY_ICONS, DEFAULT_FACILITY_ICON } from "@/constants/facilities"; // sesuaikan path-nya
+import { FACILITY_ICONS } from "@/constants/facilities"; // sesuaikan path-nya
 import { cn } from "@/lib/utils";
 import { useCreateKostStore } from "@/stores/createKost.store";
 import * as yup from "yup";
@@ -95,7 +95,7 @@ const StepFasilitasKost = () => {
         {fasilitasKost.map((fasilitas: any) => {
           const isSelected = selected.includes(fasilitas._id);
           const iconInfo = FACILITY_ICONS[fasilitas.name];
-          const Icon = iconInfo?.icon || DEFAULT_FACILITY_ICON;
+          const Icon = iconInfo?.icon;
 
           return (
             <button

@@ -3,7 +3,7 @@
 import React from "react";
 
 import { Calendar, CreditCard, DoorClosed, User } from "lucide-react";
-import StatCard from "../StatCard";
+import StatCard from "../../../../components/common/StatCard";
 import { Transaction } from "./Transaction";
 import PageHeader from "@/components/common/PageHeader";
 

@@ -28,8 +28,6 @@ const UserListPage = () => {
     return <p>Loading...</p>;
   }
 
-  console.log(users, "USERS");
-
   return (
     <div>
       <PageHeader title="Pemilik Kost" />

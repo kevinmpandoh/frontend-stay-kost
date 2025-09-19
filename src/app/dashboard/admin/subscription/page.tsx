@@ -1,13 +1,14 @@
 "use client";
 import React from "react";
 
-import { useSubscription } from "@/features/subscription/hooks/useSubscription";
 import TableSubscriptionAdmin from "./TableSubscriptionAdmin";
 import PageHeader from "@/components/common/PageHeader";
+import { useSubscriptionAdmin } from "@/features/subscription/hooks/useSubscriptionAdmin";
+import { EmptyState } from "@/components/common/EmptyState copy 2";
 
 const SubscriptionAdminPage = () => {
-  const { getAllSubscription } = useSubscription();
-  const { data, isLoading } = getAllSubscription;
+  const { getAllSubscription } = useSubscriptionAdmin();
+  const { data: subscriptions, isLoading } = getAllSubscription;
 
   if (isLoading) {
     return (
@@ -60,10 +61,10 @@ const SubscriptionAdminPage = () => {
             </div>
           </div>
         </div> */}
-        {!data || data.length === 0 ? (
-          <h1>Tidak ADa</h1>
+        {!subscriptions.data || subscriptions.data.length === 0 ? (
+          <EmptyState title="Data Langganan tidak ditemukan" />
         ) : (
-          <TableSubscriptionAdmin subscriptions={data} />
+          <TableSubscriptionAdmin subscriptions={subscriptions.data} />
         )}
       </div>
     </>

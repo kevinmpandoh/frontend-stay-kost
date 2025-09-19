@@ -15,7 +15,7 @@ import {
 import { useState } from "react";
 import Link from "next/link";
 
-import { DEFAULT_FACILITY_ICON, FACILITY_ICONS } from "@/constants/facilities";
+import { FACILITY_ICONS } from "@/constants/facilities";
 
 import { useWishlist } from "@/features/wishlist/hooks/useWishlist";
 import { useAuthStore } from "@/stores/auth.store";
@@ -193,7 +193,7 @@ const KostCard = ({
             <div className="mb-2 flex flex-wrap space-x-2.5 text-sm text-gray-600">
               {facilities.map((key, index) => {
                 const facility = FACILITY_ICONS[key];
-                const Icon = facility?.icon || DEFAULT_FACILITY_ICON;
+                const Icon = facility?.icon;
 
                 return (
                   <div key={index} className="mb-1 flex items-center gap-1">

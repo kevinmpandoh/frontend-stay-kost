@@ -70,20 +70,13 @@ export const invoiceService = {
       throw handleAxiosError(error);
     }
   },
-  getAdminInvoices: async (params?: {
-    status?: string;
-    search?: string;
-    month?: string;
-  }): Promise<Invoice[] | null> => {
+  getAdminInvoices: async (
+    params: Record<string, any>,
+  ): Promise<Invoice[] | null> => {
     try {
-      const query = new URLSearchParams();
-
-      if (params?.status) query.set("status", params.status);
-      if (params?.search) query.set("search", params.search);
-      if (params?.month) query.set("month", params.month);
-
-      const url = `/invoices/admin${query.toString() ? `?${query}` : ""}`;
-      const response = await api.get(url);
+      const response = await api.get("/invoices/admin", {
+        params,
+      });
       return response.data.data;
     } catch (error) {
       throw handleAxiosError(error);

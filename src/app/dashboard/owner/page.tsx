@@ -3,12 +3,13 @@
 import React from "react";
 import { BillingHistory } from "./BillingHistory";
 import ManageKost from "./ManageKost";
-import Chart from "./Chart";
-import StatCard from "./StatCard";
+
+import StatCard from "../../../components/common/StatCard";
 import { Calendar, CreditCard, DoorClosed, User } from "lucide-react";
 
 import { Skeleton } from "@/components/ui/skeleton";
 import { useDashboard } from "@/features/dashboard/hooks/useDashboard";
+import Chart from "../../../components/common/Chart";
 
 const DashboardOwner = () => {
   const { ownerDashboard } = useDashboard();

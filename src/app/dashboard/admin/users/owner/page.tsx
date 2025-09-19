@@ -56,7 +56,6 @@ const OwnerListPage = () => {
         </TableHeader>
         <TableBody>
           {owners.map((owner: any, i: number) => {
-            console.log(owner);
             const bankData = getBankData(owner.bank?.bankCode);
             return (
               <TableRow key={i}>

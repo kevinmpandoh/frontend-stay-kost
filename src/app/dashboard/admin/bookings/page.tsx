@@ -9,6 +9,22 @@ import { BookingDetailDialog } from "./BookingDetailDialog";
 import { BookingEditDialog } from "./BookingEditDialog";
 import { BookingTable } from "./BookingTable";
 import PageHeader from "@/components/common/PageHeader";
+import FilterBar from "@/components/common/FitlerBar";
+import SearchInput from "@/components/common/SearchInput";
+import SelectFilter from "@/components/common/SelectFilter";
+import StatusFilter from "@/components/common/StatusFilter";
+import { useAdminBooking } from "@/features/booking/hooks/useAdminBooking";
+
+const statusList = [
+  { key: "all", label: "Semua" },
+  { key: "pending", label: "Butuh Konfirmasi" },
+  { key: "waiting_for_payment", label: "Menunggu Pembayaran" },
+  { key: "waiting_for_checkin", label: "Menunggu Check In" },
+  { key: "completed", label: "Sewa Berakhir" },
+  { key: "rejected", label: "Ditolak" },
+  { key: "canclelled", label: "Dibatalkan" },
+  { key: "expired", label: "Kadaluarsa" },
+];
 
 const AdminBooking = () => {
   const [selectedBooking, setSelectedBooking] = useState<any | null>(null);
@@ -19,10 +35,7 @@ const AdminBooking = () => {
   const router = useRouter();
   const page = parseInt(searchParams.get("page") ?? "1");
 
-  const { data, isLoading } = useQuery({
-    queryKey: ["admin-bookings", page],
-    queryFn: () => bookingService.getAdminBookings({ page, limit: 10 }),
-  });
+  const { bookings: data, isLoading } = useAdminBooking();
 
   const { mutate: updateBooking, isPending } = useMutation({
     mutationFn: ({ id, values }: { id: string; values: any }) =>
@@ -46,6 +59,13 @@ const AdminBooking = () => {
   return (
     <>
       <PageHeader title="Booking Admin" />
+
+      <FilterBar>
+        <SearchInput />
+      </FilterBar>
+      <div className="mb-4">
+        <StatusFilter statusList={statusList} paramKey="status" />
+      </div>
 
       <BookingTable
         data={bookings}

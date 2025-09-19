@@ -29,7 +29,6 @@ export const BillingHistory = ({
 }: {
   data: BillingItem[] | undefined;
 }) => {
-  console.log(data, "DATA");
   const total = data?.reduce((acc, item) => acc + item.amount, 0) ?? 0;
 
   return (

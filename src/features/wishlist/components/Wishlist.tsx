@@ -1,7 +1,6 @@
 "use client";
 import React from "react";
 
-import { kostList } from "@/types/kost.type";
 import Link from "next/link";
 import Image from "next/image";
 import { useWishlist } from "../hooks/useWishlist";

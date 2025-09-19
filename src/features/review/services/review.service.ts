@@ -21,7 +21,7 @@ export const reviewService = {
     const response = await api.get(`/reviews`, {
       params,
     });
-    return response.data.data;
+    return response.data;
   },
 
   sendReview: async (bookingId: string, data: any) => {

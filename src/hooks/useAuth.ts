@@ -85,6 +85,14 @@ export const useAuth = () => {
       // Redirect ke halaman OTP
       router.push("/register/verify");
     },
+    onError: (err) => {
+      if (err instanceof AxiosError) {
+        toast.error(
+          err?.response?.data?.message || "Login gagal. Silahkan coba lagi",
+        );
+      }
+      toast.error("Pendaftara gagal. Silahkan coba lagi");
+    },
   });
 
   // Verify OTP

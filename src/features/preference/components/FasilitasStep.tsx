@@ -4,7 +4,7 @@ import { useState } from "react";
 
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
-import { DEFAULT_FACILITY_ICON, FACILITY_ICONS } from "@/constants/facilities";
+import { FACILITY_ICONS } from "@/constants/facilities";
 import { usePreferenceStore } from "../preference.store";
 import { Facility } from "@/features/facility/facility.type";
 import { useFacility } from "@/features/facility/useFacility";
@@ -41,7 +41,7 @@ function FacilityGrid({
         {displayList.map((fasilitas) => {
           const isSelected = selected.includes(fasilitas._id);
           const iconInfo = FACILITY_ICONS[fasilitas.name];
-          const Icon = iconInfo?.icon || DEFAULT_FACILITY_ICON;
+          const Icon = iconInfo?.icon;
 
           return (
             <button

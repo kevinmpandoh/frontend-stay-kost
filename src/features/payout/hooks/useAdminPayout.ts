@@ -4,13 +4,21 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { payoutService } from "../services/payout.service";
 import { AxiosError } from "axios";
+import { useSearchParams } from "next/navigation";
 
 export const useAdminPayouts = () => {
   const queryClient = useQueryClient();
 
+  const searchParams = useSearchParams();
+
+  const queryObject: Record<string, any> = {};
+  searchParams.forEach((value, key) => {
+    queryObject[key] = value;
+  });
+
   const payoutsQuery = useQuery({
-    queryKey: ["admin-payouts"], // supaya cache terpisah berdasarkan status
-    queryFn: payoutService.getAllPayout,
+    queryKey: ["admin-payouts", queryObject], // supaya cache terpisah berdasarkan status
+    queryFn: () => payoutService.getAllPayout(queryObject),
   });
 
   const retryPayout = useMutation({

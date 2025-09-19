@@ -3,7 +3,14 @@ import Image from "next/image";
 import React from "react";
 import { Dropdown } from "../ui/dropdown/Dropdown";
 import { DropdownItem } from "../ui/dropdown/DropdownItem";
-import { KeyRound, LogOut, Settings, User } from "lucide-react";
+import {
+  Banknote,
+  CalendarClock,
+  KeyRound,
+  LogOut,
+  Settings,
+  User,
+} from "lucide-react";
 import { useAuthStore } from "@/stores/auth.store";
 import { useAuth } from "@/hooks/useAuth";
 
@@ -112,20 +119,36 @@ export default function UserDropdown({
           </li>
 
           {user?.role === "owner" && (
-            <li>
-              <DropdownItem
-                onItemClick={onClose}
-                tag="a"
-                href={`/dashboard/${user?.role}/pengaturan/change-password`}
-                className="group text-theme-sm flex items-center gap-3 rounded-lg px-3 py-3 font-semibold text-gray-700 hover:bg-gray-100 hover:text-gray-700 dark:text-gray-400 dark:hover:bg-white/5 dark:hover:text-gray-300"
-              >
-                <KeyRound
-                  className="text-primary dark:group-hover:fill-gray-300"
-                  size={24}
-                />
-                <span className="text-base font-medium">Pembayaran</span>
-              </DropdownItem>
-            </li>
+            <>
+              <li>
+                <DropdownItem
+                  onItemClick={onClose}
+                  tag="a"
+                  href={`/dashboard/${user?.role}/pengaturan/payment`}
+                  className="group text-theme-sm flex items-center gap-3 rounded-lg px-3 py-3 font-semibold text-gray-700 hover:bg-gray-100 hover:text-gray-700 dark:text-gray-400 dark:hover:bg-white/5 dark:hover:text-gray-300"
+                >
+                  <Banknote
+                    className="text-primary dark:group-hover:fill-gray-300"
+                    size={24}
+                  />
+                  <span className="text-base font-medium">Pembayaran</span>
+                </DropdownItem>
+              </li>
+              <li>
+                <DropdownItem
+                  onItemClick={onClose}
+                  tag="a"
+                  href={`/dashboard/${user?.role}/pengaturan/subscription`}
+                  className="group text-theme-sm flex items-center gap-3 rounded-lg px-3 py-3 font-semibold text-gray-700 hover:bg-gray-100 hover:text-gray-700 dark:text-gray-400 dark:hover:bg-white/5 dark:hover:text-gray-300"
+                >
+                  <CalendarClock
+                    className="text-primary dark:group-hover:fill-gray-300"
+                    size={24}
+                  />
+                  <span className="text-base font-medium">Langganan</span>
+                </DropdownItem>
+              </li>
+            </>
           )}
         </ul>
         <button

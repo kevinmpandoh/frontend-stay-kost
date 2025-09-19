@@ -1,5 +1,5 @@
 import { SectionTitle } from "./SectionTitle";
-import { FACILITY_ICONS, DEFAULT_FACILITY_ICON } from "@/constants/facilities";
+import { FACILITY_ICONS } from "@/constants/facilities";
 
 interface KostFacilitiesProps {
   roomFacilities: string[];
@@ -11,17 +11,17 @@ export function KostFacilities({
   sharedFacilities,
 }: KostFacilitiesProps) {
   const renderFacilities = (list: string[]) => (
-    <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 my-4">
+    <div className="my-4 grid grid-cols-2 gap-4 sm:grid-cols-3">
       {list.map((key, index) => {
         const facility = FACILITY_ICONS[key];
-        const Icon = facility?.icon || DEFAULT_FACILITY_ICON;
+        const Icon = facility?.icon;
         const label = facility?.label || key;
         return (
           <div
             key={index}
-            className="flex items-center gap-2 text-md font-semibold text-slate-600"
+            className="text-md flex items-center gap-2 font-semibold text-slate-600"
           >
-            <Icon className="w-5 h-5 text-primary" />
+            <Icon className="text-primary h-5 w-5" />
             <span>{label}</span>
           </div>
         );

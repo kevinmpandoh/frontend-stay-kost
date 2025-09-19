@@ -25,7 +25,7 @@ export const subscriptionService = {
   // Ambil semua subscription (khusus admin)
   getAll: async () => {
     const response = await api.get("/subscriptions");
-    return response.data.data;
+    return response.data;
   },
 
   // Aktifkan subscription (dipakai admin / callback Midtrans)

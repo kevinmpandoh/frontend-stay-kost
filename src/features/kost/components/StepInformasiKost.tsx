@@ -228,7 +228,8 @@ export default function Step1Page() {
           <div className="mb-3 text-xl font-semibold text-[#1A1A1A]">
             Peraturan Kost
           </div>
-          <div className="flex flex-wrap gap-x-10 gap-y-2 text-base text-[#7A7A7A]">
+
+          <div className="grid gap-2 text-base text-[#7A7A7A] md:grid-cols-4">
             {rules?.data?.map((rule: any) => (
               <label
                 key={rule._id}

@@ -3,7 +3,6 @@ import { Label } from "@/components/ui/label";
 import { useKostType } from "@/features/roomType/hooks/useKostType";
 import { useCreateKostStore } from "@/stores/createKost.store";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useRouter } from "next/navigation";
 import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
@@ -31,7 +30,6 @@ const StepHarga = () => {
   const { setCurrentStep, setOnNext, hargaPerBulan, kostTypeId, reset } =
     useCreateKostStore();
   const { saveKostTypePrice } = useKostType({});
-  const router = useRouter();
 
   useEffect(() => {
     if (hargaPerBulan) {
@@ -56,7 +54,14 @@ const StepHarga = () => {
         );
       }),
     );
-  }, [setOnNext, setCurrentStep, handleSubmit, saveKostTypePrice, kostTypeId]);
+  }, [
+    setOnNext,
+    setCurrentStep,
+    handleSubmit,
+    reset,
+    saveKostTypePrice,
+    kostTypeId,
+  ]);
   return (
     <>
       <div className="space-y-6">

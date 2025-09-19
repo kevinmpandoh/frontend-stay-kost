@@ -153,6 +153,7 @@ const StepTipeKost = () => {
     create,
     kostId,
     edit,
+    setKostType,
     kostTypeId,
     router,
   ]);

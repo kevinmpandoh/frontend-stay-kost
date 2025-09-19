@@ -7,7 +7,6 @@ import {
   DialogTitle,
   DialogFooter,
   DialogClose,
-  DialogTrigger,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -15,13 +14,12 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Controller, useForm } from "react-hook-form";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { roomService } from "@/features/room/services/room.service";
-import { useEffect, useState } from "react";
-import { Plus } from "lucide-react";
+import { useEffect } from "react";
 
 type FormValues = {
   nomor_kamar: string;
   lantai: number;
-  status_ketersediaan: boolean; // true: Terisi, false: Tersedia
+  status_ketersediaan: boolean;
 };
 
 type Props = {
@@ -32,15 +30,16 @@ type Props = {
     lantai: number;
     status_ketersediaan: "occupied" | "available";
   };
-  trigger?: React.ReactNode;
+  isOpen: boolean;
+  onClose: () => void;
 };
 
 export const ModalTambahEditRoom = ({
   kostTypeId,
   defaultValues,
-  trigger,
+  isOpen,
+  onClose,
 }: Props) => {
-  const [open, setOpen] = useState(false);
   const queryClient = useQueryClient();
 
   const {
@@ -58,7 +57,9 @@ export const ModalTambahEditRoom = ({
     },
   });
 
-  // Isi defaultValue saat edit
+  const isEdit = !!defaultValues;
+
+  // Isi defaultValues saat edit
   useEffect(() => {
     if (defaultValues) {
       setValue("nomor_kamar", defaultValues.nomor_kamar);
@@ -70,8 +71,6 @@ export const ModalTambahEditRoom = ({
     }
   }, [defaultValues, setValue]);
 
-  const isEdit = !!defaultValues;
-
   const mutation = useMutation({
     mutationFn: (data: FormValues) => {
       const payload = {
@@ -79,15 +78,14 @@ export const ModalTambahEditRoom = ({
         floor: Number(data.lantai),
         status: data.status_ketersediaan ? "occupied" : "available",
       };
-
       return isEdit
         ? roomService.updateRoom(defaultValues!._id, payload)
         : roomService.createRoom(kostTypeId, payload);
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["owner-room"] });
-      setOpen(false);
+      queryClient.invalidateQueries({ queryKey: ["owner-room", kostTypeId] });
       reset();
+      onClose(); // tutup modal setelah sukses
     },
   });
 
@@ -96,15 +94,7 @@ export const ModalTambahEditRoom = ({
   };
 
   return (
-    <Dialog open={open} onOpenChange={setOpen}>
-      {trigger ? (
-        <DialogTrigger asChild>{trigger}</DialogTrigger>
-      ) : (
-        <Button onClick={() => setOpen(true)}>
-          <Plus /> Tambah Kamar
-        </Button>
-      )}
-
+    <Dialog open={isOpen} onOpenChange={(open) => !open && onClose()}>
       <DialogContent className="w-[400px]">
         <DialogHeader>
           <DialogTitle>{isEdit ? "Edit Kamar" : "Tambah Kamar"}</DialogTitle>
@@ -147,7 +137,6 @@ export const ModalTambahEditRoom = ({
               <div className="flex items-center gap-2">
                 <Checkbox
                   id="status_ketersediaan"
-                  className=""
                   checked={field.value}
                   onCheckedChange={(checked) =>
                     field.onChange(checked as boolean)
@@ -160,7 +149,7 @@ export const ModalTambahEditRoom = ({
 
           <DialogFooter className="pt-4">
             <DialogClose asChild>
-              <Button variant="ghost" type="button">
+              <Button variant="ghost" type="button" onClick={onClose}>
                 Batal
               </Button>
             </DialogClose>

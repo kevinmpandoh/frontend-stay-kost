@@ -86,7 +86,6 @@ export const useOwnerKost = (kostId?: string) => {
       data: CreateKostPayload;
     }) => KostOwnerService.editKost(kostId, data),
     onSuccess: (res) => {
-      console.log(res, "RESNYA");
       setInformasiKost({
         name: res.data.name,
         type: res.data.type,

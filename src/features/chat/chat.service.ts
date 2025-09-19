@@ -17,7 +17,6 @@ export const chatService = {
   },
 
   startChat: async (payload: { roomTypeId: string; tenantId?: string }) => {
-    console.log(payload, "PAYLOAD");
     const response = await api.post(`/chat/start`, payload);
     return response.data.data;
   },

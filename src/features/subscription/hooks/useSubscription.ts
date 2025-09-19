@@ -19,10 +19,6 @@ export const useSubscription = () => {
     queryKey: ["subscription", "current"],
     queryFn: subscriptionService.getCurrentSubscription,
   });
-  const getAllSubscription = useQuery({
-    queryKey: ["subscription", "current"],
-    queryFn: subscriptionService.getAll,
-  });
 
   const { data: ownerSubscriptions, isLoading: loadingSub } = useQuery({
     queryKey: ["subscription", "me"],
@@ -44,7 +40,6 @@ export const useSubscription = () => {
       duration: number;
     }) => subscriptionService.createSubscription(packageId, duration),
     onSuccess: (res) => {
-      console.log(res, "RES NYA");
       toast.success("Subscription berhasil dibuat, silakan lakukan pembayaran");
       router.push(`/payments?invoice=${res.data.invoiceNumber}`);
       queryClient.invalidateQueries({ queryKey: ["subscription", "current"] });
@@ -90,7 +85,6 @@ export const useSubscription = () => {
       duration: number;
     }) => subscriptionService.renew(subscriptionId, duration),
     onSuccess: (res) => {
-      console.log(res, "RES NYA");
       toast.success(
         "Subscription berhasil perbarui, silakan lakukan pembayaran",
       );
@@ -104,7 +98,6 @@ export const useSubscription = () => {
 
   return {
     currentSubscription,
-    getAllSubscription,
 
     // invoices,
     // isLoadingInvoices,

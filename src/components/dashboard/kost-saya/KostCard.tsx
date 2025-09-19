@@ -3,8 +3,8 @@ import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Badge } from "@/components/ui/badge";
 
 import { Button } from "@/components/ui/button";
-import ConfirmDeleteModal from "@/components/ui/ConfirmModalDelete";
-import { DEFAULT_FACILITY_ICON, FACILITY_ICONS } from "@/constants/facilities";
+
+import { FACILITY_ICONS } from "@/constants/facilities";
 
 import { KostOwnerService } from "@/features/kost/services/kostOwner.service";
 import { useConfirm } from "@/hooks/useConfirmModal";
@@ -13,7 +13,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { AlertCircle, MapPin } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import React, { useState } from "react";
+import React from "react";
 import { toast } from "sonner";
 
 export interface Kost {
@@ -109,7 +109,7 @@ const KostCard = ({ kost }: { kost: Kost }) => {
                 <div className="my-2 grid grid-cols-2 gap-2 sm:grid-cols-3">
                   {kost.fasilitas.map((key, index) => {
                     const facility = FACILITY_ICONS[key];
-                    const Icon = facility?.icon || DEFAULT_FACILITY_ICON;
+                    const Icon = facility?.icon;
                     const label = facility?.label || key;
                     return (
                       <div

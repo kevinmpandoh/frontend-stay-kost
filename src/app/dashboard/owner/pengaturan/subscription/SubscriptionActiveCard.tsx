@@ -17,9 +17,8 @@ export default function SubscriptionActiveCard({
   openUpgrade,
   setOpenExtend,
 }: SubscriptionProps) {
-  console.log(currentSubscription, "TES");
   const pkg = currentSubscription?.package;
-  console.log(pendingInvoice, "PACKAGE");
+
   const isFree = pkg?.type === "free";
   const endDate = currentSubscription?.endDate
     ? new Date(currentSubscription?.endDate)
@@ -84,14 +83,24 @@ export default function SubscriptionActiveCard({
       )}
 
       {/* Fitur */}
-      <ul className="mt-2 space-y-2 text-sm text-gray-700">
+      <ul className="mt-2 space-y-2 text-base font-semibold text-gray-700">
         <li className="flex items-center gap-2">
-          <CheckCircle className="h-4 w-4 text-green-500" />
-          Maks. {pkg?.maxKost ?? 1} Kost
+          <CheckCircle className="text-primary-500 h-4 w-4" />
+          {pkg?.maxKost
+            ? `Maksimal ${pkg?.maxKost ?? ""} Kost`
+            : "Kost tidak terbatas"}
         </li>
         <li className="flex items-center gap-2">
-          <CheckCircle className="h-4 w-4 text-green-500" />
-          Maks. {pkg?.maxRoom ?? 1} Kamar
+          <CheckCircle className="text-primary-500 h-4 w-4" />
+          {pkg?.maxRoomType
+            ? `Maksimal ${pkg?.maxRoomType ?? ""} Tipe Kamar`
+            : "Tipe Kamar tidak terbatas"}
+        </li>
+        <li className="flex items-center gap-2">
+          <CheckCircle className="text-primary-500 h-4 w-4" />
+          {pkg?.maxRoom
+            ? `Maksimal ${pkg?.maxRoom ?? ""} Kamar`
+            : "Kamar tidak terbatas"}
         </li>
       </ul>
 

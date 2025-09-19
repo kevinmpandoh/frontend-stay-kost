@@ -11,7 +11,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import SimpleMonthPicker from "@/app/dashboard/owner/tagihan/MonthPicker";
+import SimpleMonthPicker from "@/components/common/MonthPicker";
 
 interface MonthFilterProps {
   paramKey?: string; // default "month"

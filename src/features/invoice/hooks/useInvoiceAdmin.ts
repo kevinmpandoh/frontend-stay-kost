@@ -2,19 +2,18 @@
 
 import { invoiceService } from "@/features/invoice/services/invoice.service";
 import { useQuery } from "@tanstack/react-query";
+import { useSearchParams } from "next/navigation";
 
-export const useInvoiceAdmin = ({
-  status,
-  search,
-  month,
-}: {
-  status?: string;
-  search?: string;
-  month?: string;
-}) => {
+export const useInvoiceAdmin = () => {
+  const searchParams = useSearchParams();
+
+  const queryObject: Record<string, any> = {};
+  searchParams.forEach((value, key) => {
+    queryObject[key] = value;
+  });
   const { data: invoices, isLoading: loadingInvoices } = useQuery({
-    queryKey: ["billing", status, search, month],
-    queryFn: () => invoiceService.getAdminInvoices({ status, search, month }),
+    queryKey: ["billing", queryObject],
+    queryFn: () => invoiceService.getAdminInvoices(queryObject),
   });
 
   return {

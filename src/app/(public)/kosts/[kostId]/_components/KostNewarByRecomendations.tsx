@@ -4,8 +4,6 @@ import { SectionTitle } from "./SectionTitle";
 export function NearbyKostRecommendations({ kosts }: { kosts: any[] }) {
   if (kosts.length === 0) return null;
 
-  console.log(kosts, "KOST");
-
   return (
     <section className="mt-10 space-y-4">
       <SectionTitle title="Kost di Sekitar" />

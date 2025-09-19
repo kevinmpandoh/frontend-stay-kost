@@ -15,9 +15,11 @@ export const payoutService = {
     const res = await api.get("/owner/banks");
     return res.data.data.beneficiary_banks;
   },
-  getAllPayout: async () => {
-    const res = await api.get("/payouts");
-    return res.data.data;
+  getAllPayout: async (params: Record<string, any>) => {
+    const res = await api.get("/payouts", {
+      params,
+    });
+    return res.data;
   },
   retryPayout: async (payoutId: string) => {
     const res = await api.post(`/payouts/${payoutId}/send`);

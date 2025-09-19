@@ -3,11 +3,9 @@
 import KostCard from "@/components/common/CardListKost";
 import { PaginationControls } from "@/components/common/Pagination";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Pagination } from "@/components/ui/pagination";
+
 import { usePreference } from "@/features/preference/hooks/usePreference";
 
-import { Funnel, ListFilter } from "lucide-react";
 import Link from "next/link";
 
 export default function RekomendasiKostPage() {
@@ -22,8 +20,6 @@ export default function RekomendasiKostPage() {
 
   const kostList = data?.data || [];
   const pagination = data?.pagination;
-
-  console.log(data, "DATA");
 
   return (
     <main className="container mx-auto space-y-10 px-6 py-12 md:px-16 lg:px-36">

@@ -36,7 +36,6 @@ export const useChat = () => {
     }) => chatService.getChatTenant(roomTypeId, tenantId),
 
     onSuccess: (res) => {
-      console.log(res, "RESNYA");
       queryClient.invalidateQueries({
         queryKey: ["chat", "message"],
       });

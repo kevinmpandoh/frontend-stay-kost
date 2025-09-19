@@ -61,7 +61,6 @@ const ChatMessages = ({
 
     // Dapat pesan baru
     socket.on("receiveMessage", (newMessage: Message) => {
-      console.log(newMessage, "NEW MESSAGE");
       setMessages((prev) => [...prev, newMessage]);
     });
 

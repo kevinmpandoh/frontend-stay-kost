@@ -9,11 +9,13 @@ import { kostAdminService } from "@/features/kost/services/kostAdmin.service";
 import PageHeader from "@/components/common/PageHeader";
 import { KostSubmissionTable } from "./KostSubmissionTable";
 import { useConfirm } from "@/hooks/useConfirmModal";
+import SearchInput from "@/components/common/SearchInput";
+import FilterBar from "@/components/common/FitlerBar";
 
 const AdminKostSubmissionsPage = () => {
   const router = useRouter();
   const [selectedKost, setSelectedKost] = useState<any>(null);
-  const [showAcceptModal, setShowAcceptModal] = useState(false);
+
   const [showRejectModal, setShowRejectModal] = useState(false);
   const queryClient = useQueryClient();
   const searchParams = useSearchParams();
@@ -60,7 +62,6 @@ const AdminKostSubmissionsPage = () => {
 
     if (ok) {
       approveKost(kost.id);
-      setShowAcceptModal(false);
       refetch();
     }
   };
@@ -76,6 +77,10 @@ const AdminKostSubmissionsPage = () => {
     <>
       {/* <h1 className="mb-4 text-2xl font-bold">Pengajuan Kost Baru</h1> */}
       <PageHeader title="Pengajuan Kost Baru" />
+
+      {/* <FilterBar>
+        <SearchInput />
+      </FilterBar> */}
 
       <KostSubmissionTable
         data={kosts}

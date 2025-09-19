@@ -1,7 +1,7 @@
 "use client";
 
 import { useParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import {
   Table,
   TableHeader,
@@ -10,7 +10,7 @@ import {
   TableHead,
   TableCell,
 } from "@/components/ui/table";
-import { SquarePen, Trash2 } from "lucide-react";
+import { Plus, SquarePen, Trash2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -25,6 +25,8 @@ import { roomService } from "@/features/room/services/room.service";
 import { ModalTambahEditRoom } from "./ModalTambahEditRoom";
 import { useConfirm } from "@/hooks/useConfirmModal";
 import BackLink from "@/components/common/BackLink";
+import { useSubscription } from "@/features/subscription/hooks/useSubscription";
+import { useModalStore } from "@/stores/modal.store";
 // import { ConfirmDeleteModal } from "./ConfirmDeleteModal";
 
 const KetersediaanKamarPage = () => {
@@ -36,8 +38,19 @@ const KetersediaanKamarPage = () => {
   const [page, setPage] = useState(1);
   const limit = 10; // jumlah data per halaman
   const [filterStatus, setFilterStatus] = useState("all");
-
+  const { currentSubscription } = useSubscription();
+  const { openUpgrade } = useModalStore();
   const confirm = useConfirm();
+  const [openModal, setOpenModal] = useState(false);
+  const [editData, setEditData] = useState<
+    | {
+        _id: string;
+        nomor_kamar: string;
+        lantai: number;
+        status_ketersediaan: "occupied" | "available";
+      }
+    | undefined
+  >(undefined);
 
   const { data: rooms, isLoading } = useQuery({
     queryKey: ["owner-room", kostTypeId],
@@ -69,6 +82,11 @@ const KetersediaanKamarPage = () => {
       deleteMutation.mutate(roomId);
     }
   };
+
+  const usedRooms = useMemo(() => {
+    if (!rooms) return 0;
+    return rooms.length;
+  }, [rooms]);
 
   const filteredRooms = (rooms || []).filter((kamar: any) => {
     const matchesSearch = kamar.number
@@ -107,7 +125,21 @@ const KetersediaanKamarPage = () => {
           </Select>
         </div>
 
-        <ModalTambahEditRoom kostTypeId={kostTypeId} />
+        <Button
+          onClick={() => {
+            if (
+              usedRooms >= (currentSubscription?.package?.maxRoom ?? Infinity)
+            ) {
+              openUpgrade();
+            } else {
+              setOpenModal(true); // buka modal
+            }
+          }}
+        >
+          <Plus /> Tambah Kamar
+        </Button>
+
+        {/* <ModalTambahEditRoom kostTypeId={kostTypeId} /> */}
       </div>
 
       <div className="overflow-x-auto rounded-lg border bg-white">
@@ -143,20 +175,22 @@ const KetersediaanKamarPage = () => {
                     </span>
                   </TableCell>
                   <TableCell className="flex gap-2">
-                    <ModalTambahEditRoom
-                      kostTypeId={kostTypeId}
-                      defaultValues={{
-                        _id: kamar._id,
-                        nomor_kamar: kamar.number,
-                        lantai: kamar.floor,
-                        status_ketersediaan: kamar.status,
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      onClick={() => {
+                        setEditData({
+                          _id: kamar._id,
+                          nomor_kamar: kamar.number,
+                          lantai: kamar.floor,
+                          status_ketersediaan: kamar.status,
+                        });
+                        setOpenModal(true);
                       }}
-                      trigger={
-                        <Button variant="ghost" size={"icon"}>
-                          <SquarePen size={24} className="text-primary" />
-                        </Button>
-                      }
-                    />
+                    >
+                      <SquarePen size={24} className="text-primary" />
+                    </Button>
+
                     <Button
                       variant="ghost"
                       size={"icon"}
@@ -205,6 +239,12 @@ const KetersediaanKamarPage = () => {
       )}
 
       {/* Modal konfirmasi hapus */}
+      <ModalTambahEditRoom
+        kostTypeId={kostTypeId}
+        isOpen={openModal}
+        onClose={() => setOpenModal(false)}
+        defaultValues={editData}
+      />
     </div>
   );
 };

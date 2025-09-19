@@ -4,19 +4,13 @@ import React, { useEffect } from "react";
 import { useCreateKostStore } from "@/stores/createKost.store";
 import { useRouter, useSearchParams } from "next/navigation";
 
-// import StepInformasiKost from "./steps/StepInformasiKost";
 import ModalSuccessSubmit from "./ModalSuccessSubmit";
-// import StepAlamatKost from "./steps/StepAlamatKost";
-// import StepFasilitasKost from "./steps/StepFasilitasKost";
-// import StepFotoKost from "./steps/StepFotoKost";
 import { useOwnerKost } from "@/features/kost/hooks/useOwnerKost";
 import StepAlamatKost from "../../../features/kost/components/StepAlamatKost";
 
 import StepFasilitasKost from "@/features/kost/components/StepFasilitasKost";
 import StepFotoKost from "@/features/kost/components/StepFotoKost";
 import StepInformasiKost from "./steps/StepInformasiKost";
-import StepSidebarEdit from "@/components/layout/StepSidebarEdit";
-import FooterStep from "@/components/layout/FooterStep";
 
 const EditKost = () => {
   const searchParams = useSearchParams();

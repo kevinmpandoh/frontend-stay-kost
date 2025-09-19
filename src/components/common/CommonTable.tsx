@@ -40,7 +40,7 @@ export function CommonTable<T>({
 }: CommonTableProps<T>) {
   return (
     <div className="w-full space-y-4">
-      <div className="overflow-x-auto rounded-md border">
+      <div className="overflow-x-auto rounded-md border bg-white">
         <Table>
           <TableHeader>
             <TableRow>

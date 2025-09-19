@@ -2,7 +2,7 @@
 
 import { useEffect } from "react";
 import { useFacilities } from "@/features/facility/hooks/useFacility";
-import { FACILITY_ICONS, DEFAULT_FACILITY_ICON } from "@/constants/facilities"; // sesuaikan path-nya
+import { FACILITY_ICONS } from "@/constants/facilities"; // sesuaikan path-nya
 import { cn } from "@/lib/utils";
 import { useCreateKostStore } from "@/stores/createKost.store";
 import * as yup from "yup";
@@ -10,7 +10,6 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import { useKostType } from "@/features/roomType/hooks/useKostType";
 import { useRouter } from "next/navigation";
-import { se } from "date-fns/locale";
 
 export const step3Schema = yup.object({
   fasilitas_tipe_kost: yup
@@ -45,8 +44,6 @@ const StepFasilitasTipeKost = () => {
 
   const selected = watch("fasilitas_tipe_kost");
 
-  console.log(selected, "SELECTED");
-
   useEffect(() => {
     if (facilitiesKostType && facilitiesKostType.length > 0) {
       setValue("fasilitas_tipe_kost", facilitiesKostType || []);
@@ -57,7 +54,6 @@ const StepFasilitasTipeKost = () => {
     // setCurrentStep(3);
     setOnNext(
       handleSubmit((data) => {
-        console.log(kostTypeId, "KOST TYPE ID");
         if (!kostTypeId) return;
         saveFacilities({
           kostTypeId,
@@ -99,7 +95,7 @@ const StepFasilitasTipeKost = () => {
         {fasilitasKost.map((fasilitas: any) => {
           const isSelected = selected.includes(fasilitas._id);
           const iconInfo = FACILITY_ICONS[fasilitas.name];
-          const Icon = iconInfo?.icon || DEFAULT_FACILITY_ICON;
+          const Icon = iconInfo?.icon;
 
           return (
             <button

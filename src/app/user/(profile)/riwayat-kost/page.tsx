@@ -5,9 +5,7 @@ const page = () => {
   return (
     <>
       <div className="w-full">
-        <h1 className="mb-6 text-base font-bold text-gray-900 select-none">
-          Riwayat Kost
-        </h1>
+        <h2 className="mb-6 text-2xl font-bold text-gray-800">Riwayat Kost</h2>
 
         <BookingHistoryList />
       </div>

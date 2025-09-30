@@ -13,6 +13,11 @@ const nextConfig: NextConfig = {
         hostname: "api.sandbox.midtrans.com",
         pathname: "/**", // penting agar semua path diizinkan
       },
+      {
+        protocol: "https",
+        hostname: "lh3.googleusercontent.com",
+        pathname: "/**", // penting agar semua path diizinkan
+      },
     ],
   },
 };

@@ -56,13 +56,6 @@ export const PAYMENT_METHOD = [
         method: "ewallet",
         channel: "gopay",
       },
-      {
-        name: "DANA",
-        logo: "/logos/ewallet/dana.svg",
-        provider: "midtrans",
-        method: "ewallet",
-        channel: "dana",
-      },
     ],
   },
 ];

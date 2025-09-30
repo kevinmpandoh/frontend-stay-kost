@@ -9,6 +9,7 @@ import React, { useState } from "react";
 import { BookingDetailModal } from "./BookingDetailModal";
 import { useTenantBooking } from "../hooks/useTenantBooking";
 import { Badge } from "@/components/ui/badge";
+import EmptyState from "@/components/common/EmptyState";
 
 const BookingHistoryList = () => {
   const { bookingHistory, loadingHistory } = useTenantBooking();
@@ -20,7 +21,7 @@ const BookingHistoryList = () => {
   }
 
   if (!bookingHistory || bookingHistory.length === 0) {
-    return "Belum Ada";
+    return <EmptyState message="Kamu belum punya riwayat booking kost" />;
   }
 
   return (

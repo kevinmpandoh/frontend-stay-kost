@@ -100,7 +100,7 @@ export const CarIcon = () => {
   return <Image src={"/icons/car.svg"} width={24} height={24} alt="Logo" />;
 };
 export const KitchenIcon = () => {
-  return <Image src={"/icons/kitchen.png"} width={24} height={24} alt="Logo" />;
+  return <Image src={"/icons/kitchen.svg"} width={24} height={24} alt="Logo" />;
 };
 
 export const DispenserIcon = () => {
@@ -155,35 +155,35 @@ export const RuangKeluargaIcon = () => {
   );
 };
 export const CerminIcon = () => {
-  return <Image src={"/icons/cermin.svg"} width={24} height={24} alt="Logo" />;
+  return <Image src={"/icons/cermin.png"} width={24} height={24} alt="Logo" />;
 };
 
 export const DapurPribadiIcon = () => {
   return <Image src={"/icons/kitchen.svg"} width={24} height={24} alt="Logo" />;
 };
 export const JendelaIcon = () => {
-  return <Image src={"/icons/jendela.svg"} width={24} height={24} alt="Logo" />;
+  return <Image src={"/icons/window.png"} width={24} height={24} alt="Logo" />;
 };
 export const KursiIcon = () => {
-  return <Image src={"/icons/kursi.svg"} width={24} height={24} alt="Logo" />;
+  return <Image src={"/icons/kursi.png"} width={24} height={24} alt="Logo" />;
 };
 export const BantalIcon = () => {
-  return <Image src={"/icons/bantal.svg"} width={24} height={24} alt="Logo" />;
+  return <Image src={"/icons/bantal.png"} width={24} height={24} alt="Logo" />;
 };
 export const KipasAnginIcon = () => {
-  return <Image src={"/icons/kipas.svg"} width={24} height={24} alt="Logo" />;
+  return <Image src={"/icons/kipas.png"} width={24} height={24} alt="Logo" />;
 };
 
 export const LemariIcon = () => {
   return <Image src={"/icons/lemari.svg"} width={24} height={24} alt="Logo" />;
 };
 export const MejaIcon = () => {
-  return <Image src={"/icons/meja.svg"} width={24} height={24} alt="Logo" />;
+  return <Image src={"/icons/meja.png"} width={24} height={24} alt="Logo" />;
 };
 
 export const WastafelIcon = () => {
   return (
-    <Image src={"/icons/wastafel.svg"} width={24} height={24} alt="Logo" />
+    <Image src={"/icons/wastafel.png"} width={24} height={24} alt="Logo" />
   );
 };
 export const AcIcon = () => {
@@ -203,12 +203,7 @@ export const KlosetDudukIcon = () => {
 };
 export const KlosetJongkokIcon = () => {
   return (
-    <Image
-      src={"/icons/kloset-jongkok.svg"}
-      width={24}
-      height={24}
-      alt="Logo"
-    />
+    <Image src={"/icons/wc-jongkok.png"} width={24} height={24} alt="Logo" />
   );
 };
 export const ShowerIcon = () => {

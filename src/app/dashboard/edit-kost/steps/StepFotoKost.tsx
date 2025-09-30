@@ -8,6 +8,7 @@ import { usePhotoKost } from "@/features/photo-kost/hooks/usePhotoKost";
 import { useCreateKostStore } from "@/stores/createKost.store";
 import Image from "next/image";
 import { useEditKostModalStore } from "@/stores/editKostModal";
+import { useOwnerKost } from "@/features/kost/hooks/useOwnerKost";
 
 type Photo = {
   _id: string;
@@ -33,13 +34,11 @@ export default function StepFotoKost() {
   const { setCurrentStep, setOnNext, kostId } = useCreateKostStore();
   const { setIsSubmitSuccess } = useEditKostModalStore();
 
-  const {
-    photoKost,
-    isLoadingPhoto,
-    uploadPhoto,
-    deletePhoto,
-    submitPhotoKost,
-  } = usePhotoKost({ kostId: kostId ?? "" });
+  const { submitPhotoKost } = useOwnerKost(kostId ?? "");
+
+  const { photoKost, isLoadingPhoto, uploadPhoto, deletePhoto } = usePhotoKost({
+    kostId: kostId ?? "",
+  });
 
   const groupedPhotos = useMemo(() => {
     const data: Record<Photo["kategori"], Photo[]> = {

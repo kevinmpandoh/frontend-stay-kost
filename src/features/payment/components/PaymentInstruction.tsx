@@ -79,6 +79,7 @@ export const PaymentInstruction = ({ payment }: PaymentInstructionProps) => {
               alt="QR Code"
               width={300}
               height={300}
+              unoptimized
             />
           </div>
         ) : null}

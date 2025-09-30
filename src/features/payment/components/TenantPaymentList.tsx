@@ -7,6 +7,7 @@ import { PAYMENT_METHOD } from "@/constants/paymentMethod";
 import { PaymentDetailModal } from "./PaymentDetailModal";
 import { Button } from "@/components/ui/button";
 import { StatusBadge } from "@/components/common/StatusBadge";
+import EmptyState from "@/components/common/EmptyState";
 
 export function findPaymentMethod(methodValue: string) {
   for (const category of PAYMENT_METHOD) {
@@ -26,7 +27,7 @@ const TenantPaymentList = () => {
   }
 
   if (tenantPayment.length === 0) {
-    return <h1>Payment Tidak Ada</h1>;
+    return <EmptyState message="Kamu belum punya riwayat transaksi" />;
   }
 
   return (

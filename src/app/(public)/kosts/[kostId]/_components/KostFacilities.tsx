@@ -21,7 +21,7 @@ export function KostFacilities({
             key={index}
             className="text-md flex items-center gap-2 font-semibold text-slate-600"
           >
-            <Icon className="text-primary h-5 w-5" />
+            <Icon className="h-5 w-5" />
             <span>{label}</span>
           </div>
         );

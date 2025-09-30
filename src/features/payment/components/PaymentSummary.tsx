@@ -14,7 +14,7 @@ export function PaymentSummary({ invoice }: { invoice: Invoice }) {
 
   return (
     <aside
-      className={`${invoice.type === "booking" ? "max-w-md" : "max-w-sm"} flex-1 rounded-lg border border-gray-200 p-6 select-text`}
+      className={`${invoice.type === "booking" ? "max-w-md" : "max-w-sm"} self-start rounded-lg border border-gray-200 p-6 select-text`}
     >
       {invoice.type === "booking" ? (
         <>

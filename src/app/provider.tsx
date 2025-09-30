@@ -1,10 +1,10 @@
 // app/providers.tsx
 "use client";
 
-import { ReactNode } from "react";
+import { ReactNode, Suspense } from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/sonner";
-import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+
 import { ConfirmProvider } from "@/hooks/useConfirmModal";
 import LoginModal from "@/components/LoginModal";
 
@@ -19,13 +19,14 @@ const queryClient = new QueryClient({
 export default function Providers({ children }: { children: ReactNode }) {
   return (
     <>
-      <Toaster richColors position={"top-center"} />
+      <Suspense>
+        <Toaster richColors position={"top-center"} />
 
-      <QueryClientProvider client={queryClient}>
-        <ReactQueryDevtools initialIsOpen={false} />
-        <ConfirmProvider>{children}</ConfirmProvider>
-        <LoginModal />
-      </QueryClientProvider>
+        <QueryClientProvider client={queryClient}>
+          <ConfirmProvider>{children}</ConfirmProvider>
+          <LoginModal />
+        </QueryClientProvider>
+      </Suspense>
     </>
   );
 }

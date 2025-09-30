@@ -1,7 +1,8 @@
 import { Facebook, Instagram, Mail, MapPin, Phone } from "lucide-react";
 import Link from "next/link";
-import Image from "next/image";
 import { AppLogo } from "../common/AppLogo";
+
+import { APP_CONFIG } from "@/constants/contact";
 
 const Footer = () => {
   return (
@@ -23,13 +24,13 @@ const Footer = () => {
           <h4 className="mb-3 font-semibold text-white">Untuk Penyewa</h4>
           <ul className="space-y-2 text-sm text-gray-200">
             <li>
-              <Link href="/kost">Cari Kost</Link>
+              <Link href="/kosts">Cari Kost</Link>
             </li>
             <li>
-              <Link href="/wishlist">Wishlist</Link>
+              <Link href="/user/wishlist">Wishlist</Link>
             </li>
             <li>
-              <Link href="/faq">Bantuan</Link>
+              <Link href="/">Bantuan</Link>
             </li>
           </ul>
         </div>
@@ -39,13 +40,13 @@ const Footer = () => {
           <h4 className="mb-3 font-semibold text-white">Untuk Pemilik</h4>
           <ul className="space-y-2 text-sm text-gray-200">
             <li>
-              <Link href="/daftar-pemilik">Daftarkan Kost</Link>
+              <Link href="/login">Daftarkan Kost</Link>
             </li>
             <li>
-              <Link href="/dashboard">Dashboard Pemilik</Link>
+              <Link href="/dashboard/owner">Dashboard Pemilik</Link>
             </li>
             <li>
-              <Link href="/faq">Bantuan</Link>
+              <Link href="/">Bantuan</Link>
             </li>
           </ul>
         </div>
@@ -56,21 +57,21 @@ const Footer = () => {
           <ul className="space-y-3 text-sm text-gray-200">
             <li className="flex items-start gap-2">
               <MapPin size={16} />
-              Jl. Sam Ratulangi No.123, Manado
+              {APP_CONFIG.CONTACT.ADDRESS}
             </li>
             <li className="flex items-center gap-2">
               <Phone size={16} />
-              089510465800
+              {APP_CONFIG.CONTACT.PHONE}
             </li>
             <li className="flex items-center gap-2">
               <Mail size={16} />
-              kevinmpandoh@gmail.com
+              {APP_CONFIG.CONTACT.EMAIL}
             </li>
             <li className="mt-2 flex gap-3">
-              <a href="#">
+              <a href={APP_CONFIG.CONTACT.FB_URL}>
                 <Facebook size={20} />
               </a>
-              <a href="#">
+              <a href={APP_CONFIG.CONTACT.INSTAGRAM_URL}>
                 <Instagram size={20} />
               </a>
             </li>

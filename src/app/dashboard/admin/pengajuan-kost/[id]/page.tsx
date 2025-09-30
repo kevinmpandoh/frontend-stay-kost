@@ -7,25 +7,28 @@ import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import RejectKostModal from "../RejectKostModal";
 import { kostAdminService } from "@/features/kost/services/kostAdmin.service";
-import ApproveKostModal from "../ApproveKostModal";
+
+import { useConfirm } from "@/hooks/useConfirmModal";
 
 const AdminKostDetailPage = () => {
   const { id } = useParams();
 
   const queryClient = useQueryClient();
+  const confirm = useConfirm();
 
   const { data, isLoading, refetch } = useQuery({
     queryKey: ["admin-kost-detail", id],
     queryFn: () => kostAdminService.getKostById(id as string),
     enabled: !!id,
   });
+  const { mutate: approveKost } = useMutation({
+    mutationFn: (kostId: string) => kostAdminService.approveKost(kostId),
 
-  // const { mutate: approveKost, isPending: isApproving } = useMutation({
-  //   mutationFn: (kostId: string) => KostService.approveKost(kostId),
-  //   onSuccess: () => {
-  //     queryClient.invalidateQueries({ queryKey: ["kost"] }); // Refresh booking list
-  //   },
-  // });
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["kost-submissions"] }); // Refresh booking list
+    },
+  });
+
   const { mutate: rejectKost } = useMutation({
     mutationFn: ({ kostId, reason }: { kostId: string; reason: string }) =>
       kostAdminService.rejectKost(kostId, reason),
@@ -36,20 +39,38 @@ const AdminKostDetailPage = () => {
 
   const kost = data;
 
-  const [showAcceptModal, setShowAcceptModal] = useState(false);
+  // const [showAcceptModal, setShowAcceptModal] = useState(false);
   const [showRejectModal, setShowRejectModal] = useState(false);
 
-  const handleAccept = async () => {
-    // await kostService.acceptKost(id as string);
-    setShowAcceptModal(false);
-    refetch();
-  };
+  // const handleAccept = async () => {
+  //   // await kostService.acceptKost(id as string);
+  //   setShowAcceptModal(false);
+  //   refetch();
+  // };
 
   const handleReject = async (reason: string) => {
     rejectKost({ kostId: "asd", reason });
     // await kostService.rejectKost(id as string, reason);
     setShowRejectModal(false);
     refetch();
+  };
+
+  const handleAccept = async (kost: any) => {
+    const ok = await confirm({
+      title: "Terima Pengajuan Kost?",
+
+      description: `Apakah Anda yakin ingin menerima pengajuan kost "${kost?.name}"?`,
+
+      confirmText: "Terima",
+
+      cancelText: "Batal",
+    });
+
+    if (ok) {
+      approveKost(kost.id);
+
+      refetch();
+    }
   };
 
   if (isLoading || !kost) return <p>Loading...</p>;
@@ -109,18 +130,18 @@ const AdminKostDetailPage = () => {
           <Button variant="outline" onClick={() => setShowRejectModal(true)}>
             Tolak
           </Button>
-          <Button onClick={() => setShowAcceptModal(true)}>Terima</Button>
+          <Button onClick={() => handleAccept(kost)}>Terima</Button>
         </div>
       )}
 
       {/* Modal Konfirmasi Terima */}
-      <ApproveKostModal
+      {/* <ApproveKostModal
         open={showAcceptModal}
         onCancel={() => setShowAcceptModal(false)}
         onConfirm={handleAccept}
         title="Terima Pengajuan Kost"
         description="Apakah Anda yakin ingin menerima pengajuan kost ini?"
-      />
+      /> */}
 
       {/* Modal Tolak dengan Alasan */}
       <RejectKostModal

@@ -1,7 +1,6 @@
 "use client";
 
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { useRouter } from "next/navigation";
 import { preferenceService } from "../services/preference.serivce";
 import { toast } from "sonner";
 import { useAuthStore } from "@/stores/auth.store";
@@ -9,7 +8,7 @@ import { kostService } from "@/features/kost/services/kost.service";
 
 export const usePreference = () => {
   const queryClient = useQueryClient();
-  const router = useRouter();
+
   const { user, isAuthenticated } = useAuthStore();
 
   const preferences = useQuery({

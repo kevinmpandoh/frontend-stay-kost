@@ -2,12 +2,12 @@ import { create } from "zustand";
 
 interface LocationData {
   via: "address" | "map";
-  provinsi_id?: string;
-  provinsi?: string;
-  kabupaten_id?: string;
-  kabupaten?: string;
-  kecamatan_id?: string;
-  kecamatan?: string;
+  provinceId?: string;
+  province?: string;
+  cityId?: string;
+  city?: string;
+  districtId?: string;
+  district?: string;
   detail?: string;
   lat?: number;
   lng?: number;
@@ -20,17 +20,17 @@ interface PreferenceState {
     min: string;
     max: string;
   };
-  jenisKost: string; // bisa lebih dari satu
+  kostType: "putra" | "putri" | "campur"; // bisa lebih dari satu
   kostFacilities: string[];
   roomFacilities: string[];
-  keamanan: string[];
+  rules: string[];
   setStep: (step: number) => void;
   setLocation: (location: LocationData) => void;
   setPrice: (val: { min?: string; max?: string }) => void;
-  setJenisKost: (val: string) => void;
+  setKostType: (val: "putra" | "putri" | "campur") => void;
   setKostFacilities: (facility: string[]) => void;
   setRoomFacilities: (facility: string[]) => void;
-  setKeamanan: (keamanan: string[]) => void;
+  setRules: (rules: string[]) => void;
   reset: () => void;
 }
 
@@ -38,10 +38,10 @@ export const usePreferenceStore = create<PreferenceState>((set) => ({
   step: 0,
   location: null,
   price: { min: "", max: "" },
-  jenisKost: "",
+  kostType: "putra",
   kostFacilities: [],
   roomFacilities: [],
-  keamanan: [],
+  rules: [],
   setStep: (step) => set({ step }),
   setLocation: (location) => set({ location }),
   setPrice: (val) =>
@@ -51,18 +51,18 @@ export const usePreferenceStore = create<PreferenceState>((set) => ({
         ...val,
       },
     })),
-  setJenisKost: (val) => set({ jenisKost: val }),
+  setKostType: (val) => set({ kostType: val }),
   setKostFacilities: (facility) => set({ kostFacilities: facility }),
   setRoomFacilities: (facility) => set({ roomFacilities: facility }),
-  setKeamanan: (keamanan) => set({ keamanan: keamanan }),
+  setRules: (rules) => set({ rules: rules }),
   reset: () =>
     set({
       step: 0,
       location: null,
       price: { min: "", max: "" },
-      jenisKost: "",
+      kostType: "putra",
       kostFacilities: [],
       roomFacilities: [],
-      keamanan: [],
+      rules: [],
     }),
 }));

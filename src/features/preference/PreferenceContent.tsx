@@ -5,22 +5,15 @@ import { Button } from "@/components/ui/button";
 import StepIndicator from "./components/StepIndicator";
 import LocationStep from "./components/LocationStep";
 import PriceStep from "./components/PriceStep";
-import JenisKostStep from "./components/JenisKostStep";
 import FasilitasStep from "./components/FasilitasStep";
-import KeamananStep from "./components/KeamananStep";
-import { usePreferenceStore } from "./preference.store";
-import { usePreference } from "./usePreference";
-import { useFacility } from "@/features/facility/useFacility";
-import { Facility } from "../facility/facility.type";
 
-const steps = [
-  "Lokasi",
-  "Harga",
-  "Jenis Kost",
-  "Fasilitas",
-  "Keamanan",
-  "Tinjau",
-];
+import { usePreferenceStore } from "./preference.store";
+import { usePreference } from "./hooks/usePreference";
+import KostTypeStep from "./components/KostTypeStep";
+import RulesStep from "./components/RulesStep";
+import { useRouter } from "next/navigation";
+
+const steps = ["Lokasi", "Harga", "Jenis Kost", "Fasilitas", "Keamanan"];
 
 const stepContent = [
   {
@@ -51,40 +44,64 @@ const stepContent = [
 
 export default function PreferenceContent() {
   const [step, setStep] = useState(0);
+  const router = useRouter();
 
+  const { savePreferences } = usePreference();
   const {
     location,
     price,
-    jenisKost,
+    kostType,
     kostFacilities,
     roomFacilities,
-    keamanan,
+    rules,
+    reset,
   } = usePreferenceStore();
-  const { savePreferences } = usePreference();
-  const { facilities } = useFacility();
-
   const isStepValid =
     (step === 0 && !!location) ||
     (step === 1 && !!price?.min && !!price?.max) ||
-    (step === 2 && !!jenisKost) ||
+    (step === 2 && !!kostType) ||
     (step === 3 && kostFacilities.length > 0 && roomFacilities.length > 0) ||
-    (step === 4 && keamanan.length > 0) ||
-    step === 5;
-
-  const mapIdsToNames = (ids: string[]) => {
-    if (!facilities.data) return [];
-    return ids
-      .map(
-        (id) => facilities.data.find((item: Facility) => item._id === id)?.name,
-      )
-      .filter(Boolean);
-  };
-
-  const kostNames = mapIdsToNames(kostFacilities);
-  const kamarNames = mapIdsToNames(roomFacilities);
+    (step === 4 && rules.length > 0);
 
   const handleSave = () => {
-    savePreferences.mutate();
+    if (
+      !location ||
+      !price ||
+      !kostType ||
+      !kostFacilities ||
+      !roomFacilities ||
+      !rules ||
+      !location.detail ||
+      !location.lat ||
+      !location.lng ||
+      !location.via // Ensure type is present
+    )
+      return;
+    const payload = {
+      address: {
+        type: location.via, // Guaranteed to be string
+        detail: location.detail,
+        coordinates: {
+          lat: location.lat,
+          lng: location.lng,
+        },
+      },
+      price: {
+        min: parseInt(price.min),
+        max: parseInt(price.max),
+      },
+      kostType: kostType,
+      kostFacilities,
+      roomFacilities,
+      rules: rules,
+    };
+
+    savePreferences.mutate(payload, {
+      onSuccess: () => {
+        router.push("/");
+        reset();
+      },
+    });
   };
 
   return (
@@ -93,7 +110,7 @@ export default function PreferenceContent() {
         {/* Step Indicator */}
         <StepIndicator steps={steps} step={step} />
 
-        <div className="flex min-h-[400px] flex-col overflow-hidden rounded-lg bg-white shadow-lg">
+        <div className="flex max-h-[80vh] min-h-[400px] flex-col overflow-hidden rounded-lg bg-white shadow-lg">
           <div className="flex-1 overflow-auto px-6 py-6">
             <div className="mb-8">
               <h2 className="text-2xl font-semibold text-gray-800">
@@ -103,48 +120,12 @@ export default function PreferenceContent() {
                 {stepContent[step].subtitle}
               </p>
             </div>
-            <div className="space-y-4">
+            <div className="h-full space-y-4">
               {step === 0 && <LocationStep />}
               {step === 1 && <PriceStep />}
-              {step === 2 && <JenisKostStep />}
-              {step === 3 && (
-                <FasilitasStep
-                  data={facilities.data}
-                  isLoading={facilities.isLoading}
-                />
-              )}
-              {step === 4 && <KeamananStep />}
-              {step === 5 && (
-                <div>
-                  <p className="text-gray-500">
-                    Tinjau kembali preferensi kost kamu sebelum dikirim:
-                  </p>
-                  <ul className="mt-2 ml-5 list-disc space-y-1 text-sm text-gray-700">
-                    <li>Lokasi: {location?.detail || "-"}</li>
-                    <li>
-                      Harga:{" "}
-                      {price?.min && price?.max
-                        ? `Rp ${Number(price.min).toLocaleString(
-                            "id-ID",
-                          )} - Rp ${Number(price.max).toLocaleString("id-ID")}`
-                        : "-"}
-                    </li>
-                    <li>Jenis Kost: {jenisKost || "-"}</li>
-                    <li>
-                      Fasilitas Kost:{" "}
-                      {facilities.isLoading
-                        ? "Memuat..."
-                        : kostNames.join(", ") || "-"}
-                    </li>
-                    <li>
-                      Fasilitas Kamar:{" "}
-                      {facilities.isLoading
-                        ? "Memuat..."
-                        : kamarNames.join(", ") || "-"}
-                    </li>
-                  </ul>
-                </div>
-              )}
+              {step === 2 && <KostTypeStep />}
+              {step === 3 && <FasilitasStep />}
+              {step === 4 && <RulesStep />}
             </div>
           </div>
 

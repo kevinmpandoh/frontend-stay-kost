@@ -1,9 +1,5 @@
 export interface PreferencePayload {
   address: {
-    type: string;
-    province: string;
-    city: string;
-    district: string;
     coordinates: {
       lat: number;
       lng: number;

@@ -4,9 +4,10 @@ import { useState } from "react";
 
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
-import { DEFAULT_FACILITY_ICON, FACILITY_ICONS } from "@/constants/facilities";
+import { FACILITY_ICONS } from "@/constants/facilities";
 import { usePreferenceStore } from "../preference.store";
 import { Facility } from "@/features/facility/facility.type";
+import { useFacility } from "@/features/facility/useFacility";
 
 const MAX_DISPLAY = 6;
 
@@ -40,7 +41,7 @@ function FacilityGrid({
         {displayList.map((fasilitas) => {
           const isSelected = selected.includes(fasilitas._id);
           const iconInfo = FACILITY_ICONS[fasilitas.name];
-          const Icon = iconInfo?.icon || DEFAULT_FACILITY_ICON;
+          const Icon = iconInfo?.icon;
 
           return (
             <button
@@ -83,43 +84,40 @@ function FacilityGrid({
   );
 }
 
-export default function FasilitasStep({
-  data,
-  isLoading,
-}: {
-  data: Facility[];
-  isLoading: boolean;
-}) {
-  console.log(data, "DATA");
-  const kostFacility = usePreferenceStore((state) => state.kostFacilities);
-  const setKostFacility = usePreferenceStore(
-    (state) => state.setKostFacilities,
-  );
-  const roomFacility = usePreferenceStore((state) => state.roomFacilities);
-  const setRoomFacility = usePreferenceStore(
-    (state) => state.setRoomFacilities,
-  );
+export default function FasilitasStep() {
+  const { facilities } = useFacility();
 
-  if (isLoading) return <p>Loading fasilitas...</p>;
-  if (!data) return <p>Gagal memuat fasilitas</p>;
+  const {
+    kostFacilities,
+    setKostFacilities,
+    roomFacilities,
+    setRoomFacilities,
+  } = usePreferenceStore();
 
-  const fasilitasKostList = data.filter((f) => f.category === "kost");
-  const fasilitasKamarList = data.filter((f) => f.category === "room");
+  if (facilities.isLoading) return <p>Loading fasilitas...</p>;
+  if (!facilities.data) return <p>Gagal memuat fasilitas</p>;
+
+  const fasilitasKostList = facilities.data.filter(
+    (f: Facility) => f.category === "kost",
+  );
+  const fasilitasKamarList = facilities.data.filter(
+    (f: Facility) => f.category === "room",
+  );
 
   return (
     <>
       <FacilityGrid
         title="Fasilitas Kost"
         data={fasilitasKostList}
-        selected={kostFacility}
-        setSelected={setKostFacility}
+        selected={kostFacilities}
+        setSelected={setKostFacilities}
       />
 
       <FacilityGrid
         title="Fasilitas Kamar"
         data={fasilitasKamarList}
-        selected={roomFacility}
-        setSelected={setRoomFacility}
+        selected={roomFacilities}
+        setSelected={setRoomFacilities}
       />
     </>
   );

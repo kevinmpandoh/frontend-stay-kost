@@ -27,9 +27,9 @@ export default function LocationByAddress() {
 
   // Fetch kabupaten when provinsi changes
   useEffect(() => {
-    if (location?.provinsi_id) {
+    if (location?.provinceId) {
       fetch(
-        `https://www.emsifa.com/api-wilayah-indonesia/api/regencies/${location.provinsi_id}.json`,
+        `https://www.emsifa.com/api-wilayah-indonesia/api/regencies/${location.provinceId}.json`,
       )
         .then((res) => res.json())
         .then(setKabupatenList);
@@ -37,20 +37,20 @@ export default function LocationByAddress() {
       setKabupatenList([]);
     }
     setKecamatanList([]);
-  }, [location?.provinsi_id]);
+  }, [location?.provinceId]);
 
   // Fetch kecamatan when kabupaten changes
   useEffect(() => {
-    if (location?.kabupaten_id) {
+    if (location?.cityId) {
       fetch(
-        `https://www.emsifa.com/api-wilayah-indonesia/api/districts/${location.kabupaten_id}.json`,
+        `https://www.emsifa.com/api-wilayah-indonesia/api/districts/${location.cityId}.json`,
       )
         .then((res) => res.json())
         .then(setKecamatanList);
     } else {
       setKecamatanList([]);
     }
-  }, [location?.kabupaten_id]);
+  }, [location?.cityId]);
 
   return (
     <div className="space-y-4">
@@ -58,17 +58,17 @@ export default function LocationByAddress() {
       <div className="space-y-4">
         <label className="text-mb mb-10">Provinsi</label>
         <Select
-          value={location?.provinsi_id || ""}
+          value={location?.provinceId || ""}
           onValueChange={(val) => {
             const selected = provinsiList.find((p) => p.id === val);
             setLocation({
               via: "address",
-              provinsi_id: selected.id,
-              provinsi: selected.name,
-              kabupaten_id: "",
-              kabupaten: "",
-              kecamatan_id: "",
-              kecamatan: "",
+              provinceId: selected.id,
+              province: selected.name,
+              cityId: "",
+              city: "",
+              districtId: "",
+              district: "",
               detail: "",
             });
           }}
@@ -90,19 +90,19 @@ export default function LocationByAddress() {
       <div>
         <label className="text-mb">Kabupaten/Kota</label>
         <Select
-          value={location?.kabupaten_id || ""}
+          value={location?.cityId || ""}
           onValueChange={(val) => {
             const selected = kabupatenList.find((k) => k.id === val);
             setLocation({
               ...location,
               via: "address",
-              kabupaten_id: selected.id,
-              kabupaten: selected.name,
-              kecamatan_id: "",
-              kecamatan: "",
+              cityId: selected.id,
+              city: selected.name,
+              districtId: "",
+              district: "",
             });
           }}
-          disabled={!location?.provinsi_id}
+          disabled={!location?.provinceId}
         >
           <SelectTrigger className="w-full px-4 py-6">
             <SelectValue placeholder="Pilih Kabupaten/Kota" />
@@ -121,18 +121,18 @@ export default function LocationByAddress() {
       <div>
         <label className="text-md">Kecamatan</label>
         <Select
-          value={location?.kecamatan_id || ""}
+          value={location?.districtId || ""}
           onValueChange={(val) => {
             const selected = kecamatanList.find((kec) => kec.id === val);
             setLocation({
               ...location,
               via: "address",
-              kecamatan_id: selected.id,
-              kecamatan: selected.name,
-              detail: `${selected.name} ${location?.kabupaten} ${location?.provinsi}`,
+              districtId: selected.id,
+              district: selected.name,
+              detail: `${selected.name} ${location?.city} ${location?.province}`,
             });
           }}
-          disabled={!location?.kabupaten_id}
+          disabled={!location?.cityId}
         >
           <SelectTrigger className="w-full px-4 py-6">
             <SelectValue placeholder="Pilih Kecamatan" />

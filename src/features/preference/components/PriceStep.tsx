@@ -1,7 +1,7 @@
 import { Input } from "@/components/ui/input";
 
 import { usePreferenceStore } from "../preference.store";
-import { formatCurrency } from "@/lib/format";
+import { formatCurrency } from "@/utils/format";
 
 const parseCurrency = (formatted: string) => {
   return formatted.replace(/[^\d]/g, "");

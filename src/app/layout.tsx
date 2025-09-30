@@ -20,6 +20,7 @@ export const metadata: Metadata = {
   },
   description: "Stay Kost - Cari & Kelola Kost Lebih Mudah",
   keywords: [
+    "stay kost",
     "kost",
     "sewa kost",
     "kost murah",

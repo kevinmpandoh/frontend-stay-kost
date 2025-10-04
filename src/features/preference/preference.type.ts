@@ -5,12 +5,12 @@ export interface PreferencePayload {
       lng: number;
     };
   };
-  price: {
-    min: number;
-    max: number;
-  };
+  // price: {
+  //   min: number;
+  //   max: number;
+  // };
+  price: number;
   kostType: "putra" | "putri" | "campur";
   kostFacilities: string[];
   roomFacilities: string[];
-  rules: string[];
 }

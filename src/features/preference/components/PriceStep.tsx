@@ -14,7 +14,7 @@ export default function PriceStep() {
   return (
     <div className="space-y-6">
       <div>
-        <label className="mb-2 block">Harga Minimum</label>
+        <label className="mb-2 block">Harga yang diinginkan</label>
         <div className="relative w-full">
           <span className="text-md text-muted-foreground absolute top-1/2 left-3 -translate-y-1/2 font-semibold">
             Rp{" "}
@@ -22,15 +22,15 @@ export default function PriceStep() {
           <Input
             type="text"
             inputMode="numeric"
-            value={formatCurrency(price.min)}
-            onChange={(e) => setPrice({ min: parseCurrency(e.target.value) })}
+            value={formatCurrency(price)}
+            onChange={(e) => setPrice(parseCurrency(e.target.value))}
             className="rounded p-6 pl-12 text-gray-600 md:text-sm"
             placeholder="Contoh: 1000000"
           />
         </div>
       </div>
 
-      <div>
+      {/* <div>
         <label className="mb-2 block">Harga Maksimum</label>
         <div className="relative w-full">
           <span className="text-md text-muted-foreground absolute top-1/2 left-3 -translate-y-1/2 font-semibold">
@@ -45,7 +45,7 @@ export default function PriceStep() {
             placeholder="Contoh: 2000000"
           />
         </div>
-      </div>
+      </div> */}
     </div>
   );
 }

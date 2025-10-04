@@ -25,6 +25,11 @@ api.interceptors.response.use(
         }
       } catch (refreshError) {
         console.error("Refresh token gagal → logout");
+        await axios.post(
+          `${process.env.NEXT_PUBLIC_API_URL}/auth/logout`,
+          {},
+          { withCredentials: true },
+        );
         const { logout } = useAuthStore.getState();
         logout();
 

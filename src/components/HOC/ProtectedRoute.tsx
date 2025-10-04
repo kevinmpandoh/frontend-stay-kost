@@ -23,7 +23,7 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
     if (isHydrated) {
       // Jika belum login → redirect ke login
       if (!isAuthenticated || !user) {
-        router.replace("/login");
+        router.replace("/");
         return;
       }
 

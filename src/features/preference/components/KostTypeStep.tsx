@@ -1,5 +1,6 @@
 import { Bed, Building2, Home } from "lucide-react";
 import { usePreferenceStore } from "../preference.store";
+import Image from "next/image";
 
 export default function KostTypeStep() {
   const { kostType, setKostType } = usePreferenceStore();
@@ -29,7 +30,13 @@ export default function KostTypeStep() {
                 : "hover:bg-primary-50 bg-white"
             } `}
           >
-            {item.icon}
+            {/* {item.icon} */}
+            <Image
+              width={48}
+              height={48}
+              src={`/images/${item.value}.png`}
+              alt="Jenis Kost"
+            />
             <span className="mt-1 text-sm">{item.label}</span>
           </button>
         );

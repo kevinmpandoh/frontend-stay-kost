@@ -14,9 +14,9 @@ export default function StepIndicator({ steps, step }: StepIndicatorProps) {
           className={`relative flex ${
             step > index
               ? "text-primary-600 after:bg-primary-600 w-full after:absolute after:top-3 after:left-4 after:inline-block after:h-0.5 after:w-full after:content-[''] lg:after:top-5"
-              : step === index && index !== 4
+              : step === index && index !== 3
                 ? "w-full text-gray-900 after:absolute after:top-3 after:left-4 after:inline-block after:h-0.5 after:w-full after:bg-gray-200 after:content-[''] lg:after:top-5"
-                : index === 4
+                : index === 3
                   ? "relative flex text-gray-900"
                   : "w-full text-gray-900 after:absolute after:top-3 after:left-4 after:inline-block after:h-0.5 after:w-full after:bg-gray-200 after:content-[''] lg:after:top-5"
           }`}

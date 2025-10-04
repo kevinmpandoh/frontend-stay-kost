@@ -163,9 +163,10 @@ export const useAuth = () => {
   const logout = useMutation({
     mutationFn: authService.logout,
     onSuccess: () => {
+      console.log("DIJALANKAN");
       setUser(null);
-      queryClient.removeQueries(); // optional: hapus semua cache
       router.push("/");
+      // queryClient.removeQueries(); // optional: hapus semua cache
     },
     onError: () => {
       setUser(null);

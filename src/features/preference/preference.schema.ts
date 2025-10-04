@@ -2,10 +2,7 @@
 import { z } from "zod";
 
 export const preferenceSchema = z.object({
-  price: z.object({
-    min: z.number().min(0, "Harga minimum harus >= 0"),
-    max: z.number().min(0, "Harga maksimum harus >= 0"),
-  }),
+  price: z.number().min(0, "Harga minimum harus >= 0"),
   kostFacilities: z.array(z.string()),
   roomFacilities: z.array(z.string()),
   kostType: z.enum(["putra", "putri", "campur"]),

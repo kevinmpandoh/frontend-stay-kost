@@ -5,6 +5,7 @@ import { preferenceService } from "../services/preference.serivce";
 import { toast } from "sonner";
 import { useAuthStore } from "@/stores/auth.store";
 import { kostService } from "@/features/kost/services/kost.service";
+import { AxiosError } from "axios";
 
 export const usePreference = () => {
   const queryClient = useQueryClient();
@@ -44,7 +45,13 @@ export const usePreference = () => {
       toast.success("Preferensi berhasil disimpan");
     },
     onError: (error) => {
-      console.error("Gagal menyimpan preferensi:", error);
+      // console.error("Gagal menyimpan preferensi:", error);
+      if (error instanceof AxiosError) {
+        toast.error(
+          error.response?.data?.message ||
+            "Gagal menyimpan preferensi. Silahkan coba lagi",
+        );
+      }
     },
   });
 

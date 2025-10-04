@@ -43,7 +43,7 @@ export function FacilityGrid({
               type="button"
               onClick={() => toggle(fasilitas._id)}
               className={cn(
-                "flex items-center gap-3 rounded-lg border px-4 py-3 text-left transition",
+                "flex cursor-pointer items-center gap-3 rounded-lg border px-4 py-3 text-left transition",
                 isSelected
                   ? "bg-primary/10 border-primary"
                   : "border-[#D9D9D9] bg-white",

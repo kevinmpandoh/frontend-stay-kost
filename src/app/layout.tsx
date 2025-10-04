@@ -19,6 +19,9 @@ export const metadata: Metadata = {
     default: "Stay Kost",
   },
   description: "Stay Kost - Cari & Kelola Kost Lebih Mudah",
+  icons: {
+    icon: "/favicon.ico",
+  },
   keywords: [
     "stay kost",
     "kost stay",
@@ -36,7 +39,7 @@ export const metadata: Metadata = {
     description:
       "Cari dan temukan kost dengan mudah, cepat, dan sesuai kebutuhanmu.",
     url: "https://www.staykost.my.id",
-    siteName: "StayKost",
+    siteName: "Stay Kost",
     images: [
       {
         url: "https://www.staykost.my.id/og-image.jpg", // bikin gambar promosi kostmu
@@ -67,6 +70,40 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Organization",
+              name: "Stay Kost",
+              url: "https://www.staykost.my.id",
+              logo: "https://www.staykost.my.id/logo.png", // logo transparan lebih bagus
+              sameAs: [
+                "https://www.facebook.com/staykost",
+                "https://www.instagram.com/staykost",
+              ],
+            }),
+          }}
+        />
+
+        {/* Schema WebSite */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "WebSite",
+              url: "https://www.staykost.my.id",
+              potentialAction: {
+                "@type": "SearchAction",
+                target:
+                  "https://www.staykost.my.id/search?q={search_term_string}",
+                "query-input": "required name=search_term_string",
+              },
+            }),
+          }}
+        />
         <Providers>{children}</Providers>
       </body>
     </html>

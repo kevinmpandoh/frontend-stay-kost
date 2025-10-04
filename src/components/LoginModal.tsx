@@ -52,7 +52,14 @@ const LoginModal = () => {
       : "bg-primary hover:bg-primary/90 text-white";
 
   const onSubmit = (data: LoginFormInputs) => {
-    login.mutate({ ...data, role });
+    login.mutate(
+      { ...data, role },
+      {
+        onSuccess: () => {
+          close();
+        },
+      },
+    );
   };
 
   const handleLoginWithGoogle = async () => {

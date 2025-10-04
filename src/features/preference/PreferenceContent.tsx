@@ -10,10 +10,9 @@ import FasilitasStep from "./components/FasilitasStep";
 import { usePreferenceStore } from "./preference.store";
 import { usePreference } from "./hooks/usePreference";
 import KostTypeStep from "./components/KostTypeStep";
-import RulesStep from "./components/RulesStep";
 import { useRouter } from "next/navigation";
 
-const steps = ["Lokasi", "Harga", "Jenis Kost", "Fasilitas", "Keamanan"];
+const steps = ["Lokasi", "Harga", "Jenis Kost", "Fasilitas"];
 
 const stepContent = [
   {
@@ -21,8 +20,8 @@ const stepContent = [
     subtitle: "Di mana anda ingin mencari kost?",
   },
   {
-    title: "Harga maksimal",
-    subtitle: "Berapa harga maksimal yang anda inginkan per bulan?",
+    title: "Harga Kost",
+    subtitle: "Berapa harga kost yang anda inginkan per bulan?",
   },
   {
     title: "Jenis Kost",
@@ -32,14 +31,6 @@ const stepContent = [
     title: "Fasilitas Kost & Kamar",
     subtitle: "Fasilitas apa saja yang Anda inginkan?",
   },
-  {
-    title: "Keamanan / Peraturan Kost",
-    subtitle: "Apa saja keamanan atau peraturan yang Anda harapkan?",
-  },
-  {
-    title: "Tinjau Preferensi",
-    subtitle: "Periksa kembali preferensi kost Anda sebelum dikirim.",
-  },
 ];
 
 export default function PreferenceContent() {
@@ -47,21 +38,23 @@ export default function PreferenceContent() {
   const router = useRouter();
 
   const { savePreferences } = usePreference();
-  const {
-    location,
-    price,
-    kostType,
-    kostFacilities,
-    roomFacilities,
-    rules,
-    reset,
-  } = usePreferenceStore();
+  const { location, price, kostType, kostFacilities, roomFacilities, reset } =
+    usePreferenceStore();
   const isStepValid =
     (step === 0 && !!location) ||
-    (step === 1 && !!price?.min && !!price?.max) ||
+    (step === 1 && !!price) ||
     (step === 2 && !!kostType) ||
-    (step === 3 && kostFacilities.length > 0 && roomFacilities.length > 0) ||
-    (step === 4 && rules.length > 0);
+    (step === 3 && kostFacilities.length > 0 && roomFacilities.length > 0);
+
+  console.log(
+    isStepValid,
+    step,
+    price,
+    location,
+    kostType,
+    kostFacilities.length,
+    roomFacilities.length,
+  );
 
   const handleSave = () => {
     if (
@@ -70,7 +63,6 @@ export default function PreferenceContent() {
       !kostType ||
       !kostFacilities ||
       !roomFacilities ||
-      !rules ||
       !location.detail ||
       !location.lat ||
       !location.lng ||
@@ -86,14 +78,11 @@ export default function PreferenceContent() {
           lng: location.lng,
         },
       },
-      price: {
-        min: parseInt(price.min),
-        max: parseInt(price.max),
-      },
+      price: parseInt(price),
+
       kostType: kostType,
       kostFacilities,
       roomFacilities,
-      rules: rules,
     };
 
     savePreferences.mutate(payload, {
@@ -125,7 +114,6 @@ export default function PreferenceContent() {
               {step === 1 && <PriceStep />}
               {step === 2 && <KostTypeStep />}
               {step === 3 && <FasilitasStep />}
-              {step === 4 && <RulesStep />}
             </div>
           </div>
 

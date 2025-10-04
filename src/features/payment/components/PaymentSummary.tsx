@@ -28,7 +28,9 @@ export function PaymentSummary({ invoice }: { invoice: Invoice }) {
               height={90}
             />
             <div className="flex flex-col justify-center space-y-2">
-              <Badge>{invoice?.kostType}</Badge>
+              <Badge variant={"outline"} className="capitalized">
+                {invoice?.kostType}
+              </Badge>
               <h3 className="text-base leading-tight font-semibold text-slate-800 select-text">
                 {invoice?.kostName}
               </h3>

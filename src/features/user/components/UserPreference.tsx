@@ -39,16 +39,13 @@ export default function PreferensiPengguna() {
 
   const {
     control,
-    register,
     handleSubmit,
-    setValue,
     reset,
-    watch,
-    formState: { errors, isSubmitting },
+    formState: { isSubmitting },
   } = useForm<PreferenceForm>({
     resolver: zodResolver(preferenceSchema),
     defaultValues: {
-      price: { min: 0, max: 0 },
+      price: 0,
       kostFacilities: [],
       roomFacilities: [],
       kostType: "putra",
@@ -85,10 +82,29 @@ export default function PreferensiPengguna() {
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
         <Controller
           control={control}
-          name="price.min"
+          name="address.coordinates"
+          render={({ field }) => (
+            <div>
+              <h3 className="mb-2 font-semibold">Lokasi Preferensi</h3>
+              <p className="mb-2 text-sm text-gray-500">
+                Klik pada peta untuk memilih lokasi kost yang diinginkan.
+              </p>
+              <div className="h-[300px] overflow-hidden rounded">
+                <MapPicker
+                  initialPosition={[field.value.lat, field.value.lng]}
+                  onChange={({ lat, lng }) => field.onChange({ lat, lng })}
+                />
+              </div>
+            </div>
+          )}
+        />
+        <h3 className="mb-2 font-semibold">Harga Kost</h3>
+        <Controller
+          control={control}
+          name="price"
           render={({ field }) => (
             <InputPrice
-              label="Harga Minimum"
+              label="Harga yang diinginkan"
               value={field.value}
               onChange={(val) => field.onChange(Number(val))}
               placeholder="Contoh: 1000000"
@@ -96,7 +112,7 @@ export default function PreferensiPengguna() {
           )}
         />
 
-        <Controller
+        {/* <Controller
           control={control}
           name="price.max"
           render={({ field }) => (
@@ -107,7 +123,7 @@ export default function PreferensiPengguna() {
               placeholder="Contoh: 2000000"
             />
           )}
-        />
+        /> */}
 
         <Controller
           control={control}
@@ -132,50 +148,6 @@ export default function PreferensiPengguna() {
               selected={field.value}
               setSelected={(ids) => field.onChange(ids)}
             />
-          )}
-        />
-        <div>
-          <h3 className="mb-2 font-semibold">Keamanan</h3>
-          <div className="grid grid-cols-2 gap-2">
-            {rules.data?.map((item: any) => (
-              <Label key={item._id} className="flex items-center gap-2">
-                <Controller
-                  control={control}
-                  name="rules"
-                  render={({ field }) => (
-                    <Checkbox
-                      checked={field.value.includes(item._id)}
-                      onCheckedChange={(checked) => {
-                        const newRules = checked
-                          ? [...field.value, item._id]
-                          : field.value.filter((id: string) => id !== item._id);
-                        field.onChange(newRules);
-                      }}
-                    />
-                  )}
-                />
-                {item.name}
-              </Label>
-            ))}
-          </div>
-        </div>
-
-        <Controller
-          control={control}
-          name="address.coordinates"
-          render={({ field }) => (
-            <div>
-              <h3 className="mb-2 font-semibold">Lokasi Preferensi</h3>
-              <p className="mb-2 text-sm text-gray-500">
-                Klik pada peta untuk memilih lokasi kost yang diinginkan.
-              </p>
-              <div className="h-[300px] overflow-hidden rounded">
-                <MapPicker
-                  initialPosition={[field.value.lat, field.value.lng]}
-                  onChange={({ lat, lng }) => field.onChange({ lat, lng })}
-                />
-              </div>
-            </div>
           )}
         />
 

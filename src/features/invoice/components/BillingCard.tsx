@@ -12,6 +12,7 @@ type Billing = {
   daysRemaining: number;
   isDueToday: boolean;
   isLate: boolean;
+  kostName: string;
   daysLate: number;
 };
 
@@ -58,7 +59,7 @@ const BillingCard: React.FC<Props> = ({ billing }) => {
       </div>
       <div className="mt-2 flex justify-between">
         <div>
-          <p className="font-semibold text-gray-900">Kost Vinshi</p>
+          <p className="font-semibold text-gray-900">{billing.kostName}</p>
           {/* <p className="text-xs text-gray-500">
             Pembayaran bulan ke-{billing.monthNumber}
           </p> */}

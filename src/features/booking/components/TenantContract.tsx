@@ -19,7 +19,7 @@ const TenantContract = ({ data }: Props) => {
       <div className="mb-6 flex space-x-4 border-b-2 py-4">
         <Image
           alt="Room"
-          className="flex-shrink-0 rounded-lg object-cover"
+          className="h-28 w-36 flex-shrink-0 rounded-lg object-cover"
           height="150"
           src={data.photo}
           width="200"

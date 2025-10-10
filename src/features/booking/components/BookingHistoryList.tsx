@@ -32,7 +32,7 @@ const BookingHistoryList = () => {
             key={data.id}
             className="flex w-full flex-col items-center rounded-lg border border-gray-200 bg-white p-4 shadow-sm sm:flex-row sm:items-start"
           >
-            <Link href={`/kosts/${data.kostTypeId}`}>
+            <Link href={`/kosts/${data.roomTypeId}`}>
               <Image
                 src={data.photo || "/kost.jpg"}
                 width={120}

@@ -23,11 +23,11 @@ import { Facility } from "@/features/facility/facility.type";
 import { FacilityGrid } from "@/features/preference/components/FacilityGrid";
 
 import dynamic from "next/dynamic";
+import Image from "next/image";
 
 export default function PreferensiPengguna() {
   const { preferences, savePreferences } = usePreference();
   const { data, isLoading } = preferences;
-  const { rules } = useRules();
   const { facilities } = useFacility();
 
   const kostFacilities = facilities?.data?.filter(
@@ -124,6 +124,53 @@ export default function PreferensiPengguna() {
             />
           )}
         /> */}
+
+        <div>
+          <h3 className="mb-2 font-semibold">Tipe Kost</h3>
+          <Controller
+            control={control}
+            name="kostType"
+            render={({ field }) => {
+              const options = [
+                { label: "Putra", value: "putra", image: "/images/putra.png" },
+                { label: "Putri", value: "putri", image: "/images/putri.png" },
+                {
+                  label: "Campur",
+                  value: "campur",
+                  image: "/images/campur.png",
+                },
+              ];
+
+              return (
+                <div className="grid grid-cols-3 gap-4">
+                  {options.map((item) => {
+                    const isSelected = field.value === item.value;
+                    return (
+                      <button
+                        type="button"
+                        key={item.value}
+                        onClick={() => field.onChange(item.value)}
+                        className={`flex flex-col items-center rounded-xl border p-3 transition ${
+                          isSelected
+                            ? "border-primary bg-primary-50"
+                            : "border-gray-200 bg-white hover:bg-gray-50"
+                        }`}
+                      >
+                        <Image
+                          width={48}
+                          height={48}
+                          src={item.image}
+                          alt={item.label}
+                        />
+                        <span className="mt-1 text-sm">{item.label}</span>
+                      </button>
+                    );
+                  })}
+                </div>
+              );
+            }}
+          />
+        </div>
 
         <Controller
           control={control}

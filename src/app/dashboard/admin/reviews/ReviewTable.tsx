@@ -64,7 +64,8 @@ export function ReviewTable({
       key: "createdAt",
       header: "Tanggal",
       render: (review: any) =>
-        format(new Date(review.createdAt), "dd MMM yyyy", { locale: id }),
+        // format(new Date(review?.createdAt), "dd MMM yyyy", { locale: id }),
+        review?.createdAt,
     },
     {
       key: "actions",

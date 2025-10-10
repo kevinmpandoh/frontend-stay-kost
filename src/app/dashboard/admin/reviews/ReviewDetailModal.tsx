@@ -65,7 +65,7 @@ export const ReviewDetailModal = ({ open, onClose, data }: Props) => {
           <div>
             <strong>Tanggal Review:</strong>
             <br />
-            {format(new Date(data.createdAt), "dd MMMM yyyy", { locale: id })}
+            {data.createdAt}
           </div>
 
           <div>

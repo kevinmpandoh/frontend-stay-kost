@@ -31,9 +31,9 @@ const benefits = [
 
 const screenshots = [
   "/images/screenshot/dashboard-overview.png",
-  "/images/screenshot/dashboard-overview.png",
-  "/images/screenshot/dashboard-overview.png",
-  "/images/screenshot/dashboard-overview.png",
+  "/images/screenshot/list-kost.png",
+  "/images/screenshot/list-penyewa.png",
+  "/images/screenshot/tagihan-kost.png",
 ];
 
 const JoinAsOwnerSection = () => {
@@ -66,10 +66,10 @@ const JoinAsOwnerSection = () => {
             Punya Kost? Gabung dan Pasarkan Sekarang!
           </h2>
           <p className="mb-4 text-lg text-gray-600">
-            Sudah lebih dari{" "}
-            <span className="text-primary font-semibold">3.200+</span> pemilik
-            kost bergabung dan mengelola properti mereka dengan mudah di
-            platform kami.
+            Gabung bersama StayKost dan nikmati kemudahan dalam memasarkan
+            properti kost Anda secara online. Dapatkan akses ke ribuan calon
+            penyewa, kelola kost dengan fitur digital, dan tingkatkan pendapatan
+            Anda tanpa ribet.
           </p>
 
           <ul className="mb-6 space-y-3">

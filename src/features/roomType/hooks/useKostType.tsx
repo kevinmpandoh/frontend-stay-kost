@@ -116,7 +116,7 @@ export const useKostType = ({ kostTypeId }: { kostTypeId?: string }) => {
         setCurrentStep(8);
         setProgressStep(8);
         router.replace(
-          `/dashboard/tambah-kost?kost_id=${res.data.kostId}&step=5`,
+          `/dashboard/tambah-kost?kost_id=${res.data.kostId}&step=8`,
         );
         queryClient.invalidateQueries({
           queryKey: ["kost", res.data.kostId],

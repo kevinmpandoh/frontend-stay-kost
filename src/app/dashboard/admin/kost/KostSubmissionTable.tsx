@@ -7,6 +7,7 @@ import { format } from "date-fns";
 import { id } from "date-fns/locale";
 import { StatusBadge } from "@/components/common/StatusBadge";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 interface KostSubmissionTableProps {
   data: any[];
@@ -25,6 +26,7 @@ export function KostSubmissionTable({
   onApprove,
   onReject,
 }: KostSubmissionTableProps) {
+  const router = useRouter();
   const columns = [
     {
       key: "kost",
@@ -83,19 +85,30 @@ export function KostSubmissionTable({
         >
           <Button
             variant="outline"
-            onClick={() => {
-              onReject(kost);
-            }}
+            size="sm"
+            onClick={() => router.push(`/dashboard/admin/kost/${kost.id}`)}
           >
-            Tolak
+            <Eye className="mr-1 h-4 w-4" /> Detail
           </Button>
-          <Button
-            onClick={() => {
-              onApprove(kost);
-            }}
-          >
-            Terima
-          </Button>
+          {kost.status?.toLowerCase() === "pending" && (
+            <>
+              <Button
+                variant="outline"
+                onClick={() => {
+                  onReject(kost);
+                }}
+              >
+                Tolak
+              </Button>
+              <Button
+                onClick={() => {
+                  onApprove(kost);
+                }}
+              >
+                Terima
+              </Button>
+            </>
+          )}
         </div>
       ),
     },
@@ -106,7 +119,7 @@ export function KostSubmissionTable({
       columns={columns}
       data={data}
       loading={loading}
-      emptyMessage="Tidak ada data pengajuan kost saat ini."
+      emptyMessage="Tidak ada data kost saat ini."
       pagination={pagination}
       onPageChange={onPageChange}
     />

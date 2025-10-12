@@ -88,7 +88,7 @@ const KostTypeCard = ({ kostType, kostId }: any) => {
                 {kostType.total_review > 0 ? (
                   <div className="text-base font-semibold">
                     {kostType.average_rating}{" "}
-                    <span className="text-yellow-500">★</span> (
+                    <span className="text-primary-500">★</span> (
                     {kostType.total_review} Reviews)
                   </div>
                 ) : (

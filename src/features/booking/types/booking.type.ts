@@ -33,6 +33,7 @@ export interface RentalRequestCardProps {
   paymentDeadline: string;
   invoiceUnpaid: string;
   reason?: string;
+  note?: string;
 }
 //    roomTypeId: booking.roomType._id,
 

@@ -47,7 +47,7 @@ const OwnerProfile = () => {
           <Image
             alt="Foto Profil"
             className="mb-2 h-32 w-32 rounded-2xl object-cover transition-opacity"
-            src={user?.foto_profil || "/profile-default.png"}
+            src={user?.photo || "/profile-default.png"}
             width={120}
             height={120}
           />

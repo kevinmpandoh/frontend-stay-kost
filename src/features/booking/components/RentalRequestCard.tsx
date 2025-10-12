@@ -29,6 +29,7 @@ const RentalRequestCard: React.FC<RentalRequestCardProps> = ({
   paymentDeadline,
   invoiceUnpaid,
   reason,
+  note,
 }) => {
   const { checkIn, checkingIn } = useTenantBooking(); // gunakan hook
 
@@ -252,7 +253,7 @@ const RentalRequestCard: React.FC<RentalRequestCardProps> = ({
           duration,
           checkInDate,
           checkOutDate, // bisa dari props
-          note: reason,
+          note: note,
         }}
       />
     </div>

@@ -55,6 +55,7 @@ export const useOwnerBooking = (bookingId?: string) => {
     mutationFn: ({ id, room }: { id: string; room: string }) =>
       bookingService.approveBookings(id, room),
     onSuccess: () => {
+      toast.success("Pengajuan sewa berhasil diterima");
       queryClient.invalidateQueries({ queryKey: ["owner-bookings"] }); // Refresh booking list
     },
   });
@@ -62,6 +63,7 @@ export const useOwnerBooking = (bookingId?: string) => {
     mutationFn: ({ bookingId, data }: { bookingId: string; data: any }) =>
       bookingService.rejectBookings(bookingId, data),
     onSuccess: () => {
+      toast.success("Pengajuan sewa berhasil ditolak");
       queryClient.invalidateQueries({ queryKey: ["owner-bookings"] }); // Refresh booking list
     },
   });

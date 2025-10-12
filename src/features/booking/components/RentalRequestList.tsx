@@ -36,6 +36,7 @@ const RentalRequestList = () => {
           paymentDeadline={item?.paymentDeadline}
           invoiceUnpaid={item?.invoiceUnpaid}
           reason={item?.rejectReason}
+          note={item?.note}
         />
       ))}
     </>

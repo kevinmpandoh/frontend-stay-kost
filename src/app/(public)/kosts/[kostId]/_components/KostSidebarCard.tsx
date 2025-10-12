@@ -30,6 +30,9 @@ export default function KostSidebarCard({
   const [showCalendar, setShowCalendar] = useState(false);
   const calendarRef = useRef<HTMLDivElement>(null);
 
+  const isTenant = user?.role === "tenant";
+  const isOwnerOrAdmin = user?.role === "owner" || user?.role === "admin";
+
   const handleSelectDate = (date: Date) => {
     setTanggalMasuk(date);
     setShowCalendar(false);
@@ -40,6 +43,7 @@ export default function KostSidebarCard({
       open();
       return;
     }
+    if (!isTenant) return; // hanya tenant yang bisa chat
     startChat({ roomTypeId: kostId });
   };
 
@@ -69,47 +73,48 @@ export default function KostSidebarCard({
         Rp{price.toLocaleString("id-ID")}
         <span className="text-sm text-gray-500"> / bulan</span>
       </div>
-      {user?.role === "tenant" && availableRooms !== 0 && (
-        <div className="mb-4 space-y-4">
-          <div className="relative mb-4">
-            <label className="mb-2 block text-sm font-medium text-gray-700">
-              Tanggal Masuk
-            </label>
-            <input
-              readOnly
-              type="text"
-              value={
-                tanggalMasuk
-                  ? format(tanggalMasuk, "dd MMMM yyyy", { locale: id })
-                  : ""
-              }
-              onClick={() => setShowCalendar(!showCalendar)}
-              className="w-full cursor-pointer rounded-lg border px-3 py-2 shadow-sm focus:ring focus:ring-blue-200 focus:outline-none"
-              placeholder="Pilih tanggal masuk"
-            />
-            <Calendar
-              size={18}
-              className="absolute top-10 right-3 text-gray-500"
-            />
-          </div>
-
-          {showCalendar && (
-            <div
-              ref={calendarRef}
-              className="absolute z-20 mt-2 rounded-xl border bg-white p-4 shadow-lg"
-            >
-              <SimpleCalendar
-                selectedDate={tanggalMasuk ?? undefined}
-                onSelect={handleSelectDate}
-                minDate={new Date()}
-                maxDate={
-                  new Date(new Date().setMonth(new Date().getMonth() + 3))
+      {isOwnerOrAdmin ||
+        (availableRooms !== 0 && (
+          <div className="mb-4 space-y-4">
+            <div className="relative mb-4">
+              <label className="mb-2 block text-sm font-medium text-gray-700">
+                Tanggal Masuk
+              </label>
+              <input
+                readOnly
+                type="text"
+                value={
+                  tanggalMasuk
+                    ? format(tanggalMasuk, "dd MMMM yyyy", { locale: id })
+                    : ""
                 }
+                onClick={() => setShowCalendar(!showCalendar)}
+                className="w-full cursor-pointer rounded-lg border px-3 py-2 shadow-sm focus:ring focus:ring-blue-200 focus:outline-none"
+                placeholder="Pilih tanggal masuk"
+              />
+              <Calendar
+                size={18}
+                className="absolute top-10 right-3 text-gray-500"
               />
             </div>
-          )}
-        </div>
-      )}
+
+            {showCalendar && (
+              <div
+                ref={calendarRef}
+                className="absolute z-20 mt-2 rounded-xl border bg-white p-4 shadow-lg"
+              >
+                <SimpleCalendar
+                  selectedDate={tanggalMasuk ?? undefined}
+                  onSelect={handleSelectDate}
+                  minDate={new Date()}
+                  maxDate={
+                    new Date(new Date().setMonth(new Date().getMonth() + 3))
+                  }
+                />
+              </div>
+            )}
+          </div>
+        ))}
 
       <div className="text-md mb-4 flex flex-col gap-2 space-y-2 text-gray-600">
         <div className="flex justify-between">
@@ -126,36 +131,37 @@ export default function KostSidebarCard({
         </div>
       </div>
 
-      {user?.role === "tenant" && availableRooms !== 0 && (
-        <div className="space-y-2">
-          <Button
-            type="button"
-            onClick={() => {
-              if (!tanggalMasuk) {
-                setShowCalendar(true); // buka kalender kalau belum pilih tanggal
-                return;
-              }
-              handleBookingClick(
-                format(tanggalMasuk, "yyyy-MM-dd", { locale: id }),
-              );
-            }}
-            size="lg"
-            className="w-full font-semibold"
-          >
-            Booking Sekarang
-          </Button>
+      {isOwnerOrAdmin ||
+        (availableRooms !== 0 && (
+          <div className="space-y-2">
+            <Button
+              type="button"
+              onClick={() => {
+                if (!tanggalMasuk) {
+                  setShowCalendar(true); // buka kalender kalau belum pilih tanggal
+                  return;
+                }
+                handleBookingClick(
+                  format(tanggalMasuk, "yyyy-MM-dd", { locale: id }),
+                );
+              }}
+              size="lg"
+              className="w-full font-semibold"
+            >
+              Booking Sekarang
+            </Button>
 
-          <Button
-            variant={"outline"}
-            onClick={() => handleChatClick(kostId)}
-            className="w-full font-semibold"
-            size={"lg"}
-          >
-            <MessageCircleMore />
-            Chat Pemilik
-          </Button>
-        </div>
-      )}
+            <Button
+              variant={"outline"}
+              onClick={() => handleChatClick(kostId)}
+              className="w-full font-semibold"
+              size={"lg"}
+            >
+              <MessageCircleMore />
+              Chat Pemilik
+            </Button>
+          </div>
+        ))}
     </div>
   );
 }

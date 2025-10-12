@@ -1,5 +1,6 @@
 "use client";
 import { paymentService } from "@/features/payment/services/payment.service";
+import { useAuthStore } from "@/stores/auth.store";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 import { useRouter } from "next/navigation";
@@ -7,10 +8,12 @@ import { toast } from "sonner";
 
 export const usePayment = () => {
   const queryClient = useQueryClient();
+  const { user } = useAuthStore();
   const router = useRouter();
   const { data: tenantPayment, isLoading } = useQuery({
-    queryKey: ["payment-tenant"], // supaya cache terpisah berdasarkan status
-    queryFn: paymentService.getTenantPayments,
+    queryKey: ["payment-tenant", user?.id], // cache terpisah per user
+    queryFn: () => paymentService.getTenantPayments(),
+    enabled: !!user && user.role === "tenant",
   });
 
   const { mutate: confirmPayment, isPending: confirmingPayment } = useMutation({

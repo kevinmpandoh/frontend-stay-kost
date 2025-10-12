@@ -6,12 +6,12 @@ const DownloadAppSection = () => {
     <section className="bg-white py-20">
       <div className="mx-auto grid max-w-7xl items-center gap-12 px-4 md:grid-cols-2">
         {/* Gambar HP / Ilustrasi */}
-        <div className="flex justify-center md:justify-start">
+        <div className="flex justify-center md:justify-center">
           <Image
-            src="/images/screenshot/dashboard-overview.png" // Ganti dengan screenshot atau ilustrasi app kamu
+            src="/images/screenshot/mockup.png" // Ganti dengan screenshot atau ilustrasi app kamu
             alt="Aplikasi Kostku"
-            width={400}
-            height={600}
+            width={300}
+            height={400}
             className="w-full max-w-xs"
           />
         </div>

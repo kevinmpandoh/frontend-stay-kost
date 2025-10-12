@@ -2,7 +2,7 @@ import Link from "next/link";
 
 const CTASection = () => {
   return (
-    <section className="bg-primary/90 flex h-90 items-center py-16 text-white">
+    <section className="bg-primary-600 flex h-90 items-center py-16 text-white">
       <div className="mx-auto max-w-4xl px-4 text-center">
         <h2 className="mb-4 text-3xl font-bold md:text-4xl">
           Temukan & Kelola Kost Lebih Mudah Bersama Kostku!
@@ -17,9 +17,10 @@ const CTASection = () => {
           >
             Mulai Cari Kost
           </Link>
+
           <Link
             href="/register/"
-            className="hover:text-primary cursor-pointer rounded-lg border-2 border-white px-6 py-3 font-semibold text-white transition hover:bg-white/90"
+            className="cursor-pointer rounded-lg border-2 border-white px-6 py-3 font-semibold text-white transition"
           >
             Daftarkan Kost Anda
           </Link>

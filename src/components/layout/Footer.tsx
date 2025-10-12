@@ -68,12 +68,12 @@ const Footer = () => {
               {APP_CONFIG.CONTACT.EMAIL}
             </li>
             <li className="mt-2 flex gap-3">
-              <a href={APP_CONFIG.CONTACT.FB_URL}>
+              <Link href={APP_CONFIG.CONTACT.FB_URL}>
                 <Facebook size={20} />
-              </a>
-              <a href={APP_CONFIG.CONTACT.INSTAGRAM_URL}>
+              </Link>
+              <Link href={APP_CONFIG.CONTACT.INSTAGRAM_URL}>
                 <Instagram size={20} />
-              </a>
+              </Link>
             </li>
           </ul>
         </div>

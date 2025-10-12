@@ -74,12 +74,14 @@ const KostRecomendedSection = () => {
           <div className="relative">
             {/* Tombol navigasi di desktop */}
             <button
+              type="button"
               onClick={() => scroll("left")}
               className="absolute -top-10 right-15 z-10 hidden -translate-y-1/2 rounded-full bg-white p-2 shadow hover:bg-gray-100 md:flex"
             >
               <ChevronLeft />
             </button>
             <button
+              type="button"
               onClick={() => scroll("right")}
               className="absolute -top-10 right-0 z-10 hidden -translate-y-1/2 rounded-full bg-white p-2 shadow hover:bg-gray-100 md:flex"
             >

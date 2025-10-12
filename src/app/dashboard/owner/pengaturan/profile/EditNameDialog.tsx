@@ -58,7 +58,7 @@ export const EditNameDialog = ({
         </DialogHeader>
 
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-          <div>
+          <div className="space-y-2">
             <Label>Nama Lengkap</Label>
             <Input {...register("name")} />
             {errors.name && (

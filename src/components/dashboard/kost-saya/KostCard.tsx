@@ -205,7 +205,7 @@ const KostCard = ({ kost }: { kost: Kost }) => {
               <>
                 <Button variant={"outline"}>
                   <Link
-                    href={`/dashboard/tambah-kost?kost_id=${kost.id}`}
+                    href={`/dashboard/edit-kost?kost_id=${kost.id}`}
                     // className="text-[#3b49df] font-semibold text-sm border border-[#3b49df] rounded px-4 py-1 hover:bg-[#e6e8ff] transition"
                     type="button"
                   >

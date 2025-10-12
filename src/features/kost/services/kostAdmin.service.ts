@@ -2,8 +2,15 @@ import api from "@/lib/api";
 import { handleAxiosError } from "@/utils/handleAxiosError";
 
 export const kostAdminService = {
-  getKostSubmission: async () => {
-    const res = await api.get("/admin/kost");
+  getListKost: async (params?: {
+    page?: number;
+    limit?: number;
+    search?: string;
+    rating?: number;
+  }) => {
+    const res = await api.get("/admin/kost", {
+      params,
+    });
     return res.data;
   },
 

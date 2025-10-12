@@ -28,7 +28,13 @@ const Page = () => {
   }, [kostOwnerData]);
 
   const handleTambahKost = () => {
-    if (usedKost >= currentSubscription?.package?.maxKost) {
+    // package.type: free, basic, pro
+    // package.maxKost: number
+    if (
+      usedKost >= currentSubscription?.package?.maxKost &&
+      currentSubscription?.package?.type !==
+        "premium" /* unlimited bisa tambah kost tanpa batas */
+    ) {
       openUpgrade();
     } else {
       router.push("/dashboard/tambah-kost");

@@ -24,8 +24,8 @@ export const navItemsAdmin: NavItem[] = [
 
     subItems: [
       {
-        name: "Pengajuan Kost",
-        path: "/dashboard/admin/pengajuan-kost",
+        name: "Kost",
+        path: "/dashboard/admin/kost",
       },
 
       { name: "Tagihan", path: "/dashboard/admin/billings" },

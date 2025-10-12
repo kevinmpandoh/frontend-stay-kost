@@ -8,8 +8,8 @@ export const APP_CONFIG = {
 
     ADDRESS: "Jl. Sam Ratulangi No.123, Manado",
 
-    FB_URL: "",
+    FB_URL: "https://facebook.com/",
 
-    INSTAGRAM_URL: "",
+    INSTAGRAM_URL: "https://instagram.com/",
   },
 };

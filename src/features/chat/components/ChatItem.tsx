@@ -42,7 +42,7 @@ const ChatItem = ({
         </div>
         <div className="flex flex-col text-sm">
           <span className="font-semibold text-gray-900">{name}</span>
-          <span className="text-xs italic">{kost || ""}</span>
+          <span className="text-xs">{kost || ""}</span>
           <span className="max-w-[160px] truncate text-gray-500">
             {message}
           </span>

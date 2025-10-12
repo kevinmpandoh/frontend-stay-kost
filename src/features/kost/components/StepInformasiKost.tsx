@@ -4,6 +4,7 @@
 import { Input } from "@/components/form/input/InputField";
 import TextArea from "@/components/form/input/TextArea";
 import Label from "@/components/form/Label";
+import { Checkbox } from "@/components/ui/checkbox";
 import { useOwnerKost } from "@/features/kost/hooks/useOwnerKost";
 import { useRules } from "@/features/rules/hooks/useRules";
 
@@ -231,18 +232,14 @@ export default function Step1Page() {
 
           <div className="grid gap-2 text-base text-[#7A7A7A] md:grid-cols-4">
             {rules?.data?.map((rule: any) => (
-              <label
-                key={rule._id}
-                className="flex min-w-[180px] cursor-pointer items-center gap-2 text-sm"
-              >
-                <input
-                  type="checkbox"
-                  className="accent-blue-600"
+              <div className="flex items-center gap-3" key={rule._id}>
+                <Checkbox
+                  id={rule._id}
                   checked={selectedRules.includes(rule._id)}
-                  onChange={() => toggleRule(rule._id)}
+                  onCheckedChange={() => toggleRule(rule._id)}
                 />
-                {rule.name}
-              </label>
+                <Label htmlFor={rule._id}>{rule.name}</Label>
+              </div>
             ))}
           </div>
         </div>

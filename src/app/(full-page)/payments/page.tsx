@@ -17,6 +17,7 @@ import { APIError } from "@/utils/handleAxiosError";
 import ErrorDisplay from "@/components/errors/ErrorDisplay";
 import { useInvoice } from "@/features/invoice/hooks/useInvoice";
 import { Button } from "@/components/ui/button";
+import { LoadingModal } from "@/components/LoadingModal";
 
 // === Countdown Hook ===
 function useCountdown(expiredAt: string | null) {
@@ -241,6 +242,11 @@ const PaymentPage = () => {
         selected={selectedTemp}
         setSelected={(method) => setSelectedTemp(method)}
         methods={PAYMENT_METHOD}
+      />
+
+      <LoadingModal
+        open={changingMethod}
+        message="Mengganti metode pembayaran..."
       />
     </>
   );

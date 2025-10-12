@@ -9,13 +9,14 @@ import { ReviewTable } from "./ReviewTable";
 import PageHeader from "@/components/common/PageHeader";
 import FilterBar from "@/components/common/FitlerBar";
 import FilterSelect from "@/components/common/FilterSelect";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
 const AdminReviews = () => {
   const [detailReview, setDetailReview] = useState<any | null>(null);
   const { deleteReview } = useAdminReview();
   const confirm = useConfirm();
   const searchParams = useSearchParams();
+  const router = useRouter();
 
   const page = parseInt(searchParams.get("page") ?? "1");
 
@@ -36,6 +37,12 @@ const AdminReviews = () => {
     if (ok) {
       deleteReview.mutate(reviewId);
     }
+  };
+
+  const setPage = (newPage: number) => {
+    const params = new URLSearchParams(searchParams.toString());
+    params.set("page", newPage.toString());
+    router.push(`/dashboard/admin/kost?${params.toString()}`);
   };
 
   if (isLoading) {
@@ -74,6 +81,7 @@ const AdminReviews = () => {
           }
           onDetail={(review) => setDetailReview(review)}
           onDelete={handleDelete}
+          onPageChange={setPage}
         />
       </div>
 

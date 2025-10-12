@@ -10,10 +10,6 @@ export const paymentService = {
     return response.data.data;
   },
 
-  getBillingPayment: async (billingId: string): Promise<Payment | null> => {
-    const res = await api.get(`/tenant/payments/${billingId}`);
-    return res.data.data ?? null;
-  },
   createPayment: async ({
     invoiceId,
     ...payload

@@ -74,9 +74,13 @@ export function BookingTable({
       header: "Aksi",
       render: (b: any) => (
         <div className="flex items-center justify-center gap-2">
-          <Button size="sm" variant="outline" onClick={() => onEdit(b)}>
-            <Pen className="h-4 w-4" />
-          </Button>
+          {b.status === "pending" ||
+            b.status === "waiting_for_payment" ||
+            (b.status === "waiting_for_checkin" && (
+              <Button size="sm" variant="outline" onClick={() => onEdit(b)}>
+                <Pen className="h-4 w-4" />
+              </Button>
+            ))}
           <Button size="sm" variant="ghost" onClick={() => onDetail(b)}>
             <Eye className="h-4 w-4" />
           </Button>

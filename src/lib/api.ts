@@ -24,12 +24,12 @@ api.interceptors.response.use(
           return api.request(error.config);
         }
       } catch (refreshError) {
-        console.error("Refresh token gagal → logout");
-        await axios.post(
-          `${process.env.NEXT_PUBLIC_API_URL}/auth/logout`,
-          {},
-          { withCredentials: true },
-        );
+        console.log(refreshError, "TES");
+        // await axios.post(
+        //   `${process.env.NEXT_PUBLIC_API_URL}/auth/logout`,
+        //   {},
+        //   { withCredentials: true },
+        // );
         const { logout } = useAuthStore.getState();
         logout();
 

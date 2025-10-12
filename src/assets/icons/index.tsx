@@ -175,7 +175,7 @@ export const KipasAnginIcon = () => {
 };
 
 export const LemariIcon = () => {
-  return <Image src={"/icons/lemari.svg"} width={24} height={24} alt="Logo" />;
+  return <Image src={"/icons/lemari.png"} width={24} height={24} alt="Logo" />;
 };
 export const MejaIcon = () => {
   return <Image src={"/icons/meja.png"} width={24} height={24} alt="Logo" />;

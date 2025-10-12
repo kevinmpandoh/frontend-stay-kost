@@ -18,7 +18,8 @@ const HeroSection = ({ onSearch }: HeroSectionProps) => {
       {/* Left Side */}
       <div className="mt-10 w-full md:w-1/3">
         <h1 className="mb-4 text-center text-3xl leading-snug font-bold drop-shadow-2xl md:text-left md:text-5xl md:leading-[3.5rem]">
-          Temukan <span className="text-primary font-bold">Kost Impianmu</span>{" "}
+          Temukan{" "}
+          <span className="text-primary-700 font-bold">Kost Impianmu</span>{" "}
           dengan mudah dan cepat
         </h1>
         <p className="mb-6 text-center text-base font-semibold md:text-left md:text-lg">
@@ -58,9 +59,8 @@ const HeroSection = ({ onSearch }: HeroSectionProps) => {
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               id="default-search"
-              className="focus:border-primary-500 focus:ring-primary-500 dark:focus:border-primary-500 dark:focus:ring-primary-500 block w-full rounded-lg border border-gray-300 bg-gray-50 p-4 ps-10 text-sm text-gray-900 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400"
+              className="focus:border-primary-500 focus:ring-primary-500 dark:focus:border-primary-500 dark:focus:ring-primary-500 block w-full rounded-lg border border-gray-300 bg-gray-50 p-4 ps-10 text-sm text-gray-900 outline-none focus:ring-2 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400"
               placeholder="Cari kost di mana?"
-              required
             />
             <button
               type="submit"

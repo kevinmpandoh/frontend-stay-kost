@@ -38,7 +38,10 @@ export default function Home() {
     isAuthenticated && user?.role === "tenant" && preferences.data;
 
   const handleSearch = (keyword: string) => {
-    if (!keyword.trim()) return;
+    if (!keyword.trim()) {
+      router.push("/kosts");
+      return;
+    }
     router.push(`/kosts?search=${encodeURIComponent(keyword)}`);
   };
 

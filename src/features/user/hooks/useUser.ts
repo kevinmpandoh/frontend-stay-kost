@@ -75,6 +75,7 @@ export const useUser = () => {
         // Update state user
         setUser({ ...user, photo: data.url } as User);
         // Optionally, refetch profile data
+        toast.success("Foto Profile berhasil diuplad");
         queryClient.invalidateQueries({ queryKey: ["user-current"] });
       }
     },

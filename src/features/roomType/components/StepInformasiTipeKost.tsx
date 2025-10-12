@@ -188,7 +188,13 @@ const StepTipeKost = () => {
                 key={ukuran}
                 variant={selectedUkuran === ukuran ? "default" : "outline"}
                 type="button"
-                onClick={() => setValue("ukuran", ukuran)}
+                onClick={() => {
+                  setValue("ukuran", ukuran);
+                  if (ukuran !== "Lainnya") {
+                    setValue("panjangCustom", undefined);
+                    setValue("lebarCustom", undefined);
+                  }
+                }}
                 // className="w-[90px] h-[90px]"
                 className={clsx(
                   "text-sm",

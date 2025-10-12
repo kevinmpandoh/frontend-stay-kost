@@ -1,10 +1,10 @@
 "use client";
 
 import { useState } from "react";
-import { ChevronDown } from "lucide-react";
+import { ChevronDown, Users, Building2 } from "lucide-react";
 import Image from "next/image";
-import { Tabs, TabsList } from "@radix-ui/react-tabs";
-import { TabsTrigger } from "@/components/ui/tabs";
+import { motion, AnimatePresence } from "framer-motion";
+import { cn } from "@/lib/utils";
 
 const penyewaFaqs = [
   {
@@ -22,13 +22,23 @@ const penyewaFaqs = [
     answer:
       "Akan ada pengingat otomatis. Denda berlaku sesuai ketentuan pemilik kost.",
   },
+  {
+    question: "Bisakah saya membatalkan sewa?",
+    answer:
+      "Ya, tapi pastikan untuk membaca kebijakan pembatalan yang berlaku pada kost tersebut.",
+  },
+  {
+    question: "Apakah ada biaya tambahan?",
+    answer:
+      "Biaya tambahan tergantung pada kebijakan pemilik kost. Pastikan untuk menanyakannya sebelum menyewa.",
+  },
 ];
 
 const pemilikFaqs = [
   {
     question: "Bagaimana cara mendaftarkan kost saya?",
     answer:
-      "Klik “Daftarkan Kost”, isi detail kost, fasilitas, harga, lalu publish.",
+      "Buat akun pemilik, lalu klik 'Daftarkan Kost' dan isi detail kost Anda.",
   },
   {
     question: "Apakah saya bisa melihat riwayat sewa penyewa?",
@@ -40,83 +50,121 @@ const pemilikFaqs = [
     answer:
       "Pembayaran dilakukan via sistem, dan dana akan ditransfer otomatis ke rekening Anda setelah penyewa check-in.",
   },
+  {
+    question: "Bagaimana jika penyewa telat membayar?",
+    answer:
+      "Sistem akan mengirimkan pengingat otomatis kepada penyewa. Anda juga dapat mengatur denda keterlambatan sesuai kebijakan Anda.",
+  },
+  {
+    question: "Apakah saya bisa mengelola beberapa kost sekaligus?",
+    answer:
+      "Tentu. Anda dapat menambahkan dan mengelola beberapa properti kost dari satu akun pemilik.",
+  },
 ];
 
 const FAQSection = () => {
-  const [activeTab, setActiveTab] = useState<"tenant" | "owner">("tenant");
+  const [activeRole, setActiveRole] = useState<"tenant" | "owner">("tenant");
   const [openIndex, setOpenIndex] = useState<number | null>(null);
+
+  const faqs = activeRole === "tenant" ? penyewaFaqs : pemilikFaqs;
 
   const toggleFAQ = (index: number) => {
     setOpenIndex(openIndex === index ? null : index);
   };
 
-  const faqs = activeTab === "tenant" ? penyewaFaqs : pemilikFaqs;
-
   return (
     <section className="bg-gray-50 py-20">
       <div className="mx-auto grid max-w-7xl items-start gap-12 px-4 md:grid-cols-2">
-        {/* Kiri: Judul + Deskripsi + Ilustrasi */}
-        <div>
-          <h2 className="mb-4 text-3xl font-bold text-gray-900">
-            Pertanyaan Umum
-          </h2>
-          <p className="mb-6 text-gray-600">
+        {/* Kiri: ilustrasi & deskripsi */}
+        <div className="flex flex-col items-start space-y-4">
+          <h2 className="text-3xl font-bold text-gray-900">Pertanyaan Umum</h2>
+          <p className="max-w-md text-gray-600">
             Temukan jawaban atas pertanyaan yang sering diajukan oleh pengguna
-            kami. Baik kamu seorang penyewa ataupun pemilik kost, kami bantu
-            jelaskan semuanya.
+            kami. Pilih peranmu di bawah untuk melihat pertanyaan yang relevan.
           </p>
           <Image
-            src="/faq-illustration.svg" // Ganti dengan ilustrasi yang kamu punya
+            src="/faq-illustration.svg"
             alt="FAQ Illustration"
-            width={400}
-            height={300}
-            className="w-full max-w-sm"
+            width={350}
+            height={350}
+            className="mt-6 w-full max-w-sm"
           />
         </div>
 
-        {/* Kanan: Tab & FAQ */}
-        <div>
-          {/* Tab */}
-          <div className="bg-white">
-            <Tabs
-              defaultValue="tenant"
-              onValueChange={(v) => {
-                setActiveTab(v as "tenant" | "owner");
-                setOpenIndex(null);
-              }}
-            >
-              <TabsList className="mb-4 grid h-11 w-full grid-cols-2">
-                <TabsTrigger value="tenant">Penyewa Kost</TabsTrigger>
-                <TabsTrigger value="owner">Pemilik Kost</TabsTrigger>
-              </TabsList>
-            </Tabs>
+        {/* Kanan: FAQ */}
+        <div className="rounded-2xl bg-white p-6 shadow-md">
+          {/* Toggle kategori */}
+          <div className="mb-8 flex justify-center">
+            <div className="inline-flex w-90 rounded-xl bg-gray-100 p-1">
+              <button
+                onClick={() => {
+                  setActiveRole("tenant");
+                  setOpenIndex(null);
+                }}
+                className={cn(
+                  "flex w-full items-center justify-center gap-2 rounded-lg px-4 py-2 text-sm font-medium transition-all",
+                  activeRole === "tenant"
+                    ? "bg-[#00a991] text-white shadow"
+                    : "text-gray-700 hover:text-[#00a991]",
+                )}
+              >
+                <Users className="h-4 w-4" />
+                Penyewa
+              </button>
+              <button
+                onClick={() => {
+                  setActiveRole("owner");
+                  setOpenIndex(null);
+                }}
+                className={cn(
+                  "flex w-full items-center justify-center gap-2 rounded-lg px-4 py-2 text-sm font-medium transition-all",
+                  activeRole === "owner"
+                    ? "bg-[#f5b800] text-white shadow"
+                    : "text-gray-700 hover:text-[#f5b800]",
+                )}
+              >
+                <Building2 className="h-4 w-4" />
+                Pemilik
+              </button>
+            </div>
           </div>
 
-          {/* Accordion */}
+          {/* Accordion FAQ */}
           <div className="space-y-4">
-            {faqs.map((faq, index) => (
-              <div
-                key={index}
-                className="rounded-xl border bg-white shadow-sm transition-all"
-              >
-                <button
-                  className="flex w-full items-center justify-between px-5 py-4 text-left font-medium text-gray-800"
-                  onClick={() => toggleFAQ(index)}
+            {faqs.map((faq, index) => {
+              const isOpen = openIndex === index;
+              return (
+                <div
+                  key={index}
+                  className="overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm"
                 >
-                  {faq.question}
-                  <ChevronDown
-                    className={`h-5 w-5 transition-transform ${
-                      openIndex === index ? "rotate-180" : ""
-                    }`}
-                  />
-                </button>
-                {openIndex === index && (
-                  <div className="px-5 pb-4 text-sm text-gray-600">
-                    {faq.answer}
+                  <button
+                    onClick={() => toggleFAQ(index)}
+                    className="flex w-full items-center justify-between px-5 py-4 text-left font-medium text-gray-800 transition hover:bg-gray-50"
+                  >
+                    {faq.question}
+                    <ChevronDown
+                      className={cn(
+                        "h-5 w-5 transform text-gray-500 transition-transform duration-300",
+                        isOpen ? "rotate-180" : "rotate-0",
+                      )}
+                    />
+                  </button>
+
+                  {/* Konten dengan transisi CSS */}
+                  <div
+                    className={cn(
+                      "overflow-hidden transition-all duration-300 ease-in-out",
+                      isOpen ? "max-h-40 opacity-100" : "max-h-0 opacity-0",
+                    )}
+                  >
+                    <div className="px-5 pb-4 text-sm text-gray-600">
+                      {faq.answer}
+                    </div>
                   </div>
-                )}
-              </div>
-            ))}
+                </div>
+              );
+            })}
           </div>
         </div>
       </div>

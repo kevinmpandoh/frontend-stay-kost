@@ -45,7 +45,9 @@ const FooterStep: React.FC<FooterStepProps> = ({
         <Button
           onClick={onNext}
           disabled={
-            currentStep > totalSteps || currentStep > lastCompletedStep + 1
+            mode === "create"
+              ? currentStep > totalSteps || currentStep > lastCompletedStep + 1 // disable jika step lebih besar dari lastCompletedStep
+              : false // di mode edit, next tidak pernah disable
           }
           className="bg-primary text-white"
           size="lg"

@@ -150,9 +150,7 @@ export const KostOwnerService = {
     photoId: string,
   ): Promise<any> => {
     try {
-      const response = await api.delete(
-        `/room-type/${kostTypeId}/photos/${photoId}`,
-      );
+      const response = await api.delete(`/photo-rooms/${photoId}`);
       return response.data;
     } catch (error) {
       throw handleAxiosError(error);

@@ -1,10 +1,11 @@
+import { InputPrice } from "@/components/common/InputPrice";
 import { Input } from "@/components/form/input/InputField";
 import { Label } from "@/components/ui/label";
 import { useKostType } from "@/features/roomType/hooks/useKostType";
 import { useCreateKostStore } from "@/stores/createKost.store";
 import { yupResolver } from "@hookform/resolvers/yup";
 import React, { useEffect } from "react";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import * as yup from "yup";
 
 const step1Schema = yup.object({
@@ -21,6 +22,7 @@ const StepHarga = () => {
   const {
     register,
     handleSubmit,
+    control,
     formState: { errors },
     setValue,
   } = useForm<Step8FormValues>({
@@ -70,10 +72,17 @@ const StepHarga = () => {
         {/* Nama Kost */}
         <div className="mb-6 max-w-lg space-y-2">
           <Label className="text-xl">Harga per Bulan</Label>
-          <Input
-            {...register("harga_perbulan")}
-            type="number"
-            error={errors.harga_perbulan ? true : false}
+          <Controller
+            control={control}
+            name="harga_perbulan"
+            render={({ field }) => (
+              <InputPrice
+                label="Harga yang diinginkan"
+                value={field.value}
+                onChange={(val) => field.onChange(Number(val))}
+                placeholder="Contoh: 1000000"
+              />
+            )}
           />
           {errors.harga_perbulan && (
             <p className="text-sm text-red-500">

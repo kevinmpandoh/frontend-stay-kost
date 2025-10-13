@@ -2,6 +2,7 @@ export const dynamic = "force-dynamic";
 
 import ProtectedRoute from "@/components/HOC/ProtectedRoute";
 import Navbar from "@/components/layout/Navbar";
+import SidebarUser from "@/components/SidebarUser";
 
 // import { SetAuthUser } from "@/components/SetAuthUser";
 // import { getUserFromServer } from "@/services/authServer.service";
@@ -17,8 +18,11 @@ export default async function ProfileTenantLayout({
     <>
       <ProtectedRoute allowedRoles={["tenant"]}>
         <Navbar />
-        <main className="max-w-7xl mx-auto px-6 py-6 flex flex-col lg:flex-row gap-8">
-          {children}
+        <main className="mx-auto flex max-w-7xl flex-col gap-8 px-6 py-6 lg:flex-row">
+          <SidebarUser />
+          <section className="min-h-[556px] w-full rounded-lg border border-gray-200 bg-white px-10 py-8">
+            {children}
+          </section>
         </main>
       </ProtectedRoute>
     </>

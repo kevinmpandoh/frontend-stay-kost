@@ -1,3 +1,5 @@
+// app/robots.ts
+
 import type { MetadataRoute } from "next";
 
 export default function robots(): MetadataRoute.Robots {
@@ -5,7 +7,7 @@ export default function robots(): MetadataRoute.Robots {
     rules: {
       userAgent: "*",
       allow: "/",
-      disallow: ["/dashboard", "/dashboard/admin", "/dashboard/owner"],
+      disallow: ["/dashboard", "/dashboard/*", "/user", "/user/*"],
     },
     sitemap: "https://www.staykost.my.id/sitemap.xml",
   };

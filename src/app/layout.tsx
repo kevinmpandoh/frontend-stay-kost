@@ -1,3 +1,5 @@
+// app/layout.tsx
+
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "../styles/globals.css";
@@ -15,12 +17,13 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: {
+    default: "Stay Kost - Sewa Kost Murah & Nyaman di Seluruh Indonesia",
     template: "%s | Stay Kost - Aplikasi Penyewaan Kost",
-    default: "Stay Kost",
   },
-  description: "Stay Kost - Cari & Kelola Kost Lebih Mudah",
+  description:
+    "Temukan kost murah, kost putri, kost campur di seluruh Indonesia dengan mudah dan cepat. Dapatkan info lengkap fasilitas, lokasi, dan harga.",
   icons: {
-    icon: "/favicon.ico",
+    icon: "favicon.ico",
   },
   keywords: [
     "stay kost",
@@ -35,7 +38,7 @@ export const metadata: Metadata = {
   authors: [{ name: "Kevin Pandoh" }],
   metadataBase: new URL("https://www.staykost.my.id"),
   openGraph: {
-    title: "Aplikasi Penyewaan Kost Online | StayKost",
+    title: "StayKost | Aplikasi Penyewaan Kost Online ",
     description:
       "Cari dan temukan kost dengan mudah, cepat, dan sesuai kebutuhanmu.",
     url: "https://www.staykost.my.id",
@@ -66,7 +69,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="id">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >

@@ -23,7 +23,7 @@ export const metadata: Metadata = {
   description:
     "Temukan kost murah, kost putri, kost campur di seluruh Indonesia dengan mudah dan cepat. Dapatkan info lengkap fasilitas, lokasi, dan harga.",
   icons: {
-    icon: "/logos/logo.svg",
+    icon: "/logo/logo.svg",
   },
   keywords: [
     "stay kost",

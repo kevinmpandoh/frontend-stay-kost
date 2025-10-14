@@ -1,13 +1,9 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-
 import { useRouter, useSearchParams } from "next/navigation";
-
 import { toast } from "sonner";
-
 import { useUser } from "@/features/user/hooks/useUser";
-
 import { useAuthStore } from "@/stores/auth.store";
 
 export default function AuthCallbackPage() {

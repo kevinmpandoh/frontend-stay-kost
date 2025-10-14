@@ -72,15 +72,14 @@ const HeroSection = ({ onSearch }: HeroSectionProps) => {
 
               <button
                 type="submit"
-                className="bg-primary-700 hover:bg-primary-800 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800 absolute end-2.5 bottom-2.5 rounded-lg px-4 py-2 text-sm font-medium text-white focus:ring-4 focus:outline-none"
+                className="bg-primary-600 hover:bg-primary-800 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800 absolute end-2.5 bottom-2.5 rounded-lg px-4 py-2 text-sm font-medium text-white focus:ring-4 focus:outline-none"
               >
                 Cari
               </button>
             </div>
           </form>
 
-          {/* ✅ CTA Button Lihat Semua Kost */}
-          <Button asChild size={"lg"} className="py-6">
+          <Button asChild size={"lg"} className="bg-primary-600 py-6">
             <Link
               href="/kosts"
 
@@ -89,6 +88,7 @@ const HeroSection = ({ onSearch }: HeroSectionProps) => {
               Lihat Semua Kost
             </Link>
           </Button>
+          {/* ✅ CTA Button Lihat Semua Kost */}
           <div className="mt-4 flex justify-center md:justify-start"></div>
         </div>
       </div>

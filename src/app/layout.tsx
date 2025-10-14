@@ -23,7 +23,7 @@ export const metadata: Metadata = {
   description:
     "Temukan kost murah, kost putri, kost campur di seluruh Indonesia dengan mudah dan cepat. Dapatkan info lengkap fasilitas, lokasi, dan harga.",
   icons: {
-    icon: "favicon.ico",
+    icon: "/logos/logo.svg",
   },
   keywords: [
     "stay kost",
@@ -49,6 +49,12 @@ export const metadata: Metadata = {
         width: 1200,
         height: 630,
         alt: "Stay Kost - Aplikasi Penyewaan Kost",
+      },
+      {
+        url: "https://www.staykost.my.id/logo/logo.svg",
+        width: 512,
+        height: 512,
+        alt: "Stay Kost Logo",
       },
     ],
     locale: "id_ID",

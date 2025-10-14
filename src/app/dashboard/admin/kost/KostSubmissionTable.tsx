@@ -38,7 +38,7 @@ export function KostSubmissionTable({
             className="h-20 w-28 rounded-md object-cover"
             height={80}
             width={110}
-            src={kost.photos?.[0].url || "/kost.jpg"}
+            src={kost.photo || "/kost.jpg"}
           />
           <div>
             <span className="block font-medium text-gray-800 dark:text-white/90">

@@ -6,7 +6,7 @@ export default async function sitemap() {
   const baseUrl = "https://www.staykost.my.id";
   const kosts = await kostService.getKostList({ limit: 1000 });
 
-  const kostUrls = kosts.map((kost: any) => ({
+  const kostUrls = kosts.data?.map((kost: any) => ({
     url: `${baseUrl}/kost/${kost.slug}`,
     lastModified: kost.updatedAt || new Date(),
     priority: 0.9,

@@ -5,7 +5,6 @@ import React, { useEffect, useState } from "react";
 import { parse, isAfter, differenceInSeconds } from "date-fns";
 import { id as ind } from "date-fns/locale";
 import { Button } from "@/components/ui/button";
-import { statusColorMap } from "@/constants/statusBadge";
 
 import { RentalRequestCardProps } from "../types/booking.type";
 import { BookingDetailModal } from "./BookingDetailModal";

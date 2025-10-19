@@ -9,7 +9,6 @@ import { useRoom } from "@/features/room/hooks/useRoom";
 import Badge from "@/components/ui/badge2";
 import Avatar from "@/components/ui/avatar2";
 
-import { useChat } from "@/features/chat/hooks/useChat";
 import { useOwnerBooking } from "@/features/booking/hooks/useOwnerBooking";
 import { useOwnerKost } from "@/features/kost/hooks/useOwnerKost";
 

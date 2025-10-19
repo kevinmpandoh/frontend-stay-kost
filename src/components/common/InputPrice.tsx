@@ -19,7 +19,6 @@ interface InputPriceProps {
 }
 
 export function InputPrice({
-  label,
   value,
   onChange,
   placeholder,

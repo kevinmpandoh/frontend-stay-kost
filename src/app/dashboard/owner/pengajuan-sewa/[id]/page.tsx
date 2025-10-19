@@ -69,15 +69,17 @@ export default function PengajuanDetailPage() {
   };
 
   return (
-    <div className="p-6">
+    <div className="p-0 md:p-6">
       {/* Header */}
-      <div className="mb-6 flex items-center gap-2">
+      <div className="mb-4 flex items-center gap-2 md:mb-6">
         <Link href=".">
-          <Button variant="ghost" size="icon">
+          <Button variant="ghost" size="icon" asChild>
             <ArrowLeft className="h-5 w-5" />
           </Button>
         </Link>
-        <h1 className="text-2xl font-semibold">Detail Pengajuan Sewa</h1>
+        <h1 className="text-xl font-semibold md:text-2xl">
+          Detail Pengajuan Sewa
+        </h1>
       </div>
 
       <div className="grid grid-cols-1 gap-8 lg:grid-cols-5">

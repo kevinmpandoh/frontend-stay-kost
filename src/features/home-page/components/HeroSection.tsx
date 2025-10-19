@@ -29,7 +29,7 @@ const HeroSection = ({ onSearch }: HeroSectionProps) => {
           Cari kost berdasarkan lokasi, harga, dan fasilitas yang kamu inginkan.
         </p>
 
-        <div className="flex items-center justify-center gap-4 md:justify-start">
+        <div className="space-y-4 text-center md:text-left">
           {/* Form Pencarian */}
           <form
             onSubmit={handleSubmit}

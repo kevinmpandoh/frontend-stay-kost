@@ -10,7 +10,7 @@ import { KostOwnerService } from "@/features/kost/services/kostOwner.service";
 import { useConfirm } from "@/hooks/useConfirmModal";
 
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { AlertCircle, MapPin } from "lucide-react";
+import { AlertCircle, MapPin, Trash, Trash2 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
@@ -65,35 +65,37 @@ const KostCard = ({ kost }: { kost: Kost }) => {
   };
 
   return (
-    <div className="mb-6 w-full rounded-lg border border-gray-300 bg-white px-6 py-4 shadow">
-      <div className="mb-2 flex items-center justify-between">
-        <div className="min-w-[280px]">
-          {kost.status === "rejected" && kost.rejectionReason && (
-            <Alert variant="destructive">
-              <AlertCircle className="h-4 w-4 text-center" />
-              <AlertDescription>{kost.rejectionReason}</AlertDescription>
-            </Alert>
-          )}
-        </div>
+    <div className="mb-6 w-full rounded-lg border border-gray-300 bg-white px-4 py-2 shadow md:px-6 md:py-4">
+      <div className="mb-2 flex flex-wrap items-start justify-between gap-2">
+        {/* <div className="min-w-[280px]"> */}
+        {kost.status === "rejected" && kost.rejectionReason && (
+          <Alert variant="destructive" className="w-full sm:w-auto">
+            <AlertCircle className="h-4 w-4 text-center" />
+            <AlertDescription>{kost.rejectionReason}</AlertDescription>
+          </Alert>
+        )}
+        {/* </div> */}
         <StatusBadge status={kost.status} />
       </div>
-      <div className="mb-4 flex w-full gap-4">
-        <Image
-          alt="Room"
-          className="h-[180px] w-[250px] flex-shrink-0 rounded-md object-cover"
-          height="90"
-          src={kost.photo || "/kost.jpg"}
-          width="120"
-        />
-        <div className="flex w-full flex-col">
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-start">
+        <div className="w-full md:w-[250px]">
+          <Image
+            alt="Room"
+            className="h-[200px] w-full flex-shrink-0 rounded-md object-cover md:h-[180px]"
+            height="90"
+            src={kost.photo || "/kost.jpg"}
+            width="120"
+          />
+        </div>
+        <div className="flex flex-1 flex-col justify-between">
           <div className="flex flex-col">
             <div className="mb-1 flex items-center gap-2">
               <Badge className="capitalize" variant={"outline"}>
                 {kost.type}
               </Badge>
             </div>
-            <div className="flex justify-between gap-5">
-              <div className="mb-2 ml-2 flex flex-col space-y-2">
+            <div className="flex flex-col justify-between gap-5 md:flex-row">
+              <div className="mb-2 flex flex-col space-y-2">
                 <h2 className="mb-1 text-lg font-semibold text-black">
                   {kost.name}
                 </h2>
@@ -147,7 +149,7 @@ const KostCard = ({ kost }: { kost: Kost }) => {
                   </div>
                 </div> */}
 
-                <div className="flex flex-col items-center justify-center gap-2 border-l-2 border-gray-200 px-5 text-base text-[#6b7280]">
+                <div className="flex flex-col items-start justify-start gap-2 border-gray-200 text-base text-[#6b7280] md:justify-center md:border-l-2 md:px-5">
                   <h3 className="text-lg font-semibold">Tipe Kamar</h3>
 
                   <span className="font-semibold text-[#374151]">
@@ -157,13 +159,13 @@ const KostCard = ({ kost }: { kost: Kost }) => {
               </div>
             </div>
           </div>
-          <div className="flex w-full justify-end gap-2 pt-4">
+          <div className="mt-4 flex flex-wrap justify-end gap-2 sm:gap-3">
             <Button
               size="default"
               variant={"destructive"}
               onClick={() => handleDelete(kost.id)}
             >
-              Hapus
+              <Trash2 className="h-4 w-4" /> Hapus
             </Button>
             {kost.status === "approved" && (
               <>
@@ -172,7 +174,7 @@ const KostCard = ({ kost }: { kost: Kost }) => {
                     href={`/dashboard/edit-kost?kost_id=${kost.id}`}
                     type="button"
                   >
-                    Edit Data Kost
+                    Edit Kost
                   </Link>
                 </Button>
                 <Button>
@@ -181,7 +183,7 @@ const KostCard = ({ kost }: { kost: Kost }) => {
                     // className="text-[#3b49df] font-semibold text-sm border border-[#3b49df] rounded px-4 py-1 hover:bg-[#e6e8ff] transition"
                     type="button"
                   >
-                    Kelola Data Kost
+                    Kelola Tipe Kost
                   </Link>
                 </Button>
               </>

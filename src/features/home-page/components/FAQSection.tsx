@@ -76,7 +76,7 @@ const FAQSection = () => {
     <section className="bg-gray-50 py-20">
       <div className="mx-auto grid max-w-7xl items-start gap-12 px-4 md:grid-cols-2">
         {/* Kiri: ilustrasi & deskripsi */}
-        <div className="flex flex-col items-start space-y-4">
+        <div className="flex flex-col items-center space-y-4 md:items-start">
           <h2 className="text-3xl font-bold text-gray-900">Pertanyaan Umum</h2>
           <p className="max-w-md text-gray-600">
             Temukan jawaban atas pertanyaan yang sering diajukan oleh pengguna
@@ -85,9 +85,9 @@ const FAQSection = () => {
           <Image
             src="/faq-illustration.svg"
             alt="FAQ Illustration"
-            width={350}
-            height={350}
-            className="mt-6 w-full max-w-sm"
+            width={300}
+            height={300}
+            className="mt-6 w-[300px] md:w-[400px]"
           />
         </div>
 
@@ -95,7 +95,7 @@ const FAQSection = () => {
         <div className="rounded-2xl bg-white p-6 shadow-md">
           {/* Toggle kategori */}
           <div className="mb-8 flex justify-center">
-            <div className="inline-flex w-90 rounded-xl bg-gray-100 p-1">
+            <div className="flex w-full max-w-md">
               <button
                 onClick={() => {
                   setActiveRole("tenant");
@@ -151,7 +151,6 @@ const FAQSection = () => {
                     />
                   </button>
 
-                  {/* Konten dengan transisi CSS */}
                   <div
                     className={cn(
                       "overflow-hidden transition-all duration-300 ease-in-out",

@@ -14,7 +14,7 @@ export function ReviewCard({ review }: { review: Review }) {
             <AvatarImage src={review.avatar} />
           ) : (
             <AvatarFallback>
-              {review.name.charAt(0).toUpperCase()}
+              {review.name?.charAt(0).toUpperCase()}
             </AvatarFallback>
           )}
         </Avatar>

@@ -32,6 +32,7 @@ import { AppLogo } from "../common/AppLogo";
 // 🔔 Import NotificationDropdown
 import NotificationDropdown from "../header/NotificationDropdown";
 import { useLoginModal } from "@/stores/loginModal.store";
+import BottomNav from "./BottomNavigation";
 
 const Navbar = () => {
   const { logout } = useAuth();
@@ -82,22 +83,10 @@ const Navbar = () => {
     }
   }, [pathname]);
 
-  const navItems = [
-    { href: "/", label: "Home", icon: Home },
-    { href: "/user/wishlist", label: "Favorit", icon: Heart },
-    { href: "/user/kost-saya", label: "Kost Saya", icon: Building2 },
-    { href: "/pesan", label: "Pesan", icon: MessageCircle },
-    {
-      href: user ? "/profile" : "/login",
-      label: "Profil",
-      icon: user ? User : LogIn,
-    },
-  ];
-
   return (
     <>
       <div className="sticky top-0 left-0 z-50 flex w-full items-center justify-between bg-white shadow-sm">
-        <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-6 md:w-full">
+        <div className="mx-auto flex w-full max-w-7xl items-center justify-between px-4 py-6">
           <div className="flex">
             {/* Logo */}
             <Link href="/" className="text-primary text-xl font-bold">
@@ -133,7 +122,7 @@ const Navbar = () => {
           </div>
 
           {/* Right actions */}
-          <div className="hidden items-center gap-2 sm:flex">
+          <div className="flex items-center gap-2">
             {!isHydrated ? (
               <div className="h-10 w-20 animate-pulse rounded-md bg-gray-200"></div>
             ) : user && user.role === "tenant" ? (
@@ -403,7 +392,8 @@ const Navbar = () => {
       </div>
 
       {/* Mobile Bottom Navigation */}
-      <nav className="fixed bottom-0 left-0 z-40 flex w-full items-center justify-around border-t bg-white py-4 shadow sm:hidden">
+      <BottomNav />
+      {/* <nav className="fixed bottom-0 left-0 z-40 flex w-full items-center justify-around border-t bg-white py-4 shadow sm:hidden">
         {navItems.map(({ href, label, icon: Icon }) => (
           <Link
             key={label}
@@ -417,7 +407,7 @@ const Navbar = () => {
             <span>{label}</span>
           </Link>
         ))}
-      </nav>
+      </nav> */}
 
       {/* Chat Popup */}
       {isOpen && <ChatPopup />}

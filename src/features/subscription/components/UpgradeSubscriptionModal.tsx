@@ -112,7 +112,7 @@ const UpgradeSubscriptionModal = ({
             {selectedPackageId && (
               <div className="mt-6">
                 <p className="mb-3 text-lg font-semibold">Pilih Periode</p>
-                <div className="grid grid-cols-4 gap-3">
+                <div className="flex flex-wrap gap-2">
                   {packages
                     ?.find((p: any) => p._id === selectedPackageId)
                     ?.durations.map((d: any) => (

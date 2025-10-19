@@ -57,7 +57,7 @@ const SidebarUser = () => {
   const { user } = useAuthStore();
 
   return (
-    <aside className="sticky top-[125px] flex h-full flex-col gap-6 lg:w-2/5">
+    <aside className="top-[125px] flex h-full flex-col gap-6 lg:sticky lg:w-2/5">
       <div
         className="flex items-center gap-4 rounded-lg border bg-white p-6 shadow-md"
         style={{ boxShadow: "0 4px 8px rgb(0 0 0 / 0.05)" }}

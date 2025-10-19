@@ -68,7 +68,7 @@ export default function KostSidebarCard({
   }, [showCalendar]);
 
   return (
-    <div className="w-full max-w-sm rounded-2xl border border-gray-200 bg-white p-6">
+    <div className="w-full rounded-2xl border border-gray-200 bg-white p-6 lg:max-w-sm">
       <div className="mb-2 text-2xl font-semibold text-gray-800">
         Rp{price.toLocaleString("id-ID")}
         <span className="text-sm text-gray-500"> / bulan</span>

@@ -122,9 +122,9 @@ const PengajuanSewaList = () => {
       {bookings.data.map((data: any, index: number) => (
         <div
           key={index}
-          className="mb-6 w-full rounded-lg border border-gray-300 bg-white p-6 shadow"
+          className="mb-6 w-full rounded-lg border border-gray-300 bg-white p-4 shadow sm:p-6"
         >
-          <div className="mb-4 flex items-start justify-between">
+          <div className="mb-3 flex flex-wrap items-start justify-between gap-2">
             <StatusBadge status={data.status} />
             {data.status === "pending" && (
               <Badge color={"warning"}>
@@ -133,56 +133,53 @@ const PengajuanSewaList = () => {
             )}
           </div>
           {/* <div className="flex gap-4"> */}
-          <div className="flex-1">
-            <div className="flex justify-between">
-              <div className="flex gap-4">
-                <Avatar src={"/profile-default.png"} />
-                <div>
-                  <span className="block text-base font-semibold text-gray-700 dark:text-gray-400">
-                    {data.tenant.name}
-                  </span>
-                  <span className="mt-0.5 block text-sm text-gray-500 dark:text-gray-400">
-                    {data.kost.namaKost}
-                  </span>
-                </div>
+          <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+            <div className="flex items-center gap-3">
+              <Avatar src={"/profile-default.png"} />
+              <div>
+                <span className="block text-base font-semibold text-gray-700 dark:text-gray-400">
+                  {data.tenant.name}
+                </span>
+                <span className="mt-0.5 block text-sm text-gray-500 dark:text-gray-400">
+                  {data.kost.namaKost}
+                </span>
+              </div>
+            </div>
+
+            <div className="mt-2 flex justify-between text-sm text-gray-600 sm:mt-0 sm:flex-row sm:items-center sm:gap-8">
+              <div className="flex flex-col gap-2 border-gray-200 text-sm text-[#6b7280] sm:border-l-2 sm:px-10">
+                <h3 className="text-sm font-semibold lg:text-lg">Mulai Sewa</h3>
+
+                <span className="font-semibold text-[#374151]">
+                  {data.tanggalMasuk}
+                </span>
               </div>
 
-              <div className="mb-2 flex gap-10">
-                <div className="flex flex-col gap-2 border-l-2 border-gray-200 px-10 text-sm text-[#6b7280]">
-                  <h3 className="text-lg font-semibold">Mulai Sewa</h3>
+              <div className="flex flex-col gap-2 border-gray-200 text-sm text-[#6b7280] sm:border-x-2 sm:px-10">
+                <h3 className="text-lg font-semibold">Durasi</h3>
 
-                  <span className="font-semibold text-[#374151]">
-                    {data.tanggalMasuk}
-                  </span>
-                </div>
-
-                <div className="flex flex-col gap-2 border-l-2 border-gray-200 px-10 text-sm text-[#6b7280]">
-                  <h3 className="text-lg font-semibold">Durasi</h3>
-
-                  <span className="font-semibold text-[#374151]">
-                    {data.durasi} Bulan
-                  </span>
-                </div>
-
-                <div className="flex items-center justify-center gap-2 border-l-2 border-gray-200 px-10 text-sm text-[#6b7280]">
-                  <Button variant="ghost" asChild>
-                    <Link href={`pengajuan-sewa/${data.id}`}>Lihat Detail</Link>
+                <span className="font-semibold text-[#374151]">
+                  {data.durasi} Bulan
+                </span>
+              </div>
+            </div>
+            <div className="mt-6 flex items-end justify-end gap-2 border-gray-200 text-sm text-[#6b7280]">
+              <Button variant="ghost" asChild>
+                <Link href={`pengajuan-sewa/${data.id}`}>Lihat Detail</Link>
+              </Button>
+              {data.status === "pending" && (
+                <>
+                  <Button
+                    variant="outline"
+                    onClick={() => handleOpenModal(data, "tolak")}
+                  >
+                    Tolak
                   </Button>
-                  {data.status === "pending" && (
-                    <>
-                      <Button
-                        variant="outline"
-                        onClick={() => handleOpenModal(data, "tolak")}
-                      >
-                        Tolak
-                      </Button>
-                      <Button onClick={() => handleOpenModal(data, "terima")}>
-                        Terima
-                      </Button>
-                    </>
-                  )}
-                </div>
-              </div>
+                  <Button onClick={() => handleOpenModal(data, "terima")}>
+                    Terima
+                  </Button>
+                </>
+              )}
             </div>
           </div>
         </div>

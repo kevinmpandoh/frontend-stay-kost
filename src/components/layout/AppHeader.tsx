@@ -137,29 +137,28 @@ const AppHeader: React.FC = () => {
           <div
             className={`${
               isApplicationMenuOpen ? "flex" : "hidden"
-            } shadow-theme-md w-full items-center justify-between gap-4 px-5 py-4 lg:flex lg:justify-end lg:px-0 lg:shadow-none`}
+            } shadow-theme-md w-full items-center justify-end gap-4 px-5 py-4 lg:flex lg:justify-end lg:px-0 lg:shadow-none`}
           >
-            <div className="2xsm:gap-3 flex items-center gap-2">
-              {user && user.role !== "admin" && (
-                <div className="relative">
-                  <button
-                    className="dropdown-toggle bg-primary-50 relative flex h-10 w-10 items-center justify-center rounded-full border border-gray-200 text-gray-500 transition-colors hover:bg-gray-100 hover:text-gray-700 dark:border-gray-800 dark:bg-gray-900 dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-white"
-                    onClick={() => togglePopup()}
-                  >
-                    <MessageSquare className="text-primary-500" size={20} />
-                  </button>
-                </div>
-              )}
+            {user && user.role !== "admin" && (
+              <div className="relative">
+                <button
+                  className="dropdown-toggle bg-primary-50 relative flex h-10 w-10 items-center justify-center rounded-full border border-gray-200 text-gray-500 transition-colors hover:bg-gray-100 hover:text-gray-700 dark:border-gray-800 dark:bg-gray-900 dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-white"
+                  onClick={() => togglePopup()}
+                >
+                  <MessageSquare className="text-primary-500" size={20} />
+                </button>
+              </div>
+            )}
 
-              {/* <!-- Dark Mode Toggler --> */}
+            {/* <!-- Dark Mode Toggler --> */}
 
-              <NotificationDropdown
-                isOpen={openDropdown === "notification"}
-                onToggle={() => toggleDropdown("notification")}
-                onClose={closeDropdown}
-              />
-              {/* <!-- Notification Menu Area --> */}
-            </div>
+            <NotificationDropdown
+              isOpen={openDropdown === "notification"}
+              onToggle={() => toggleDropdown("notification")}
+              onClose={closeDropdown}
+            />
+            {/* <!-- Notification Menu Area --> */}
+
             {/* <!-- User Area --> */}
             <UserDropdown
               isOpen={openDropdown === "user"}

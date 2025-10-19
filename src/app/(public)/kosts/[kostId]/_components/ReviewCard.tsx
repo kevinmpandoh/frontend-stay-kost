@@ -1,6 +1,6 @@
 import { Review } from "@/types/Review.type";
 
-import { Star, StarHalf, StarOff } from "lucide-react";
+import { Star, StarHalf } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { format, isValid, parseISO } from "date-fns";
 import { id } from "date-fns/locale";

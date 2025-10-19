@@ -1,5 +1,4 @@
 import { InputPrice } from "@/components/common/InputPrice";
-import { Input } from "@/components/form/input/InputField";
 import { Label } from "@/components/ui/label";
 import { useKostType } from "@/features/roomType/hooks/useKostType";
 import { useCreateKostStore } from "@/stores/createKost.store";
@@ -20,7 +19,6 @@ type Step8FormValues = yup.InferType<typeof step1Schema>;
 
 const StepHarga = () => {
   const {
-    register,
     handleSubmit,
     control,
     formState: { errors },

@@ -2,7 +2,7 @@
 "use client";
 
 import React, { ReactNode } from "react";
-import StepSidebar from "../../../components/layout/StepSidebarCreate";
+
 import FooterStep from "../../../components/layout/FooterStep";
 import { useCreateKostStore } from "@/stores/createKost.store";
 import { useRouter, useSearchParams } from "next/navigation";

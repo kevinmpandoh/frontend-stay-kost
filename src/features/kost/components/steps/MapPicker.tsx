@@ -32,7 +32,7 @@ export default function MapPicker({ value, onChange }: MapPickerProps) {
   const fetchAddress = async (lat: number, lng: number) => {
     try {
       const res = await fetch(
-        `https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lng}&format=json`
+        `https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lng}&format=json`,
       );
       const data = await res.json();
       if (data?.display_name) {

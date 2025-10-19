@@ -8,7 +8,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
-import { X, Upload, MapPin } from "lucide-react";
+import { MapPin } from "lucide-react";
 import Image from "next/image";
 
 interface BookingDetailModalProps {

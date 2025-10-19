@@ -1,6 +1,6 @@
 "use client";
 import { ArrowLeft } from "lucide-react";
-import Image from "next/image";
+
 import Link from "next/link";
 import { useEffect, useState, useRef } from "react";
 import { useRouter } from "next/navigation";
@@ -19,7 +19,7 @@ const VerifyOTPForm = () => {
   const { verifyOTP, resendOTP } = useAuth();
 
   const { isAuthenticated, isHydrated } = useAuthStore();
-  const { hasHydrated, justRegistered, email, phone } = useRegisterStore();
+  const { hasHydrated, justRegistered, email } = useRegisterStore();
 
   useEffect(() => {
     if (hasHydrated && isHydrated && !justRegistered && !isAuthenticated) {

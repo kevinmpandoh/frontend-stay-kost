@@ -10,7 +10,7 @@ import { KostOwnerService } from "@/features/kost/services/kostOwner.service";
 import { useConfirm } from "@/hooks/useConfirmModal";
 
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { AlertCircle, MapPin, Trash, Trash2 } from "lucide-react";
+import { AlertCircle, MapPin, Trash2 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";

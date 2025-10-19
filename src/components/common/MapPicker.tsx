@@ -28,7 +28,7 @@ interface MapPickerProps {
 }
 
 export default function MapPicker({
-  initialPosition = [1.26678, 124.88303],
+  initialPosition = [1.266779561933604, 124.88303463952415],
   onChange,
   height = "400px",
   width = "100%",

@@ -9,16 +9,11 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { Button } from "@/components/ui/button";
 
 import { format } from "date-fns";
 import { id } from "date-fns/locale";
 import { cn } from "@/lib/utils";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
+
 import { PayoutDetailDialog } from "./PayoutDetailDialog";
 
 import Image from "next/image";
@@ -26,7 +21,6 @@ import { findPaymentMethod } from "@/utils/findPaymentMethod";
 import PageHeader from "@/components/common/PageHeader";
 import { useAdminPayouts } from "@/features/payout/hooks/useAdminPayout";
 import { Badge } from "@/components/ui/badge";
-import { Info } from "lucide-react";
 import { useConfirm } from "@/hooks/useConfirmModal";
 import FilterBar from "@/components/common/FitlerBar";
 import SearchInput from "@/components/common/SearchInput";

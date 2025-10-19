@@ -4,7 +4,7 @@ import SimpleCalendar from "@/components/ui/calendar2";
 import { useEffect, useRef, useState } from "react";
 import { format } from "date-fns";
 import { id } from "date-fns/locale";
-import { Calendar, MessageCircle, MessageCircleMore } from "lucide-react";
+import { Calendar, MessageCircleMore } from "lucide-react";
 import { useAuthStore } from "@/stores/auth.store";
 import { useLoginModal } from "@/stores/loginModal.store";
 import { useChat } from "@/features/chat/hooks/useChat";

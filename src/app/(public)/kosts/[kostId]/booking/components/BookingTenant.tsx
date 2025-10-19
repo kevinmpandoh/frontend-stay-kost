@@ -6,8 +6,6 @@ import { useKost } from "@/features/kost/hooks/useKost";
 import BookingForm from "./BookingForm";
 import BookingSidebar from "./BookingSidebar";
 
-import { ArrowLeft } from "lucide-react";
-import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useBookingStore } from "@/features/booking/booking.store";

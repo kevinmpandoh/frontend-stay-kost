@@ -106,7 +106,7 @@ export default function StepFotoKost() {
         },
       );
     });
-  }, [setOnNext, setCurrentStep, submitPhotoKost, kostId]);
+  }, [setOnNext, setCurrentStep, submitPhotoKost, kostId, setIsSubmitSuccess]);
 
   const handleDelete = async (kategori: Photo["kategori"], photoId: string) => {
     setDeletingPhotoId(photoId);

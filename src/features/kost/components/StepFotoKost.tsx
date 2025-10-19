@@ -25,12 +25,6 @@ type Photo = {
 const MAX_SIZE_MB = 5;
 const MAX_PHOTOS_PER_CATEGORY = 5;
 
-const kategoriList: Photo["category"][] = [
-  "tampak_depan",
-  "dalam_bangunan",
-  "dari_jalan",
-];
-
 export default function StepFotoKost() {
   const [uploadingKategori, setUploadingKategori] = useState<
     Photo["category"] | null

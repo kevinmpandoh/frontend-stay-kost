@@ -1,7 +1,5 @@
 // app/kosts/[kostId]/page.tsx
-import { Metadata } from "next";
 import DetailKost from "./_components/DetailKost";
-import { kostService } from "@/features/kost/services/kost.service";
 
 // export async function generateMetadata({
 //   params,

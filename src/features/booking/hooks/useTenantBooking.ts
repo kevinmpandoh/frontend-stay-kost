@@ -1,7 +1,7 @@
 "use client";
 // hooks/useWishlist.ts
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 import { toast } from "sonner";
 import { bookingService } from "../booking.service";

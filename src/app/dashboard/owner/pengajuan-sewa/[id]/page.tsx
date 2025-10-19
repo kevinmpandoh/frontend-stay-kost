@@ -8,10 +8,7 @@ import Image from "next/image";
 
 import { useBooking } from "@/features/booking/hooks/useBooking";
 import { useParams } from "next/navigation";
-import {
-  BookingStatus,
-  StopRequestStatus,
-} from "@/features/booking/types/booking.type";
+import { BookingStatus } from "@/features/booking/types/booking.type";
 import { useState } from "react";
 import KonfirmasiModal from "@/components/dashboard/pengajuan-sewa/KonfirmasiModal";
 import { useOwnerBooking } from "@/features/booking/hooks/useOwnerBooking";

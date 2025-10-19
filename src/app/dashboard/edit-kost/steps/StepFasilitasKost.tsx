@@ -70,7 +70,14 @@ const StepFasilitasKost = () => {
         );
       }),
     );
-  }, [setOnNext, setCurrentStep, handleSubmit, saveFacilities, kostId]);
+  }, [
+    setOnNext,
+    setCurrentStep,
+    handleSubmit,
+    setIsSubmitSuccess,
+    saveFacilities,
+    kostId,
+  ]);
   if (isLoading) return <p>Loading...</p>;
 
   const handleToggle = (id: string) => {

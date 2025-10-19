@@ -2,10 +2,8 @@
 
 import React, { useState } from "react";
 
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useRouter, useSearchParams } from "next/navigation";
 import RejectKostModal from "./RejectKostModal";
-import { kostAdminService } from "@/features/kost/services/kostAdmin.service";
 import PageHeader from "@/components/common/PageHeader";
 import { KostSubmissionTable } from "./KostSubmissionTable";
 import { useConfirm } from "@/hooks/useConfirmModal";

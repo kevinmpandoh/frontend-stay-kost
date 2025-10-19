@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useState } from "react";
 
 export default function FileUpload() {
@@ -8,7 +9,7 @@ export default function FileUpload() {
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFiles = Array.from(e.target.files || []);
     const newFiles = selectedFiles.filter(
-      (file) => file.size <= 2 * 1024 * 1024
+      (file) => file.size <= 2 * 1024 * 1024,
     ); // max 2MB
     setFiles((prev) => [...prev, ...newFiles]);
   };
@@ -18,11 +19,11 @@ export default function FileUpload() {
   };
 
   return (
-    <div className="p-4 border border-dashed border-gray-300 rounded-lg max-w-xl mx-auto">
-      <div className="text-center py-10 bg-gray-50 rounded-md border border-gray-200 mb-4">
-        <span className="inline-flex justify-center items-center size-16">
+    <div className="mx-auto max-w-xl rounded-lg border border-dashed border-gray-300 p-4">
+      <div className="mb-4 rounded-md border border-gray-200 bg-gray-50 py-10 text-center">
+        <span className="inline-flex size-16 items-center justify-center">
           <svg
-            className="shrink-0 w-16 h-auto"
+            className="h-auto w-16 shrink-0"
             width="71"
             height="51"
             viewBox="0 0 71 51"
@@ -113,7 +114,7 @@ export default function FileUpload() {
           Drop your file here or{" "}
           <label
             htmlFor="file-upload"
-            className="text-blue-600 cursor-pointer hover:underline"
+            className="cursor-pointer text-blue-600 hover:underline"
           >
             browse
           </label>
@@ -130,20 +131,22 @@ export default function FileUpload() {
       </div>
 
       {/* Preview */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
         {files.map((file, index) => {
           const url = URL.createObjectURL(file);
           return (
             <div
               key={index}
-              className="relative group border rounded-md p-1 shadow-sm"
+              className="group relative rounded-md border p-1 shadow-sm"
             >
-              <img
+              <Image
                 src={url}
                 alt={file.name}
-                className="w-full h-24 object-cover rounded-md"
+                className="h-24 w-full rounded-md object-cover"
+                width={120}
+                height={120}
               />
-              <div className="mb-1 flex justify-between items-center pt-2 gap-x-3 whitespace-nowrap">
+              <div className="mb-1 flex items-center justify-between gap-x-3 pt-2 whitespace-nowrap">
                 <div className="w-10">
                   <span className="text-sm text-gray-800 dark:text-white">
                     <span>100</span>%
@@ -154,11 +157,11 @@ export default function FileUpload() {
                   <button
                     type="button"
                     onClick={() => handleRemove(index)}
-                    className="text-gray-500 hover:text-gray-800 focus:outline-hidden focus:text-gray-800 dark:text-neutral-500 dark:hover:text-neutral-200 dark:focus:text-neutral-200"
+                    className="text-gray-500 hover:text-gray-800 focus:text-gray-800 focus:outline-hidden dark:text-neutral-500 dark:hover:text-neutral-200 dark:focus:text-neutral-200"
                     data-hs-file-upload-remove=""
                   >
                     <svg
-                      className="shrink-0 size-3.5"
+                      className="size-3.5 shrink-0"
                       xmlns="http://www.w3.org/2000/svg"
                       width="24"
                       height="24"
@@ -180,11 +183,11 @@ export default function FileUpload() {
               </div>
 
               <div
-                className="flex w-full h-2 bg-gray-200 rounded-full overflow-hidden dark:bg-neutral-700"
+                className="flex h-2 w-full overflow-hidden rounded-full bg-gray-200 dark:bg-neutral-700"
                 role="progressbar"
               >
                 <div
-                  className="flex flex-col justify-center rounded-full overflow-hidden bg-blue-600 text-xs text-white text-center whitespace-nowrap transition-all duration-500 hs-file-upload-complete:bg-green-500"
+                  className="hs-file-upload-complete:bg-green-500 flex flex-col justify-center overflow-hidden rounded-full bg-blue-600 text-center text-xs whitespace-nowrap text-white transition-all duration-500"
                   style={{ width: 120 }}
                 ></div>
               </div>

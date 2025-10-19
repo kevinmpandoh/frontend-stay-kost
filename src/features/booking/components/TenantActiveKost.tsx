@@ -1,15 +1,11 @@
 "use client";
 
 import {
-  AlertTriangle,
-  CheckCircle,
   Clipboard,
-  Clock,
   MapPin,
   MessageSquareText,
   Star,
   Wallet,
-  XCircle,
 } from "lucide-react";
 import Image from "next/image";
 import React, { useState } from "react";

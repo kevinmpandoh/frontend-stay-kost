@@ -2,10 +2,9 @@
 
 import { Button } from "@/components/ui/button";
 
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import KonfirmasiModal from "./KonfirmasiModal";
 import { useRoom } from "@/features/room/hooks/useRoom";
-import { useRouter, useSearchParams } from "next/navigation";
 
 import Badge from "@/components/ui/badge2";
 import Avatar from "@/components/ui/avatar2";
@@ -13,12 +12,12 @@ import Avatar from "@/components/ui/avatar2";
 import { useChat } from "@/features/chat/hooks/useChat";
 import { useOwnerBooking } from "@/features/booking/hooks/useOwnerBooking";
 import { useOwnerKost } from "@/features/kost/hooks/useOwnerKost";
-import DetailPengajuanModal from "./DetailBookingModal";
+
 import Link from "next/link";
 import { StatusBadge } from "@/components/common/StatusBadge";
 import StatusFilter from "@/components/common/StatusFilter";
 import SelectFilter from "@/components/common/SelectFilter";
-import SortSelect from "@/components/common/SortSelect";
+
 import FilterBar from "@/components/common/FitlerBar";
 import SearchInput from "@/components/common/SearchInput";
 import { PaginationControls } from "@/components/common/Pagination";
@@ -27,8 +26,6 @@ const PengajuanSewaList = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedBooking, setSelectedBooking] = useState<any>(null);
   const [modalType, setModalType] = useState<"terima" | "tolak" | null>(null);
-  const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 5;
 
   const { getAvaibleRooms } = useRoom(
     selectedBooking ? selectedBooking.kost.roomTypeId : "",
@@ -37,8 +34,6 @@ const PengajuanSewaList = () => {
   const { bookings, isLoading, approveBooking, rejectBooking } =
     useOwnerBooking();
   const { kostOwner, loadingKostOwner } = useOwnerKost();
-
-  const { getChatTenant } = useChat();
 
   const statusList = [
     { key: "all", label: "Semua" },

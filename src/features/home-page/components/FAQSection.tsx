@@ -3,7 +3,6 @@
 import { useState } from "react";
 import { ChevronDown, Users, Building2 } from "lucide-react";
 import Image from "next/image";
-import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
 
 const penyewaFaqs = [

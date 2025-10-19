@@ -3,8 +3,6 @@
 import { Button } from "@/components/ui/button";
 import { Info, Star, Trash } from "lucide-react";
 import { CommonTable } from "@/components/common/CommonTable";
-import { format } from "date-fns";
-import { id } from "date-fns/locale";
 import Image from "next/image";
 
 interface ReviewTableProps {

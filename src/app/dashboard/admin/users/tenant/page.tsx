@@ -12,9 +12,6 @@ import Image from "next/image";
 import { useQuery } from "@tanstack/react-query";
 import React from "react";
 
-import { Button } from "@/components/ui/button";
-import { useState } from "react";
-import ConfirmDeleteModal from "@/components/ui/ConfirmModalDelete";
 import { userService } from "@/features/user/services/user.service";
 import PageHeader from "@/components/common/PageHeader";
 

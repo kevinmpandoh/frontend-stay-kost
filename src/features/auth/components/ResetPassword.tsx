@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { useSearchParams, useRouter } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import { useForm } from "react-hook-form";
 
 import { Input } from "@/components/ui/input";
@@ -15,7 +15,7 @@ import { Label } from "@/components/ui/label";
 
 const ResetPasswordForm = () => {
   const searchParams = useSearchParams();
-  const router = useRouter();
+
   const token = searchParams.get("token");
 
   const [showPassword, setShowPassword] = useState(false);

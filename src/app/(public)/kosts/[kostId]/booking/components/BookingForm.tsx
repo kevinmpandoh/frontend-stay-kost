@@ -1,11 +1,9 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 
 import { Controller, useForm } from "react-hook-form";
 import DurasiSelector from "./DurasiSelector";
-import UploadDocument from "./UploadDocument";
-import TanggalMasukModal from "./BookingDateModal";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
@@ -19,18 +17,10 @@ import { useTenantBooking } from "@/features/booking/hooks/useTenantBooking";
 import { useUser } from "@/features/user/hooks/useUser";
 import { Label } from "@/components/ui/label";
 import DatePicker from "./DatePicker";
-import PhotoUpload from "./PhotoUpload";
 import { Textarea } from "@/components/ui/textarea";
 
 interface BookingFormProps {
   kostId: string; // id kost yang mau di-booking
-}
-
-interface FormValues {
-  durasi: number;
-  tanggalMasuk: string;
-  ktp?: File | null | undefined; // ktp boleh null
-  catatan?: string | null; // bukan opsional lagi
 }
 
 const BookingForm = ({ kostId }: BookingFormProps) => {
@@ -39,7 +29,7 @@ const BookingForm = ({ kostId }: BookingFormProps) => {
   const { createBooking, creating } = useTenantBooking();
   const { userCurrent } = useUser();
 
-  const { data: user, isLoading } = userCurrent;
+  const { data: user } = userCurrent;
 
   const onSubmit = async (data: BookingFormData) => {
     const date = new Date(data.startDate);
@@ -64,14 +54,7 @@ const BookingForm = ({ kostId }: BookingFormProps) => {
     }
   };
 
-  const {
-    register,
-    handleSubmit,
-    control,
-    watch,
-    setValue,
-    formState: { errors },
-  } = useForm<BookingFormData>({
+  const { register, handleSubmit, control } = useForm<BookingFormData>({
     resolver: zodResolver(bookingSchema),
     defaultValues: {
       duration: 1,

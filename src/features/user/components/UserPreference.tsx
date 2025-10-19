@@ -4,8 +4,6 @@ import { useEffect } from "react";
 import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@/components/ui/button";
-import { Checkbox } from "@/components/ui/checkbox";
-import { Label } from "@/components/ui/label";
 import { InputPrice } from "@/components/common/InputPrice";
 
 const MapPicker = dynamic(() => import("@/components/common/MapPicker"), {
@@ -13,7 +11,6 @@ const MapPicker = dynamic(() => import("@/components/common/MapPicker"), {
 });
 
 import { usePreference } from "@/features/preference/hooks/usePreference";
-import { useRules } from "@/features/rules/hooks/useRules";
 import { useFacility } from "@/features/facility/useFacility";
 import {
   preferenceSchema,
@@ -50,7 +47,9 @@ export default function PreferensiPengguna() {
       roomFacilities: [],
       kostType: "putra",
       rules: [],
-      address: { coordinates: { lat: -6.1751, lng: 106.865 } },
+      address: {
+        coordinates: { lat: 1.266779561933604, lng: 124.88303463952415 },
+      },
     },
   });
 
@@ -64,7 +63,7 @@ export default function PreferensiPengguna() {
         kostType: data.kostType || "",
         rules: data.rules || [],
         address: data.location || {
-          coordinates: { lat: -6.1751, lng: 106.865 },
+          coordinates: { lat: 1.266779561933604, lng: 124.88303463952415 },
         },
       });
     }

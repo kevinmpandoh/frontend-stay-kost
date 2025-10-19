@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { usePayout } from "@/features/payout/hooks/usePayout";
+
 // import PayoutModal from "@/components/owner/payout/PayoutModal";
 import PayoutModal from "./PayoutModal";
 import { Button } from "@/components/ui/button";

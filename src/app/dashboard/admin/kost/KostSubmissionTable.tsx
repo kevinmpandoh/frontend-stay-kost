@@ -1,7 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { Eye, MapPin, Pen } from "lucide-react";
+import { Eye, MapPin } from "lucide-react";
 import { CommonTable } from "@/components/common/CommonTable";
 import { format } from "date-fns";
 import { id } from "date-fns/locale";

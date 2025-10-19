@@ -3,13 +3,9 @@ import { KostOwnerService } from "@/features/kost/services/kostOwner.service";
 
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { photoKostService } from "../services/photoKost.service";
-import { useCreateKostStore } from "@/stores/createKost.store";
-import { useRouter } from "next/navigation";
 
 export const usePhotoKost = ({ kostId }: { kostId?: string }) => {
   const queryClient = useQueryClient();
-  const { setCurrentStep, setOnNext } = useCreateKostStore();
-  const router = useRouter();
   const {
     data: photoKost,
     isLoading: isLoadingPhoto,
@@ -28,7 +24,7 @@ export const usePhotoKost = ({ kostId }: { kostId?: string }) => {
       kostId: string;
       formData: FormData;
     }) => KostOwnerService.uploadPhotoKost(kostId, formData),
-    onSuccess: (res) => {
+    onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["photo-kost", kostId] });
     },
   });

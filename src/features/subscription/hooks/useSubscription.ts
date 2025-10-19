@@ -12,7 +12,7 @@ export const useSubscription = () => {
   // Query subscription aktif
   const {
     data: currentSubscription,
-    isLoading: isLoadingSub,
+
     isError,
     refetch,
   } = useQuery({

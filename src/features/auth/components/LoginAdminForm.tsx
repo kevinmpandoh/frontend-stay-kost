@@ -7,14 +7,12 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { LoginFormInputs, loginSchema } from "../auth.schema";
 import { useAuth } from "../../../hooks/useAuth";
-import Link from "next/link";
+
 import { useState } from "react";
 import { Eye, EyeOff, KeyRound, Mail } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { GoogleIcon } from "@/assets/icons";
 import { AppLogo } from "@/components/common/AppLogo";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 export default function LoginAdminForm() {
   const {

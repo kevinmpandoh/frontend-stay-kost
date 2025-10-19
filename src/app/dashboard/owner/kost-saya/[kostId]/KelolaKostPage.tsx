@@ -2,8 +2,8 @@
 import { Button } from "@/components/ui/button";
 
 // import { useKost } from "@/hooks/useKost";
-import { ArrowLeft, MapPin, Plus } from "lucide-react";
-import Link from "next/link";
+import { MapPin, Plus } from "lucide-react";
+
 import React, { useMemo } from "react";
 import KostTypeCard from "./KostTypeCard";
 import { useOwnerKost } from "@/features/kost/hooks/useOwnerKost";

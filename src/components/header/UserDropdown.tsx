@@ -3,14 +3,7 @@ import Image from "next/image";
 import React from "react";
 import { Dropdown } from "../ui/dropdown/Dropdown";
 import { DropdownItem } from "../ui/dropdown/DropdownItem";
-import {
-  Banknote,
-  CalendarClock,
-  KeyRound,
-  LogOut,
-  Settings,
-  User,
-} from "lucide-react";
+import { Banknote, CalendarClock, KeyRound, LogOut, User } from "lucide-react";
 import { useAuthStore } from "@/stores/auth.store";
 import { useAuth } from "@/hooks/useAuth";
 

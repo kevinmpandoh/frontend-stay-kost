@@ -100,6 +100,7 @@ export default function StepInformasiKost() {
     editKost,
     router,
     setValue,
+    setIsSubmitSuccess,
     informasiKost,
     kostId,
   ]);

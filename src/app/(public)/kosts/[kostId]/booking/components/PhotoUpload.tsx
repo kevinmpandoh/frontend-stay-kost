@@ -2,6 +2,7 @@
 
 import { useRef, useState } from "react";
 import { X } from "lucide-react";
+import Image from "next/image";
 
 type PhotoUploadProps = {
   label?: string;
@@ -9,11 +10,7 @@ type PhotoUploadProps = {
   onChange: (file: File | null) => void;
 };
 
-export default function PhotoUpload({
-  label,
-  value,
-  onChange,
-}: PhotoUploadProps) {
+export default function PhotoUpload({ label, onChange }: PhotoUploadProps) {
   const inputRef = useRef<HTMLInputElement>(null);
   const [preview, setPreview] = useState<string | null>(null);
 
@@ -37,9 +34,11 @@ export default function PhotoUpload({
 
       {preview ? (
         <div className="relative h-40 w-40">
-          <img
+          <Image
             src={preview}
             alt="Preview"
+            width={120}
+            height={120}
             className="h-full w-full rounded-lg border object-cover"
           />
           <button

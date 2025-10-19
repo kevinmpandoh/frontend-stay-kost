@@ -5,11 +5,8 @@ import {
   ClipboardList,
   Home,
   LayoutDashboard,
-  PieChart,
-  Settings,
   Star,
   User,
-  Users,
 } from "lucide-react";
 
 export const navItemsAdmin: NavItem[] = [

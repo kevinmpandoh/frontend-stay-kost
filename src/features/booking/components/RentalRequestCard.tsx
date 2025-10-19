@@ -5,7 +5,7 @@ import React, { useEffect, useState } from "react";
 import { parse, isAfter, differenceInSeconds } from "date-fns";
 import { id as ind } from "date-fns/locale";
 import { Button } from "@/components/ui/button";
-import { statusColorMap, statusLabelMap } from "@/constants/statusBadge";
+import { statusColorMap } from "@/constants/statusBadge";
 
 import { RentalRequestCardProps } from "../types/booking.type";
 import { BookingDetailModal } from "./BookingDetailModal";
@@ -105,10 +105,6 @@ const RentalRequestCard: React.FC<RentalRequestCardProps> = ({
     }
   };
 
-  const badgeStyle = statusColorMap[status] || {
-    text: "text-gray-600",
-    bg: "bg-gray-200",
-  };
   return (
     <div className="mb-6 max-w-3xl rounded-lg border border-gray-300 p-4">
       <div className="mb-2 flex items-start justify-between">

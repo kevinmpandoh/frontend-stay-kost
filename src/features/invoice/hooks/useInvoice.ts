@@ -1,7 +1,6 @@
 // hooks/useBilling.ts
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { invoiceService } from "@/features/invoice/services/invoice.service";
-import { useRouter } from "next/navigation";
 
 type UseInvoiceProps = {
   status?: string;
@@ -11,13 +10,7 @@ type UseInvoiceProps = {
   invoiceNumber?: string;
 };
 
-export const useInvoice = ({
-  status,
-  search,
-  month,
-  bookingId,
-  invoiceNumber,
-}: UseInvoiceProps) => {
+export const useInvoice = ({ bookingId, invoiceNumber }: UseInvoiceProps) => {
   const queryClient = useQueryClient();
 
   const { data: billings, isLoading: loadingBillings } = useQuery({

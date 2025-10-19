@@ -1,6 +1,6 @@
 // config/navItemsOwner.ts
 import { NavItem } from "@/components/layout/DashboardSidebar";
-import { LayoutDashboard, Home, Banknote, Star, Settings } from "lucide-react";
+import { LayoutDashboard, Home, Star } from "lucide-react";
 
 export const navItemsOwner: NavItem[] = [
   { icon: <LayoutDashboard />, name: "Beranda", path: "/dashboard/owner" },

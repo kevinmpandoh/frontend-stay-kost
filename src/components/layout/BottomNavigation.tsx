@@ -7,23 +7,17 @@ import {
   Home,
   Search,
   Building2,
-  MessageSquare,
   User,
   LogIn,
-  PlusSquare,
-  X,
   LayoutDashboard,
   Heart,
 } from "lucide-react";
 import { usePathname, useRouter } from "next/navigation";
-import { useState, useEffect } from "react";
 
 export default function BottomNav() {
   const { user, isAuthenticated } = useAuthStore();
   const pathname = usePathname();
   const router = useRouter();
-  const [showMessageModal, setShowMessageModal] = useState(false);
-
   const { togglePopup, isOpen } = useChatPopupStore();
 
   // 🧭 Menu berdasarkan role

@@ -91,7 +91,14 @@ export default function StepAlamatKost() {
         // if (!isDataChanged) return;
       }),
     );
-  }, [handleSubmit, setOnNext, setCurrentStep, saveAddress, kostId]);
+  }, [
+    handleSubmit,
+    setOnNext,
+    setIsSubmitSuccess,
+    setCurrentStep,
+    saveAddress,
+    kostId,
+  ]);
 
   useEffect(() => {
     if (!alamatKost) return;

@@ -5,7 +5,7 @@ import { useQuery } from "@tanstack/react-query";
 import Image from "next/image";
 import { useState } from "react";
 import { Badge } from "@/components/ui/badge";
-import { MapPin, BedDouble, Star, ChevronRight, X } from "lucide-react";
+import { ChevronRight, X } from "lucide-react";
 import BackLink from "@/components/common/BackLink";
 import { kostAdminService } from "@/features/kost/services/kostAdmin.service";
 import { StatusBadge } from "@/components/common/StatusBadge";

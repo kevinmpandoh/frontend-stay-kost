@@ -3,22 +3,17 @@
 import { Mail, Phone } from "lucide-react";
 import { useState } from "react";
 
-import { useAuthStore } from "@/stores/auth.store";
 import { ProfilePicture } from "./ProfilePicture";
 import { EditProfileModal } from "./EditProfileModal";
 import { UserProfileInfo } from "./UserProfileInfo";
 
-import { yupResolver } from "@hookform/resolvers/yup";
-import { changePasswordSchema } from "@/validation/tenant.validation";
-import { useForm } from "react-hook-form";
-import { Button } from "../../../components/ui/button";
 import { useUser } from "@/features/user/hooks/useUser";
 
 export default function InformasiAkun() {
   // const user = useAuthStore((state) => state.user);
 
   const { userCurrent } = useUser();
-  const { data: user, isLoading } = userCurrent;
+  const { data: user } = userCurrent;
 
   const { updateCurrentUser } = useUser();
 

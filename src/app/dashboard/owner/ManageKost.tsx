@@ -1,13 +1,6 @@
 "use client";
 
-import {
-  Bell,
-  ChevronRight,
-  DoorOpen,
-  Handshake,
-  Home,
-  UserPlus2,
-} from "lucide-react";
+import { Bell, ChevronRight, DoorOpen, Handshake, Home } from "lucide-react";
 import Link from "next/link";
 import React from "react";
 

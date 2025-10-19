@@ -8,7 +8,6 @@ import { useSubscription } from "@/features/subscription/hooks/useSubscription";
 import Link from "next/link";
 
 import { useSubscriptionInvoice } from "@/features/subscription/hooks/useSubscriptionInvoice";
-import { Badge } from "@/components/ui/badge";
 import ExtendSubscriptionModal from "@/features/subscription/components/ExtendSubscriptionModal";
 import { useModalStore } from "@/stores/modal.store";
 import SubscriptionActiveCard from "./SubscriptionActiveCard";

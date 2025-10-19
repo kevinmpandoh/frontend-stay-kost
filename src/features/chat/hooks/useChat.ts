@@ -7,7 +7,7 @@ import { chatService } from "../chat.service";
 
 export const useChat = () => {
   const queryClient = useQueryClient();
-  const { isOpen, openPopup, openPopupWithChatId } = useChatPopupStore();
+  const { openPopup, openPopupWithChatId } = useChatPopupStore();
   const { user } = useAuthStore();
 
   const chatList = useQuery({

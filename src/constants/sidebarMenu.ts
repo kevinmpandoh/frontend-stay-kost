@@ -1,8 +1,6 @@
 import {
   LayoutDashboard,
   Home,
-  Banknote,
-  Star,
   Settings,
   Users,
   BarChart2,

@@ -2,6 +2,7 @@
 
 import { useRef, useState } from "react";
 import { X } from "lucide-react";
+import Image from "next/image";
 
 type PhotoUploadMultipleProps = {
   label?: string;
@@ -45,10 +46,12 @@ export default function PhotoUploadMultiple({
       <div className="flex flex-wrap gap-3">
         {previews.map((src, i) => (
           <div key={i} className="relative h-32 w-32">
-            <img
+            <Image
               src={src}
               alt={`Preview-${i}`}
               className="h-full w-full rounded-lg border object-cover"
+              width={120}
+              height={120}
             />
             <button
               type="button"

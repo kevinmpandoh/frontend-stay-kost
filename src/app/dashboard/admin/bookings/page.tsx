@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { bookingService } from "@/features/booking/booking.service";
 import { toast } from "sonner";
 import { useRouter, useSearchParams } from "next/navigation";

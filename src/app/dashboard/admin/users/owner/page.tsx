@@ -10,10 +10,8 @@ import {
 } from "@/components/ui/table";
 import Image from "next/image";
 import { useQuery } from "@tanstack/react-query";
-import React, { useState } from "react";
+import React from "react";
 
-import ConfirmDeleteModal from "@/components/ui/ConfirmModalDelete";
-import EditOwnerModal from "./EditOwnerModal";
 import { PAYMENT_METHOD } from "@/constants/paymentMethod";
 import { userService } from "@/features/user/services/user.service";
 import PageHeader from "@/components/common/PageHeader";
@@ -32,8 +30,6 @@ const OwnerListPage = () => {
     queryFn: () => userService.getAllOwners(),
   });
   const owners = data || [];
-
-  const [showEditModal, setShowEditModal] = useState(false);
 
   if (isLoading) {
     <h1>Loading</h1>;

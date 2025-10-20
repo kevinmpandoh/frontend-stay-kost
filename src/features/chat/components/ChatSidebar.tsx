@@ -5,7 +5,9 @@ import { useChatPopupStore } from "@/stores/chatPopup.store";
 import ChatItem from "./ChatItem";
 import { User } from "@/features/user/user.type";
 import { Input } from "@/components/ui/input";
-import { Search } from "lucide-react";
+import { Search, X } from "lucide-react";
+import { useMediaQuery } from "@/hooks/useMediaQuery";
+import { Badge } from "@/components/ui/badge";
 
 interface ChatSidebarProps {
   chats: {
@@ -28,8 +30,9 @@ interface ChatSidebarProps {
 }
 
 const ChatSidebar = ({ chats, selectedChatId, user }: ChatSidebarProps) => {
-  const { setSelectedChatId } = useChatPopupStore();
+  const { setSelectedChatId, closePopup } = useChatPopupStore();
   const [search, setSearch] = useState("");
+  const isMobile = useMediaQuery("(max-width: 768px)");
 
   const handleSelect = (chatId: string) => {
     setSelectedChatId(chatId);
@@ -48,39 +51,22 @@ const ChatSidebar = ({ chats, selectedChatId, user }: ChatSidebarProps) => {
     });
   }, [chats, search, user.role]);
 
-  if (!chats || chats.length === 0) {
-    return (
-      <div className="flex w-[260px] flex-col border-r border-gray-200">
-        <div className="flex items-center justify-between px-6 py-4">
-          <h2 className="text-lg font-bold">Chat</h2>
-          <span className="rounded-md bg-gray-200 px-2 py-0.5 text-xs font-semibold text-gray-700 select-none">
-            0
-          </span>
-        </div>
-        <div className="px-4 pb-4">
-          <div className="relative text-gray-400">
-            <input
-              type="text"
-              placeholder="Search..."
-              className="w-full rounded-md border border-gray-300 py-2 pr-10 pl-3 text-sm placeholder-gray-400 focus:border-blue-600 focus:ring-1 focus:ring-blue-600 focus:outline-none"
-              disabled
-            />
-          </div>
-        </div>
-        <div className="flex h-full flex-1 items-center justify-center">
-          <p className="text-gray-400">No chats available</p>
-        </div>
-      </div>
-    );
-  }
-
   return (
-    <div className="flex w-[260px] flex-col border-r border-gray-200">
-      <div className="flex items-center justify-between px-6 py-4">
-        <h2 className="text-lg font-bold">Chat</h2>
-        <span className="rounded-md bg-gray-200 px-2 py-0.5 text-xs font-semibold text-gray-700 select-none">
-          {filteredChats.length}
-        </span>
+    <div className="flex w-full flex-col border-r border-gray-200 sm:w-[260px]">
+      <div className="flex items-center justify-between p-6">
+        <div className="flex items-center gap-2">
+          <h2 className="text-lg font-bold">Chat</h2>
+          <Badge>{filteredChats.length}</Badge>
+        </div>
+        {isMobile && (
+          <button
+            aria-label="Close chat"
+            className="text-gray-400 hover:text-gray-600 focus:outline-none"
+            onClick={closePopup}
+          >
+            <X />
+          </button>
+        )}
       </div>
       <div className="px-4 pb-4">
         <div className="relative text-gray-400">

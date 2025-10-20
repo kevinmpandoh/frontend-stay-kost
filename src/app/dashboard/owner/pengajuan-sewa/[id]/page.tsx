@@ -6,7 +6,6 @@ import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 
-import { useBooking } from "@/features/booking/hooks/useBooking";
 import { useParams } from "next/navigation";
 import { BookingStatus } from "@/features/booking/types/booking.type";
 import { useState } from "react";
@@ -14,19 +13,26 @@ import KonfirmasiModal from "@/components/dashboard/pengajuan-sewa/KonfirmasiMod
 import { useOwnerBooking } from "@/features/booking/hooks/useOwnerBooking";
 import { useRoom } from "@/features/room/hooks/useRoom";
 import { useChat } from "@/features/chat/hooks/useChat";
+import { bookingService } from "@/features/booking/booking.service";
+import { useQuery } from "@tanstack/react-query";
 
 export default function PengajuanDetailPage() {
   const { id } = useParams(); // ambil bookingId dari URL
-  const { getDetailBooking } = useBooking(id as string);
   const [modalType, setModalType] = useState<"terima" | "tolak" | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const { data, isLoading, isError } = getDetailBooking;
 
   const { rejectBooking, approveBooking } = useOwnerBooking(id as string);
+
+  const { data, isLoading, isError } = useQuery({
+    queryKey: ["owner-bookings", id],
+    queryFn: () => bookingService.getDetailBooking(id as string),
+    enabled: !!id,
+  });
   const { getAvaibleRooms } = useRoom(data?.kost?.roomTypeId || "");
 
   const { startChat } = useChat();
 
+  console.log(data, "DATA");
   if (isLoading) {
     return <div className="p-6">Loading...</div>;
   }
@@ -150,7 +156,7 @@ export default function PengajuanDetailPage() {
           <div className="border-t" />
 
           {/* Dokumen */}
-          <section className="space-y-3">
+          {/* <section className="space-y-3">
             <h2 className="text-xl font-semibold">Kelengkapan Dokumen</h2>
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-1">
@@ -176,7 +182,7 @@ export default function PengajuanDetailPage() {
                 </div>
               </div>
             </div>
-          </section>
+          </section> */}
         </div>
 
         {/* Kanan - Sticky Card */}

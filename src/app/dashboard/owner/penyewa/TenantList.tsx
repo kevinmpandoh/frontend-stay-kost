@@ -3,9 +3,14 @@ import { useOwnerBooking } from "@/features/booking/hooks/useOwnerBooking";
 import React from "react";
 import TenantCard from "./TenantCard";
 import SearchInput from "@/components/common/SearchInput";
+import { useQuery } from "@tanstack/react-query";
+import { bookingService } from "@/features/booking/booking.service";
 
 const TenantList = () => {
-  const { activeBooking, loadingActive } = useOwnerBooking();
+  const { data: activeBooking, isLoading: loadingActive } = useQuery({
+    queryKey: ["bookingActive"],
+    queryFn: bookingService.getActiveOwnerBooking,
+  });
 
   if (loadingActive) {
     return (

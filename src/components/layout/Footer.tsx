@@ -6,7 +6,7 @@ import { APP_CONFIG } from "@/constants/contact";
 
 const Footer = () => {
   return (
-    <footer className="bg-primary-800 pt-16 text-gray-100">
+    <footer className="bg-primary-800 mb-14 pt-16 text-gray-100 md:mb-0">
       <div className="mx-auto grid max-w-7xl gap-10 p-4 md:grid-cols-4">
         {/* Logo & Deskripsi */}
         <div>

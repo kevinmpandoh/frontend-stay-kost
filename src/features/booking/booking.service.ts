@@ -28,10 +28,6 @@ export const bookingService = {
     return response.data;
   },
 
-  getBiodataTenant: async (bookingId: string) => {
-    const response = await api.get(`/bookings/${bookingId}/active`);
-    return response.data.data;
-  },
   approveBookings: async (bookingId: string, room: string) => {
     const response = await api.patch(`/bookings/${bookingId}/approve`, {
       room,

@@ -5,7 +5,7 @@ import { bookingService } from "../booking.service";
 
 export const useBooking = (bookingId?: string) => {
   const getDetailBooking = useQuery({
-    queryKey: ["ownerBookings", bookingId],
+    queryKey: ["owner-bookings", bookingId],
     queryFn: () => bookingService.getDetailBooking(bookingId!),
     enabled: !!bookingId,
   });

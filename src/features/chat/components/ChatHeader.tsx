@@ -28,7 +28,7 @@ const ChatHeader = ({ name, image, isLoading }: ChatHeaderProps) => {
     );
   }
   return (
-    <div className="flex items-center justify-between border-b border-gray-200 px-6 py-4">
+    <div className="flex items-center justify-between border-b border-gray-200 py-4 sm:px-6">
       <div className="mr-4 flex items-center space-x-4">
         <Image
           src={image}
@@ -37,7 +37,7 @@ const ChatHeader = ({ name, image, isLoading }: ChatHeaderProps) => {
           width={40}
           height={40}
         />
-        <div className="max-w-[230px]">
+        <div className="sm:max-w-[230px]">
           <p
             className="truncate font-semibold text-gray-900"
             title={name} // Tooltip saat hover

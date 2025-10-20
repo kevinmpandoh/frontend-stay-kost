@@ -22,6 +22,11 @@ export default function BookingSuccess() {
     // setelah tampilkan success, clear supaya tidak bisa akses ulang
   }, [success, router]);
 
+  const handleClick = () => {
+    router.push("/user/pengajuan-sewa");
+    // clearBooking();
+  };
+
   if (loading) {
     return (
       <div className="flex min-h-screen items-center justify-center">
@@ -30,7 +35,7 @@ export default function BookingSuccess() {
     );
   }
   return (
-    <div className="flex h-[710px] w-full flex-col items-center justify-center p-8 text-center">
+    <div className="flex h-[600px] w-full flex-col items-center justify-center p-8 text-center">
       <Image
         src="/success-booking.svg"
         alt="Success Illustration"
@@ -45,24 +50,23 @@ export default function BookingSuccess() {
         Tunggu konfirmasi dari pemilik kost paling lambat 1x 24 jam dari
         sekarang
       </p>
-      <Button
-        onClick={() => {
-          clearBooking();
-          router.push("/user/pengajuan-sewa");
-        }}
-        // href="/user/pengajuan-sewa"
-        size={"lg"}
-        className="mb-2"
-      >
-        Lihat Status Pengajuan
-      </Button>
+      <div>
+        <Button
+          onClick={handleClick}
+          // href="/user/pengajuan-sewa"
+          size={"lg"}
+          className="mb-2 w-full"
+        >
+          Lihat Status Pengajuan
+        </Button>
 
-      <Link
-        href="/kosts"
-        className="border-primary text-primary block rounded border px-4 py-2"
-      >
-        Lihat Kost yang Lain
-      </Link>
+        <Link
+          href="/kosts"
+          className="border-primary text-primary block rounded border px-4 py-2"
+        >
+          Lihat Kost yang Lain
+        </Link>
+      </div>
     </div>
   );
 }

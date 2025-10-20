@@ -105,19 +105,19 @@ const RentalRequestCard: React.FC<RentalRequestCardProps> = ({
   };
 
   return (
-    <div className="mb-6 max-w-3xl rounded-lg border border-gray-300 p-4">
-      <div className="mb-2 flex items-start justify-between">
+    <div className="mb-6 max-w-3xl rounded-lg border border-gray-300 bg-white p-4 shadow-sm transition hover:shadow-md">
+      <div className="mb-4 flex flex-wrap items-center justify-between gap-2">
         <p className="text-md font-semibold text-black">{date}</p>
         <StatusBadge status={status} />
       </div>
-      <div className="flex gap-4">
-        <Link href={`/kosts/${kostId}`}>
+      <div className="flex flex-col gap-4 sm:flex-row">
+        <Link href={`/kosts/${kostId}`} className="flex-shrink-0 sm:w-[150px]">
           <Image
             alt="Room"
-            className="h-[100px] w-[120px] flex-shrink-0 rounded-md object-cover"
-            height="90"
+            className="h-[180px] w-full flex-shrink-0 rounded-md object-cover sm:h-[120px] sm:w-[150px]"
+            height="120"
             src={imageUrl || "/kost.jpg"}
-            width="120"
+            width="150"
           />
         </Link>
         <div className="flex-1">
@@ -126,8 +126,8 @@ const RentalRequestCard: React.FC<RentalRequestCardProps> = ({
               {category}
             </Badge>
           </div>
-          <div className="flex justify-between">
-            <div className="mb-2 flex flex-col">
+          <div className="flex flex-col gap-3 sm:flex-row sm:justify-between">
+            <div>
               <h2 className="mb-1 text-xl font-semibold text-black">
                 {kostName}
               </h2>
@@ -139,7 +139,7 @@ const RentalRequestCard: React.FC<RentalRequestCardProps> = ({
                 Rp {price?.toLocaleString("id-ID")}
               </p>
             </div>
-            <div className="mb-2 flex gap-8">
+            <div className="mb-2 flex flex-wrap gap-4">
               <div className="mb-1 flex flex-col gap-2 text-sm text-gray-600">
                 <div className="flex items-center gap-2">
                   <Calendar size={18} />
@@ -164,51 +164,43 @@ const RentalRequestCard: React.FC<RentalRequestCardProps> = ({
         </div>
       </div>
 
-      <div className="mt-2 flex w-full items-center justify-between gap-4">
-        {/* Kiri (countdown atau reason) */}
-        <div className="flex items-center gap-4">
+      <div className="mt-3 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+        {/* Info countdown / alasan */}
+        <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
           {countdown && status === "waiting_for_payment" && (
-            <div
-              className="rounded-lg bg-yellow-50 px-4 py-2 text-sm text-yellow-800 dark:bg-gray-800 dark:text-yellow-300"
-              role="alert"
-            >
+            <div className="rounded-lg bg-yellow-50 px-3 py-2 text-xs text-yellow-800 sm:text-sm">
               Sisa waktu pembayaran:{" "}
-              <span className="font-semibold">
-                {countdown || "Waktu Habis"}
-              </span>
+              <span className="font-semibold">{countdown}</span>
             </div>
           )}
           {reason && (
-            <div className="rounded bg-red-50 px-2 py-1.5 text-sm text-red-500">
+            <div className="rounded bg-red-50 px-3 py-2 text-xs text-red-500 sm:text-sm">
               {reason}
             </div>
           )}
           {status === "waiting_for_checkin" && !canCheckIn && countdown && (
-            <div className="text-warning-500 mt-1 text-sm">
+            <div className="text-sm text-orange-500">
               Check-in tersedia dalam{" "}
               <span className="font-semibold">{countdown}</span>
             </div>
           )}
         </div>
 
-        {/* Kanan (semua tombol) */}
-        <div className="flex items-center gap-2.5">
-          <Button variant="ghost" onClick={() => setOpenModal(true)}>
+        {/* Tombol aksi */}
+        <div className="flex flex-wrap justify-end gap-2">
+          <Button variant="ghost" size="sm" onClick={() => setOpenModal(true)}>
             Lihat Detail
           </Button>
 
           {status === "pending" && (
-            <Button type="button" variant="outline" asChild>
+            <Button type="button" variant="outline" size="sm" asChild>
               <Link href="/kosts">Cari Kost Lain</Link>
             </Button>
           )}
 
           {status === "waiting_for_payment" && (
-            <Button asChild type="button">
-              <Link
-                href={`/payments?invoice=${invoiceUnpaid}`}
-                // className="rounded bg-[#3b49df] px-4 py-2 text-sm font-semibold text-white transition hover:bg-[#2a37b8]"
-              >
+            <Button asChild type="button" size="sm">
+              <Link href={`/payments?invoice=${invoiceUnpaid}`}>
                 Bayar Sekarang
               </Link>
             </Button>
@@ -218,7 +210,7 @@ const RentalRequestCard: React.FC<RentalRequestCardProps> = ({
             <Button
               onClick={handleCheckIn}
               disabled={!canCheckIn || checkingIn}
-              type="button"
+              size="sm"
             >
               {checkingIn
                 ? "Memproses..."
@@ -229,7 +221,7 @@ const RentalRequestCard: React.FC<RentalRequestCardProps> = ({
           )}
 
           {status === "Aktif" && (
-            <Button>
+            <Button size="sm" asChild>
               <Link href="/user/kost-saya">Kost Saya</Link>
             </Button>
           )}

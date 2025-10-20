@@ -1,4 +1,5 @@
 import ProtectedRoute from "@/components/HOC/ProtectedRoute";
+import Footer from "@/components/layout/Footer";
 import Navbar from "@/components/layout/Navbar";
 
 export default async function ProfileTenantLayout({
@@ -10,12 +11,12 @@ export default async function ProfileTenantLayout({
 
   return (
     <>
-      <ProtectedRoute allowedRoles={["tenant", "owner"]}>
+      {/* <ProtectedRoute allowedRoles={["tenant", "owner"]}>
         <Navbar />
-        <main className="mx-auto flex max-w-7xl flex-col gap-8 px-6 py-6 lg:flex-row">
-          {children}
-        </main>
-      </ProtectedRoute>
+        <main className="mx-auto flex max-w-7xl justify-center gap-8 px-6 py-6"> */}
+      {children}
+      {/* </main>
+      </ProtectedRoute> */}
     </>
   );
 }

@@ -129,7 +129,7 @@ const PengajuanSewaList = () => {
           {/* <div className="flex gap-4"> */}
           <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <div className="flex items-center gap-3">
-              <Avatar src={"/profile-default.png"} />
+              <Avatar src={data.tenant.avatarUrl || "/profile-default.png"} />
               <div>
                 <span className="block text-base font-semibold text-gray-700 dark:text-gray-400">
                   {data.tenant.name}

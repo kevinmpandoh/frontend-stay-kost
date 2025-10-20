@@ -82,7 +82,9 @@ const TableBillingOwner = ({
                 {billing.status === "paid" && billing.payout ? (
                   <>
                     {billing.payout.status === "pending" ? (
-                      <Badge className="bg-warning-500 text-sm">Pending</Badge>
+                      <Badge className="bg-warning-500 text-sm">
+                        Menunggu proses Admin
+                      </Badge>
                     ) : billing.payout.status === "processed" ? (
                       <Badge className="bg-warning-500 text-sm">
                         Sedang diproses Admin

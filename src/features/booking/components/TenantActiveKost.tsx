@@ -9,14 +9,11 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 import React, { useState } from "react";
-
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-
 import { ReviewModal } from "./ReviewModal";
 import { TagihanModal } from "./TagihanModal";
 import { KontrakModal } from "./KontrakModal";
-
 import { useChat } from "@/features/chat/hooks/useChat";
 import { useTenantBooking } from "../hooks/useTenantBooking";
 import { useConfirm } from "@/hooks/useConfirmModal";
@@ -41,10 +38,7 @@ export function TenantActiveKost() {
   const handleReviewSubmit = (rating: number, review: string) => {
     reviewKost({
       bookingId: data.bookingId,
-      data: {
-        rating,
-        comment: review,
-      },
+      data: { rating, comment: review },
     });
   };
 
@@ -55,12 +49,10 @@ export function TenantActiveKost() {
       confirmText: "Ya",
       cancelText: "Tidak",
     });
-
-    if (ok) {
-      checkOut(data.bookingId);
-    }
+    if (ok) checkOut(data.bookingId);
   };
 
+  // Loading state
   if (loadingActive) {
     return (
       <div className="space-y-4">
@@ -74,24 +66,22 @@ export function TenantActiveKost() {
     );
   }
 
+  // Empty state
   if (!data || data.length > 0) {
     return (
-      <div className="flex h-[50vh] flex-col items-center justify-center space-y-4">
+      <div className="flex h-[50vh] flex-col items-center justify-center space-y-4 text-center">
         <Image
           src={"/Empty.svg"}
-          alt="Empty state illustration"
-          width={240}
-          height={240}
-          className="mb-4 h-48 w-48"
+          alt="Empty state"
+          width={180}
+          height={180}
+          className="mb-2 h-40 w-40"
         />
-        <p className="text-lg text-gray-500">Belum ada Kost yang aktif.</p>
-        <Button asChild>
-          <Link
-            href={"/kosts"}
-            // className="rounded-md bg-blue-600 px-4 py-2 text-white transition duration-200 hover:bg-blue-700"
-          >
-            Cari Kost
-          </Link>
+        <p className="text-base text-gray-500 sm:text-lg">
+          Belum ada Kost yang aktif.
+        </p>
+        <Button asChild size="lg">
+          <Link href={"/kosts"}>Cari Kost</Link>
         </Button>
       </div>
     );
@@ -100,60 +90,59 @@ export function TenantActiveKost() {
   return (
     <>
       <div className="flex h-full flex-col justify-between">
+        {/* Bagian Atas - Informasi Kost */}
         <div>
-          <div>
-            <h1 className="mb-6 text-2xl font-bold text-gray-900 select-none">
-              Kost Saya
-            </h1>
-            <div className="mb-6 flex flex-col sm:flex-row sm:items-start sm:space-x-6">
-              <Image
-                alt="Room with white bed, yellow curtains, and wooden furniture"
-                className="mb-4 h-28 w-40 rounded-md object-cover sm:mb-0"
-                height="90"
-                src={data.photo || "/default-image.jpg"}
-                width="120"
-              />
-              <div>
-                <Badge variant={"outline"} className="capitalize">
-                  {data.type}
-                </Badge>
-                <h2 className="text-xl leading-6 font-bold text-gray-900">
-                  {data.kostName}
-                </h2>
-                <p className="mb-1 flex items-center space-x-1 text-sm text-gray-600">
-                  <MapPin size={18} />
-                  <span>{data.address}</span>
-                </p>
-                {data.reviewed && data.review && (
-                  <div className="">
-                    <div className="flex items-center gap-2 text-base text-gray-600">
-                      <p>Rating Kamu:</p>
-                      <p className="flex items-center gap-1">
-                        <Star
-                          className="text-primary-500 fill-primary-500"
-                          size={18}
-                        />{" "}
-                        {data.review.rating}
-                      </p>
-                    </div>
-                  </div>
-                )}
-                <Button variant={"ghost"}>
-                  <Link
-                    // className="text-sm font-semibold text-gray-900 underline underline-offset-2 hover:text-gray-700"
-                    href={`/kosts/${data.roomTypeId}`}
-                  >
-                    Lihat Detail Kost
-                  </Link>
-                </Button>
-              </div>
+          <h1 className="mb-6 text-xl font-bold text-gray-900 select-none sm:text-2xl">
+            Kost Saya
+          </h1>
+
+          <div className="mb-6 flex flex-col sm:flex-row sm:items-start sm:gap-6">
+            <Image
+              alt="Foto Kost"
+              className="mb-4 h-40 w-full rounded-md object-cover sm:mb-0 sm:h-32 sm:w-48"
+              src={data.photo || "/default-image.jpg"}
+              width={180}
+              height={120}
+            />
+
+            <div className="flex-1">
+              <Badge variant="outline" className="mb-1 capitalize">
+                {data.type}
+              </Badge>
+              <h2 className="text-lg font-semibold text-gray-900 sm:text-xl">
+                {data.kostName}
+              </h2>
+
+              <p className="mb-1 flex items-center gap-1 text-sm text-gray-600">
+                <MapPin size={16} />
+                <span className="line-clamp-1">{data.address}</span>
+              </p>
+
+              {data.reviewed && data.review && (
+                <div className="mt-1 flex items-center gap-2 text-sm text-gray-600">
+                  <p>Rating Kamu:</p>
+                  <p className="flex items-center gap-1">
+                    <Star
+                      className="fill-yellow-400 text-yellow-400"
+                      size={16}
+                    />
+                    {data.review.rating}
+                  </p>
+                </div>
+              )}
+
+              <Button variant="ghost" size="sm" asChild className="mt-2">
+                <Link href={`/kosts/${data.roomTypeId}`}>
+                  Lihat Detail Kost
+                </Link>
+              </Button>
             </div>
-            <hr className="my-8" />
           </div>
 
-          {data.stopRequest && data.stopRequest.status === "approved" && (
+          {/* Informasi Stop Request */}
+          {data.stopRequest && (
             <div
-              className={`flex items-center gap-2 rounded-md p-4 ${
+              className={`mb-6 rounded-md p-4 ${
                 data.stopRequest.status === "rejected"
                   ? "bg-red-50 text-red-800"
                   : data.stopRequest.status === "approved"
@@ -161,90 +150,69 @@ export function TenantActiveKost() {
                     : "bg-yellow-50 text-yellow-800"
               }`}
             >
-              <div>
-                <p className="text-lg font-semibold">
-                  Sewa kamu akan segera berakhir
-                </p>
-                <p>
-                  Kamu telah mengajukan berhenti sewa pada tanggal{" "}
-                  <span className="font-semibold">
-                    {data.stopRequest.stopDate}
-                  </span>
-                  .
-                </p>
+              <p className="text-base font-semibold sm:text-lg">
+                Sewa kamu akan segera berakhir
+              </p>
+              <p className="text-sm sm:text-base">
+                Kamu telah mengajukan berhenti sewa pada{" "}
+                <span className="font-semibold">
+                  {data.stopRequest.stopDate}
+                </span>
+                .
+              </p>
 
-                {data.stopRequest.status === "approved" && (
-                  <Button
-                    disabled={checkingOut || !data?.stopRequest.canCheckOut}
-                    onClick={handleCheckOut}
-                    className="mt-4"
-                  >
-                    Check Out
-                  </Button>
-                )}
-              </div>
+              {data.stopRequest.status === "approved" && (
+                <Button
+                  onClick={handleCheckOut}
+                  disabled={checkingOut || !data?.stopRequest.canCheckOut}
+                  className="mt-3 w-full sm:w-auto"
+                >
+                  {checkingOut ? "Memproses..." : "Check Out"}
+                </Button>
+              )}
             </div>
           )}
-
-          {/* <div className="my-4 rounded border-2 border-slate-200 px-4 py-3 shadow">
-            <div className="flex justify-between">
-              <p className="text-sm">Pembayaran ke-1</p>
-              <span className="rounded bg-red-100 px-2 py-0.5 text-xs text-red-600">
-                Telat {data.lateDays || 0} Hari
-              </span>
-            </div>
-            <div className="flex items-center justify-between">
-              <p className="text-sm text-gray-600">
-                Jatuh Tempo {data.dueDate || "1 Desember 2025"}
-              </p>
-              <div className="flex flex-col items-center gap-2">
-                <span className="font-semibold text-gray-800">
-                  Rp {data.price.toLocaleString("id-ID")}
-                </span>
-                <Button size="lg" className="w-full">
-                  Bayar Tagihan
-                </Button>
-              </div>
-            </div>
-          </div> */}
         </div>
-        <div className="mt-4 grid grid-cols-4 gap-2 border-t p-4">
+
+        {/* Bagian Bawah - Tombol Aksi */}
+        <div className="mt-4 grid grid-cols-2 gap-3 border-t pt-4 sm:grid-cols-4">
           <button
             onClick={() => setShowTagihanModal(true)}
-            className="flex h-32 flex-col items-center justify-center gap-1 rounded-lg border p-3 text-base font-semibold text-gray-700 hover:bg-gray-50"
+            className="flex h-28 flex-col items-center justify-center gap-1 rounded-lg border p-3 text-sm font-semibold text-gray-700 hover:bg-gray-50 sm:h-32 sm:text-base"
           >
-            <Wallet className="h-8 w-8" />
+            <Wallet className="h-7 w-7 sm:h-8 sm:w-8" />
             Tagihan Kost
           </button>
 
           <button
             onClick={() => setShowKontrakModal(true)}
-            className="flex h-32 flex-col items-center justify-center gap-1 rounded-lg border p-3 text-base font-semibold text-gray-700 hover:bg-gray-50"
+            className="flex h-28 flex-col items-center justify-center gap-1 rounded-lg border p-3 text-sm font-semibold text-gray-700 hover:bg-gray-50 sm:h-32 sm:text-base"
           >
-            <Clipboard className="h-8 w-8" />
+            <Clipboard className="h-7 w-7 sm:h-8 sm:w-8" />
             Kontrak Kost
           </button>
 
           <button
             onClick={() => startChat({ roomTypeId: data.roomTypeId })}
-            className="flex h-32 flex-col items-center justify-center gap-1 rounded-lg border p-3 text-base font-semibold text-gray-700 hover:bg-gray-50"
+            className="flex h-28 flex-col items-center justify-center gap-1 rounded-lg border p-3 text-sm font-semibold text-gray-700 hover:bg-gray-50 sm:h-32 sm:text-base"
           >
-            <MessageSquareText className="h-8 w-8" />
+            <MessageSquareText className="h-7 w-7 sm:h-8 sm:w-8" />
             Chat Pemilik
           </button>
 
           {data && !loadingActive && !data.reviewed && (
             <button
               onClick={() => setShowReviewModal(true)}
-              className="flex h-32 flex-col items-center justify-center gap-1 rounded-lg border p-3 text-base font-semibold text-gray-700 hover:bg-gray-50"
+              className="flex h-28 flex-col items-center justify-center gap-1 rounded-lg border p-3 text-sm font-semibold text-gray-700 hover:bg-gray-50 sm:h-32 sm:text-base"
             >
-              <Star className="h-8 w-8" />
+              <Star className="h-7 w-7 sm:h-8 sm:w-8" />
               Review Kost
             </button>
           )}
         </div>
       </div>
 
+      {/* Modal */}
       <ReviewModal
         open={showReviewModal}
         onClose={() => setShowReviewModal(false)}

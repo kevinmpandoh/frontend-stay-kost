@@ -46,7 +46,7 @@ export const Wishlist = () => {
           price={item.price}
           images={item.images}
           facilities={item.facilities}
-          claasName="w-[250px]"
+          claasName="w-full md:w-[250px]"
           availableRooms={item.availableRooms}
         />
       ))}

@@ -1,4 +1,5 @@
 "use client";
+
 import { usePayment } from "@/features/payment/hooks/usePayment";
 import Image from "next/image";
 import React, { useState } from "react";
@@ -23,7 +24,7 @@ const TenantPaymentList = () => {
   const [selectedPayment, setSelectedPayment] = useState<any | null>(null);
 
   if (isLoading) {
-    return <p>Loading..</p>;
+    return <p className="text-center text-gray-500">Memuat data...</p>;
   }
 
   if (tenantPayment.length === 0) {
@@ -35,53 +36,74 @@ const TenantPaymentList = () => {
       {tenantPayment.map((data: any) => {
         const method = findPaymentMethod(data.paymentMethod);
         return (
-          <div key={data.id} className="rounded-lg border bg-white p-5">
-            <div className="mb-4 flex items-start justify-between text-sm font-normal text-gray-600">
-              <span>
+          <div
+            key={data.id}
+            className="rounded-lg border border-gray-200 bg-white p-4 shadow-sm transition hover:shadow-md"
+          >
+            {/* Header */}
+            <div className="mb-3 flex flex-col text-sm text-gray-600 sm:flex-row sm:items-center sm:justify-between">
+              <span className="mb-1 sm:mb-0">
                 {data.payment_date} | {data.invoice}
               </span>
-              <StatusBadge status={data.status} />
+              {/* <StatusBadge status={data.status} /> */}
             </div>
-            <div className="flex flex-col rounded-md p-4 sm:flex-row sm:items-center sm:space-x-6">
-              <div className="mb-4 flex-1 border-r border-gray-200 pr-4 sm:mb-0">
-                <p className="text-lg font-semibold text-gray-900">
+
+            {/* Konten */}
+            <div className="flex flex-col gap-4 border-t border-gray-100 pt-4 sm:flex-row sm:items-center sm:justify-between">
+              {/* Nama Kost */}
+              <div className="flex-1">
+                <p className="text-base font-semibold text-gray-900 sm:text-lg">
                   {data.kost}
                 </p>
               </div>
-              <div className="mb-4 flex-1 border-r border-gray-200 px-4 sm:mb-0">
-                <p className="text-lg font-semibold text-gray-900">
-                  Metode Pembayaran
-                </p>
-                <div className="text-md mt-1 flex items-center space-x-2 text-gray-500">
-                  {method ? (
-                    <>
-                      <Image
-                        src={method.logo}
-                        alt={method.name}
-                        width={48}
-                        height={48}
-                      />
-                      <span>{method.name}</span>
-                    </>
-                  ) : (
-                    <span>{data.paymentMethod}</span>
-                  )}
+
+              {/* Metode Pembayaran */}
+              <div className="flex flex-1 items-center gap-3">
+                <div className="hidden h-10 border-l border-gray-200 sm:block" />
+                <div>
+                  <p className="text-sm font-medium text-gray-700">
+                    Metode Pembayaran
+                  </p>
+                  <div className="mt-1 flex items-center gap-2">
+                    {method ? (
+                      <>
+                        <Image
+                          src={method.logo}
+                          alt={method.name}
+                          width={32}
+                          height={32}
+                          className="h-8 w-8 object-contain sm:h-10 sm:w-10"
+                        />
+                        <span className="text-sm sm:text-base">
+                          {method.name}
+                        </span>
+                      </>
+                    ) : (
+                      <span className="text-sm sm:text-base">
+                        {data.paymentMethod}
+                      </span>
+                    )}
+                  </div>
                 </div>
               </div>
-              <div className="flex-1 px-4">
-                <p className="text-md font-semibold text-gray-900">
+
+              {/* Total */}
+              <div className="flex flex-col gap-1 sm:items-end">
+                <p className="text-base font-medium text-gray-700">
                   Total Pembayaran
                 </p>
-                <p className="mt-1 text-base font-bold">
+                <p className="text-lg font-bold text-gray-900 sm:text-xl">
                   Rp {data.amount?.toLocaleString("id-ID")}
                 </p>
               </div>
             </div>
-            <div className="flex justify-end">
+
+            {/* Tombol */}
+            <div className="mt-4 flex justify-end">
               <Button
                 type="button"
-                variant={"ghost"}
-                // className="mt-3 rounded border border-blue-600 px-3 py-1 text-base font-semibold text-blue-600 hover:bg-blue-50 focus:ring-2 focus:ring-blue-400 focus:outline-none"
+                variant="ghost"
+                size="sm"
                 onClick={() => {
                   setSelectedPayment({
                     ...data,
@@ -96,6 +118,8 @@ const TenantPaymentList = () => {
           </div>
         );
       })}
+
+      {/* Modal Detail Pembayaran */}
       <PaymentDetailModal
         open={openDetailModal}
         onClose={() => setOpenDetailModal(false)}

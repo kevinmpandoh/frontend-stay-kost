@@ -27,7 +27,7 @@ export const PaymentDetailModal = ({
 
   return (
     <Dialog open={open} onOpenChange={onClose}>
-      <DialogContent className="max-w-md">
+      <DialogContent className="rounded-xl md:max-w-md">
         <DialogHeader>
           <DialogTitle>Detail Transaksi</DialogTitle>
         </DialogHeader>
@@ -60,7 +60,7 @@ export const PaymentDetailModal = ({
             <span>Metode Pembayaran</span>
             <span>{payment.methodName || payment.payment_method}</span>
           </div>
-          <div className="flex justify-between text-base font-semibold">
+          <div className="flex justify-between text-base font-semibold text-slate-700">
             <span>Total</span>
             <span>Rp {payment.amount.toLocaleString("id-ID")}</span>
           </div>

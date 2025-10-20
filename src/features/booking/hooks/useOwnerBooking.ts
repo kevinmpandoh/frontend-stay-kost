@@ -21,35 +21,6 @@ export const useOwnerBooking = (bookingId?: string) => {
   });
 
   // // Booking aktif (khusus status aktif)
-  const { data: activeBooking, isLoading: loadingActive } = useQuery({
-    queryKey: ["bookingActive"],
-    queryFn: bookingService.getActiveOwnerBooking,
-  });
-
-  const { data: getBiodataTenant, isLoading: loadingBiodataTenant } = useQuery({
-    queryKey: ["bookingTenant"],
-    queryFn: () => bookingService.getBiodataTenant(bookingId!),
-    enabled: !!bookingId,
-  });
-
-  const getDetailBokingOwner = useQuery({
-    queryKey: ["ownerBookings", bookingId],
-    queryFn: () => bookingService.getDetailBooking(bookingId!),
-    enabled: !!bookingId,
-  });
-
-  // // Booking History (khusus status selesai)
-  // const { data: bookingHistory, isLoading: loadingHistory } = useQuery({
-  //   queryKey: ["booking", "Selesai"],
-  //   queryFn: bookingService.getTenantBookingHistory,
-  // });
-
-  // const { mutate: add, isPending: creating } = useMutation({
-  //   mutationFn: bookingService.createBooking,
-  //   onSuccess: () => {
-  //     queryClient.invalidateQueries({ queryKey: ["booking"] });
-  //   },
-  // });
 
   const { mutate: approveBooking, isPending: approving } = useMutation({
     mutationFn: ({ id, room }: { id: string; room: string }) =>
@@ -118,10 +89,8 @@ export const useOwnerBooking = (bookingId?: string) => {
   return {
     bookings,
     isLoading,
-    getBiodataTenant,
-    loadingBiodataTenant,
+
     approveBooking,
-    getDetailBokingOwner,
     approving,
     rejectBooking,
     rejecting,
@@ -129,8 +98,6 @@ export const useOwnerBooking = (bookingId?: string) => {
     stopingBooking,
     checkOut,
     checkingOut,
-    activeBooking,
-    loadingActive,
     acceptMutation,
     rejectMutation,
   };

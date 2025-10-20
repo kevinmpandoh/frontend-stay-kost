@@ -17,6 +17,5 @@ export default async function sitemap() {
     { url: `${baseUrl}/login`, lastModified: new Date(), priority: 0.8 },
     { url: `${baseUrl}/register`, lastModified: new Date(), priority: 0.8 },
     { url: `${baseUrl}/kosts`, lastModified: new Date(), priority: 0.9 },
-    // ...kostUrls,
   ];
 }

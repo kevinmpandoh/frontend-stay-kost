@@ -1,30 +1,45 @@
-name: Deploy Frontend to DigitalOcean
+name: CD Frontend (Next.js)
 
 on:
   push:
     branches:
-      - main
+      - main # Deploy production
+      - develop # Deploy staging
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-      - name: Setup SSH
-        run: |
-          mkdir -p ~/.ssh
-          echo "${{ secrets.DO_SSH_KEY }}" > ~/.ssh/id_ed25519
-          chmod 600 ~/.ssh/id_ed25519
-          ssh-keyscan -H ${{ secrets.DO_HOST }} >> ~/.ssh/known_hosts
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "18"
 
-      - name: Deploy
-        run: |
-          ssh -i ~/.ssh/id_ed25519 -o StrictHostKeyChecking=no ${{ secrets.DO_USER }}@${{ secrets.DO_HOST }} << 'EOF'
+      - name: Deploy to VPS via SSH
+        uses: appleboy/ssh-action@v0.1.7
+        with:
+          host: ${{ secrets.DO_HOST }}
+          username: ${{ secrets.DO_USER }}
+          key: ${{ secrets.DO_SSH_KEY }}
+          script: |
             cd /var/www/frontend
-            git pull origin main
-            npm ci --omit=dev
+
+            echo "🔁 Pulling latest code for branch ${{ github.ref_name }}..."
+            git fetch --all
+            git checkout ${{ github.ref_name }}
+            git pull origin ${{ github.ref_name }}
+
+            echo "📦 Installing dependencies..."
+            npm ci
+
+            echo "🏗️ Building Next.js..."
             npm run build
+
+            echo "🚀 Restarting PM2 process..."
             pm2 restart frontend || pm2 start npm --name frontend -- run start
-          EOF
+
+            echo "✅ Frontend deployment finished for ${{ github.ref_name }}!"

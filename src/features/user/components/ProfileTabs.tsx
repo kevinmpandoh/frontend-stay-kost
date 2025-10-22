@@ -20,12 +20,12 @@ export default function ProfileTabs({
   };
 
   return (
-    <nav className="mt-8 flex text-sm font-semibold text-[#64748B]">
+    <nav className="mt-8 flex font-semibold text-[#64748B]">
       {tabs.map((tab) => (
         <button
           key={tab}
           className={cn(
-            "mr-8 cursor-pointer border-b-2 pb-2 text-base",
+            "mr-8 cursor-pointer border-b-2 pb-2 text-left text-sm sm:text-base",
             active === tab
               ? "text-primary-600 border-primary-text-primary-600"
               : "border-transparent",

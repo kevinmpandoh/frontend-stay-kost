@@ -9,6 +9,9 @@ import { PaymentDetailModal } from "./PaymentDetailModal";
 import { Button } from "@/components/ui/button";
 import { StatusBadge } from "@/components/common/StatusBadge";
 import EmptyState from "@/components/common/EmptyState";
+import { useQuery } from "@tanstack/react-query";
+import { useAuthStore } from "@/stores/auth.store";
+import { paymentService } from "../services/payment.service";
 
 export function findPaymentMethod(methodValue: string) {
   for (const category of PAYMENT_METHOD) {
@@ -19,7 +22,14 @@ export function findPaymentMethod(methodValue: string) {
 }
 
 const TenantPaymentList = () => {
-  const { tenantPayment, isLoading } = usePayment();
+  // const { tenantPayment, isLoading } = usePayment();
+  const { user } = useAuthStore();
+  const { data: tenantPayment, isLoading } = useQuery({
+    queryKey: ["payment-tenant", user?.id], // cache terpisah per user
+    queryFn: () => paymentService.getTenantPayments(),
+    enabled: !!user && user.role === "tenant",
+  });
+
   const [openDetailModal, setOpenDetailModal] = useState(false);
   const [selectedPayment, setSelectedPayment] = useState<any | null>(null);
 

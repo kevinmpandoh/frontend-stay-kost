@@ -18,7 +18,7 @@ export default async function ProfileTenantLayout({
     <>
       <ProtectedRoute allowedRoles={["tenant"]}>
         <Navbar />
-        <main className="mx-auto flex max-w-7xl flex-col gap-8 px-6 py-6 lg:flex-row">
+        <main className="mx-auto mb-20 flex max-w-7xl flex-col gap-8 px-6 py-6 sm:mb-0 lg:flex-row">
           <SidebarUser />
           <section className="min-h-[556px] w-full rounded-lg bg-white px-0 py-0 sm:border sm:border-gray-200 sm:px-10 sm:py-8">
             {children}

@@ -8,13 +8,8 @@ import { toast } from "sonner";
 
 export const usePayment = () => {
   const queryClient = useQueryClient();
-  const { user } = useAuthStore();
+
   const router = useRouter();
-  const { data: tenantPayment, isLoading } = useQuery({
-    queryKey: ["payment-tenant", user?.id], // cache terpisah per user
-    queryFn: () => paymentService.getTenantPayments(),
-    enabled: !!user && user.role === "tenant",
-  });
 
   const { mutate: confirmPayment, isPending: confirmingPayment } = useMutation({
     mutationFn: (paymentId: string) => paymentService.confirmPayment(paymentId),
@@ -131,8 +126,6 @@ export const usePayment = () => {
   // });
 
   return {
-    tenantPayment,
-    isLoading,
     confirmPayment,
     confirmingPayment,
     changeMethod,

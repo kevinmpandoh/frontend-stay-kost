@@ -40,13 +40,13 @@ export const ReviewModal = ({ open, onClose, onSubmit }: ReviewModalProps) => {
         <DialogHeader>
           <DialogTitle>Beri Review Kost</DialogTitle>
         </DialogHeader>
-        <div className="flex space-x-1 mb-4">
+        <div className="mb-4 flex w-full justify-center space-x-1">
           {[1, 2, 3, 4, 5].map((value) => (
             <Star
               key={value}
               onClick={() => handleRatingClick(value)}
-              className={`w-6 h-6 cursor-pointer ${
-                value <= rating ? "text-yellow-500" : "text-gray-300"
+              className={`h-10 w-10 cursor-pointer ${
+                value <= rating ? "text-primary-500" : "text-gray-300"
               }`}
               fill={value <= rating ? "currentColor" : "none"}
             />

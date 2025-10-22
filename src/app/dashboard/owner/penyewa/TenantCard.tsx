@@ -113,7 +113,7 @@ const TenantCard = ({ booking }: { booking: any }) => {
 
               <h3>
                 Penyewa mengajukan berhenti sewa pada
-                <span>{stopRent.stopDate}</span>.
+                <span> {stopRent.stopDate}</span>.
                 <span className="text-warning-700 ml-2 font-semibold">
                   (Menunggu Persetujuan)
                 </span>

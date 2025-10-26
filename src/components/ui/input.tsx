@@ -10,9 +10,9 @@ interface InputProps extends Omit<React.ComponentProps<"input">, "size"> {
   size?: InputSize;
 }
 const sizeClasses: Record<InputSize, string> = {
-  sm: "h-8 text-sm px-2",
-  md: "h-10 text-base px-3",
-  lg: "h-12 text-lg px-4",
+  sm: "h-10 text-sm px-2",
+  md: "h-12 text-base px-3",
+  lg: "h-14 text-lg px-4",
 };
 function Input({
   size = "md",

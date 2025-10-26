@@ -79,6 +79,9 @@ export default function LoginForm() {
                 size={"lg"}
                 {...register("email")}
                 type="email"
+                className={
+                  role === "owner" ? "focus-visible:ring-warning-400" : ""
+                }
                 leftIcon={<Mail size={20} className="text-gray-500" />}
                 error={errors.email?.message}
                 placeholder="Masukkan email kamu"
@@ -91,6 +94,9 @@ export default function LoginForm() {
                 size={"lg"}
                 placeholder="Masukkan Password Kamu"
                 type={showPassword ? "text" : "password"}
+                className={
+                  role === "owner" ? "focus-visible:ring-warning-400" : ""
+                }
                 rightIcon={
                   showPassword ? <EyeOff size={20} /> : <Eye size={20} />
                 }

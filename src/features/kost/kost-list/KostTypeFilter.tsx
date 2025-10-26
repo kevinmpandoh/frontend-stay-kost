@@ -1,6 +1,7 @@
 "use client";
 
 import { Users } from "lucide-react";
+import Image from "next/image";
 
 interface Props {
   selected: string[];
@@ -17,7 +18,7 @@ export default function KostTypeFilter({ selected, onToggle }: Props) {
   return (
     <div className="space-y-2">
       <div className="flex flex-wrap gap-3">
-        {kostTypes.map(({ label, icon: Icon }) => {
+        {kostTypes.map(({ label }) => {
           const isActive = selected.includes(label);
           return (
             <button
@@ -30,7 +31,13 @@ export default function KostTypeFilter({ selected, onToggle }: Props) {
                   : "text-muted-foreground hover:bg-muted bg-white"
               }`}
             >
-              <Icon size={20} />
+              <Image
+                width={48}
+                height={48}
+                src={`/images/${label}.png`}
+                alt="Jenis Kost"
+              />
+              {/* <Icon size={20} /> */}
               {label}
             </button>
           );

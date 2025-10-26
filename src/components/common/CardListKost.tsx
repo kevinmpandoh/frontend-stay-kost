@@ -21,6 +21,7 @@ import { useWishlist } from "@/features/wishlist/hooks/useWishlist";
 import { useAuthStore } from "@/stores/auth.store";
 import { Badge } from "../ui/badge";
 import KostCardSkeleton from "../Skeleton/CardListKostSkeleton";
+import { Tooltip, TooltipContent, TooltipTrigger } from "../ui/tooltip";
 
 interface KostCardProps {
   id: string;
@@ -190,17 +191,30 @@ const KostCard = ({
               ) : null}
             </div>
 
-            <div className="mb-2 flex flex-wrap space-x-2.5 text-sm text-gray-600">
-              {facilities.map((key, index) => {
+            <div className="mb-2 flex flex-wrap items-center space-x-2.5 text-sm text-gray-600">
+              {facilities.slice(0, 5).map((key, index) => {
                 const facility = FACILITY_ICONS[key];
                 const Icon = facility?.icon;
-
+                const label = facility?.label || key;
                 return (
-                  <div key={index} className="mb-1 flex items-center gap-1">
-                    <Icon className="h-5 w-5" />
-                  </div>
+                  <Tooltip key={index}>
+                    <TooltipTrigger asChild>
+                      <div className="mb-1 flex cursor-pointer items-center gap-1">
+                        <Icon className="h-5 w-5" />
+                      </div>
+                    </TooltipTrigger>
+                    <TooltipContent side="top">
+                      <p>{label}</p>
+                    </TooltipContent>
+                  </Tooltip>
                 );
               })}
+
+              {facilities.length > 5 && (
+                <span className="text-sm text-gray-500">
+                  +{facilities.length - 5} lagi
+                </span>
+              )}
             </div>
           </div>
           <div>

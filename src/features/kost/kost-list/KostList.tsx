@@ -32,7 +32,9 @@ const KostList = () => {
   const kosts = kostList?.data.data || [];
   const pagination = kostList?.data.pagination || { page: 1, totalPages: 1 };
 
-  if (!kosts?.length) {
+  console.log(kostList, "TES");
+
+  if (!kosts?.length || !kostList?.data) {
     return (
       <div className="mt-6 flex h-[300px] items-center justify-center">
         <EmptyState message="Tidak ada kost yang ditemukan." />

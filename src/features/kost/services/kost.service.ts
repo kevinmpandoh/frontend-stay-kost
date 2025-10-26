@@ -3,8 +3,16 @@ import { handleAxiosError } from "@/utils/handleAxiosError";
 
 export const kostService = {
   getKostList: async (params: Record<string, any>) => {
-    const res = await api.get("/kost", { params });
-    return res.data;
+    try {
+      const res = await api.get("/kost", { params });
+      return res.data;
+    } catch (error: any) {
+      // 🧠 fallback kalau error 400
+      if (error.response && error.response.status === 400) {
+        return { data: [], pagination: { page: 1, totalPages: 1 } };
+      }
+      throw error;
+    }
   },
 
   getKostDetail: async (kostId: string) => {

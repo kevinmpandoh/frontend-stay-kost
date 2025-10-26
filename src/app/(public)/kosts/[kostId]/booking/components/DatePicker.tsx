@@ -50,7 +50,7 @@ export default function DatePicker({
         <Input
           readOnly
           type="text"
-          size="lg"
+          size="md"
           value={value ? format(value, "dd MMMM yyyy", { locale: id }) : ""}
           onClick={() => setShowCalendar((prev) => !prev)}
           className="w-full"

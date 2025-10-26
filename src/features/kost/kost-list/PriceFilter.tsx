@@ -75,7 +75,7 @@ export default function PriceFilter({ min, max, onChange }: Props) {
                 className={cn(
                   "rounded-full border px-3 py-1.5 text-sm transition",
                   isActive
-                    ? "border-blue-500 bg-blue-50 text-blue-600"
+                    ? "border-primary-500 text-primary-600 bg-primary-50"
                     : "text-muted-foreground border bg-white",
                 )}
               >

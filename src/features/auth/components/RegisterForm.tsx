@@ -166,41 +166,6 @@ export const RegisterForm = () => {
               </TabsList>
             </Tabs>
 
-            {/* <div className="mb-6 flex justify-center space-x-4">
-              <div className="flex rounded-lg border-2">
-                <button
-                  type="button"
-                  onClick={() => setRole("tenant")}
-                  className={`hover:bg-primary-50 cursor-pointer px-4 py-2 ${
-                    role === "tenant" && "bg-primary-500"
-                  } rounded-l-lg`}
-                >
-                  <span
-                    className={` ${
-                      role === "tenant" ? "text-primary-50" : "text-slate-800"
-                    } font-semibold`}
-                  >
-                    Penyewa Kost
-                  </span>
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setRole("owner")}
-                  className={`hover:bg-primary-50 cursor-pointer px-4 py-2 ${
-                    role === "owner" && "bg-primary-500 hover:text-slate-800"
-                  } rounded-r-lg`}
-                >
-                  <span
-                    className={` ${
-                      role === "owner" ? "text-primary-50" : "text-slate-800"
-                    } font-semibold`}
-                  >
-                    Pemilik Kost
-                  </span>
-                </button>
-              </div>
-            </div> */}
-
             <form onSubmit={handleSubmit(onSubmit)}>
               <div className="mb-4 space-y-2">
                 <Label>Nama Lengkap</Label>
@@ -208,6 +173,9 @@ export const RegisterForm = () => {
                   size={"md"}
                   {...register("name")}
                   type="text"
+                  className={
+                    role === "owner" ? "focus-visible:ring-warning-400" : ""
+                  }
                   leftIcon={<User size={20} className="text-gray-500" />}
                   error={errors.name?.message}
                   placeholder="Masukkan nama lengkap kamu"
@@ -220,6 +188,9 @@ export const RegisterForm = () => {
                   size={"md"}
                   {...register("email")}
                   type="email"
+                  className={
+                    role === "owner" ? "focus-visible:ring-warning-400" : ""
+                  }
                   leftIcon={<Mail size={20} className="text-gray-500" />}
                   error={errors.email?.message}
                   placeholder="Masukkan email kamu"
@@ -231,9 +202,12 @@ export const RegisterForm = () => {
                   size={"md"}
                   {...register("phone")}
                   type="text"
+                  className={
+                    role === "owner" ? "focus-visible:ring-warning-400" : ""
+                  }
                   leftIcon={<Phone size={20} className="text-gray-500" />}
                   error={errors.phone?.message}
-                  placeholder="Masukkan email kamu"
+                  placeholder="Masukkan Nomor Handphone kamu"
                 />
               </div>
 
@@ -244,6 +218,9 @@ export const RegisterForm = () => {
                   type={showPassword ? "text" : "password"}
                   rightIcon={
                     showPassword ? <EyeOff size={20} /> : <Eye size={20} />
+                  }
+                  className={
+                    role === "owner" ? "focus-visible:ring-warning-400" : ""
                   }
                   leftIcon={<KeyRound size={20} />}
                   onRightIconClick={() => setShowPassword(!showPassword)}
@@ -259,6 +236,9 @@ export const RegisterForm = () => {
                   type={showPassword ? "text" : "password"}
                   rightIcon={
                     showPassword ? <EyeOff size={20} /> : <Eye size={20} />
+                  }
+                  className={
+                    role === "owner" ? "focus-visible:ring-warning-400" : ""
                   }
                   leftIcon={<KeyRound size={20} />}
                   onRightIconClick={() => setShowPassword(!showPassword)}

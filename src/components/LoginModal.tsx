@@ -84,7 +84,7 @@ const LoginModal = () => {
         close();
       }}
     >
-      <DialogContent className="max-w-md">
+      <DialogContent className="md:max-w-lg">
         <DialogHeader>
           <DialogTitle className="mt-2 text-center text-xl font-semibold">
             <AppLogo className="mx-auto h-20 w-20" />
@@ -111,11 +111,14 @@ const LoginModal = () => {
           <div className="space-y-2">
             <Label>Email</Label>
             <Input
-              size="lg"
+              size="md"
               {...register("email")}
               type="email"
               leftIcon={<Mail size={20} className="text-gray-500" />}
               error={errors.email?.message}
+              className={
+                role === "owner" ? "focus-visible:ring-warning-300" : ""
+              }
               placeholder="Masukkan email kamu"
             />
           </div>
@@ -123,13 +126,16 @@ const LoginModal = () => {
           <div className="space-y-2">
             <Label>Kata Sandi</Label>
             <Input
-              size="lg"
+              size="md"
               placeholder="Masukkan Password Kamu"
               type={showPassword ? "text" : "password"}
               rightIcon={
                 showPassword ? <EyeOff size={20} /> : <Eye size={20} />
               }
               leftIcon={<KeyRound size={20} />}
+              className={
+                role === "owner" ? "focus-visible:ring-warning-300" : ""
+              }
               onRightIconClick={() => setShowPassword(!showPassword)}
               {...register("password")}
               error={errors.password?.message}

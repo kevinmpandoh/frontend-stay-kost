@@ -70,12 +70,14 @@ export default function NotificationDropdown({
               Notifikasi{" "}
               {notifications?.length > 0 && `(${notifications?.length})`}
             </h5>
-            <button
-              onClick={() => markAllAsRead()}
-              className="text-primary-600 text-sm"
-            >
-              Tandai semua dibaca
-            </button>
+            {notifications?.length > 0 && (
+              <button
+                onClick={() => markAllAsRead()}
+                className="text-primary-600 text-sm"
+              >
+                Tandai semua dibaca
+              </button>
+            )}
           </div>
 
           {isLoading && <div className="p-4 text-center">Loading...</div>}
@@ -86,7 +88,7 @@ export default function NotificationDropdown({
           )}
 
           {notifications?.length === 0 && !isLoading && (
-            <div className="p-4 text-center text-gray-500">
+            <div className="flex items-center justify-center p-4 text-center text-gray-500">
               Tidak ada notifikasi
             </div>
           )}

@@ -21,7 +21,7 @@ export const roomService = {
       const response = await api.post(`/rooms/${kostTypeId}`, data);
       return response.data.data;
     } catch (error) {
-      handleAxiosError(error);
+      throw handleAxiosError(error);
     }
   },
 
@@ -31,18 +31,18 @@ export const roomService = {
   ) => {
     try {
       const response = await api.put(`/rooms/${roomId}`, data);
-      return response.data.data;
+      return response.data;
     } catch (error) {
-      handleAxiosError(error);
+      throw handleAxiosError(error);
     }
   },
 
   deleteRoom: async (roomId: string) => {
     try {
       const response = await api.delete(`/rooms/${roomId}`);
-      return response.data.data;
+      return response.data;
     } catch (error) {
-      handleAxiosError(error);
+      throw handleAxiosError(error);
     }
   },
 };

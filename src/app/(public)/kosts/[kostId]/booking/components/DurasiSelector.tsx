@@ -32,7 +32,7 @@ const DurasiSelector: FC<DurasiSelectorProps> = ({
         variant={"outline"}
         size={"lg"}
         onClick={decrease}
-        className={`h-12 cursor-not-allowed rounded-r-none`}
+        className={`h-12 ${value === 1 ? "cursor-not-allowed" : ""} rounded-r-none`}
         disabled={value === 1}
       >
         <Minus size={18} strokeWidth={2.5} />
@@ -45,7 +45,8 @@ const DurasiSelector: FC<DurasiSelectorProps> = ({
         size={"lg"}
         variant={"outline"}
         onClick={increase}
-        className="h-12 rounded-l-none"
+        disabled={value === max}
+        className={`h-12 ${value === max ? "cursor-not-allowed" : ""} rounded-l-none`}
       >
         <Plus size={18} strokeWidth={2.5} />
       </Button>

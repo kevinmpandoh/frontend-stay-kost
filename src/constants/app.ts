@@ -1,6 +1,12 @@
 export const APP_CONFIG = {
   APP_NAME: "Stay Kost",
 
+  PAGE_TITLE_SEPARATOR: " | ",
+
+  PAGE_TITLE_DEFAULT: "Stay Kost - Platform Penyewaan Kost Terpercaya",
+
+  PLATFORM_URL: "https://staykost.my.id",
+
   CONTACT: {
     PHONE: "089510465800",
 

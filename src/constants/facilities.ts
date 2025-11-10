@@ -34,7 +34,7 @@ import {
 
 export const FACILITY_ICONS: Record<string, { label: string; icon: any }> = {
   // Kategori Kost
-  WiFi: { label: "WiFi", icon: Wifi },
+  Wifi: { label: "Wifi", icon: Wifi },
   "Parkir Motor": { label: "Parkir Motor", icon: MotorIcon },
   "Parkir Mobil": { label: "Parkir Mobil", icon: CarIcon },
   "Dapur Bersama": { label: "Dapur Bersama", icon: KitchenIcon },

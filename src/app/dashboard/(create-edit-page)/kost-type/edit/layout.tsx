@@ -7,6 +7,7 @@ import { useCreateKostStore } from "@/stores/createKost.store";
 import { useRouter, useSearchParams } from "next/navigation";
 import StepSidebarEdit from "@/components/layout/StepSidebarEdit";
 import FooterStep from "@/components/layout/FooterStep";
+import ModalSuccessSubmit from "./ModalSuccessSubmit";
 
 interface StepsLayoutProps {
   children: ReactNode;
@@ -69,6 +70,7 @@ export default function StepsLayout({ children }: StepsLayoutProps) {
           mode="edit"
         />
       </main>
+      <ModalSuccessSubmit />
     </div>
   );
 }

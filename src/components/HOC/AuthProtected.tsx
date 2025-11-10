@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useAuthStore } from "@/stores/auth.store";
+import { usePreference } from "@/features/preference/hooks/usePreference";
 
 interface ProtectedRouteProps {
   children: React.ReactNode;
@@ -12,6 +13,7 @@ interface ProtectedRouteProps {
 const AuthProtected: React.FC<ProtectedRouteProps> = ({ children }) => {
   const router = useRouter();
   const { user, isAuthenticated, isHydrated } = useAuthStore();
+  const { preferences } = usePreference();
 
   const [isLoading, setIsLoading] = useState(true);
 
@@ -20,21 +22,34 @@ const AuthProtected: React.FC<ProtectedRouteProps> = ({ children }) => {
     if (isHydrated) {
       // Jika belum login → redirect ke login
       if (isAuthenticated || user) {
+        console.log(preferences.data, preferences.isLoading, "Preferenfes");
         if (user?.role === "admin") {
           router.push("/dashboard/admin");
         } else if (user?.role === "tenant") {
-          router.push("/");
+          if (!preferences?.data && !preferences?.isLoading) {
+            router.push("/preferences");
+          } else {
+            router.push("/123123");
+          }
         } else if (user?.role === "owner") {
           router.push("/dashboard/owner");
         } else {
-          router.push("/");
+          router.push("/tes");
         }
         return;
       }
 
       setIsLoading(false); // lolos semua pengecekan
     }
-  }, [isHydrated, isAuthenticated, user, router]);
+  }, [
+    isHydrated,
+    isAuthenticated,
+    user,
+    router,
+    preferences,
+    preferences.isLoading,
+    preferences.data,
+  ]);
 
   if (isLoading) {
     return (

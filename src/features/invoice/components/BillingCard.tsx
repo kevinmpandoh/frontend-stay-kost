@@ -24,7 +24,7 @@ const BillingCard: React.FC<Props> = ({ billing }) => {
   const canPay =
     billing.status === "unpaid" &&
     !billing.isLate &&
-    billing.daysRemaining <= 14;
+    billing.daysRemaining <= 31;
 
   const renderDueStatus = () => {
     if (billing.status === "paid") return null;

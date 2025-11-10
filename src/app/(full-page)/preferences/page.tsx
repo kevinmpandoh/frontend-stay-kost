@@ -1,3 +1,4 @@
+// app/(full-page)/preferences/page.tsx
 "use client";
 
 import PreferenceContent from "@/features/preference/PreferenceContent";

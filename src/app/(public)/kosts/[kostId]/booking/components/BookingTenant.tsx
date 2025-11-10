@@ -1,16 +1,18 @@
-// app/(public)/kost/[kostId]/booking/components/BookingClient.tsx
+// app/(public)/kost/[kostId]/booking/components/BookingTenant.tsx
 
 "use client";
 
 import { useKost } from "@/features/kost/hooks/useKost";
 import BookingForm from "./BookingForm";
 import BookingSidebar from "./BookingSidebar";
-
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useBookingStore } from "@/features/booking/booking.store";
 import BackLink from "@/components/common/BackLink";
-
+import { BookingFormData } from "@/features/booking/booking.schema";
+import { useTenantBooking } from "@/features/booking/hooks/useTenantBooking";
+import ModalBookingSuccess from "./ModalBookingSuccess";
+import ModalBookingConfirmation from "./ModalBookingConfirmation";
 interface BookingTenantProps {
   kostId: string;
 }
@@ -18,9 +20,14 @@ interface BookingTenantProps {
 export default function BookingTenant({ kostId }: BookingTenantProps) {
   const { kostDetail } = useKost(kostId);
   const { data: kost, isLoading, isError, error } = kostDetail;
+
   const router = useRouter();
   const { startDate } = useBookingStore();
   const [loading, setLoading] = useState(true);
+  const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
+  const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
+  const [formData, setFormData] = useState<BookingFormData | null>(null);
+  const { createBooking, creating } = useTenantBooking();
 
   useEffect(() => {
     if (!startDate) {
@@ -29,6 +36,38 @@ export default function BookingTenant({ kostId }: BookingTenantProps) {
       setLoading(false);
     }
   }, [startDate, router, kostId]);
+
+  const handleFormSubmit = (data: BookingFormData) => {
+    setFormData(data);
+    setIsConfirmModalOpen(true);
+  };
+
+  const handleConfirmBooking = () => {
+    if (!formData) return;
+    const date = new Date(formData.startDate);
+    const yyyy = date.getFullYear();
+    const mm = String(date.getMonth() + 1).padStart(2, "0");
+    const dd = String(date.getDate()).padStart(2, "0");
+    const localDate = `${yyyy}-${mm}-${dd}`;
+
+    createBooking(
+      {
+        duration: formData.duration,
+        roomType: kostId,
+        startDate: localDate,
+        note: formData.note,
+      },
+      {
+        onSuccess: () => {
+          setIsConfirmModalOpen(false);
+          setIsSuccessModalOpen(true);
+        },
+        onError: () => {
+          setIsConfirmModalOpen(false);
+        },
+      },
+    );
+  };
 
   if (loading || isLoading) {
     return (
@@ -51,15 +90,9 @@ export default function BookingTenant({ kostId }: BookingTenantProps) {
       <>
         {/* Kiri - Form */}
         <div className="mr-8 flex-1 space-y-6 rounded-2xl p-6">
-          {/* <Link
-            href={`/kosts/${kostId}`}
-            className="text-primary-600 mb-4 flex items-center gap-2 hover:underline"
-          >
-            <ArrowLeft /> <span>Kembali ke Detail Kost</span>
-          </Link> */}
           <BackLink label="Kembali ke detail kost" />
 
-          <BookingForm kostId={kostId} />
+          <BookingForm onSubmitBooking={handleFormSubmit} />
         </div>
 
         {/* Kanan - Sidebar */}
@@ -74,6 +107,33 @@ export default function BookingTenant({ kostId }: BookingTenantProps) {
             }}
           />
         </div>
+
+        {/* Modal konfirmasi */}
+        <ModalBookingConfirmation
+          open={isConfirmModalOpen}
+          onClose={() => setIsConfirmModalOpen(false)}
+          onConfirm={handleConfirmBooking}
+          loading={creating}
+          kost={{
+            name: kost.name,
+            type: kost.type,
+            image: kost.photos[0]?.url,
+            address: `${kost.address.district}, ${kost.address.city}`,
+            rules: kost.rules || [
+              "Tidak boleh merokok",
+              "Tidak boleh bawa hewan",
+            ],
+            facilities: kost.kostFacilities || ["Wifi"],
+            price: kost.price,
+          }}
+          bookingInfo={{
+            duration: formData?.duration || 0,
+            checkIn: formData?.startDate || "",
+            note: formData?.note,
+          }}
+        />
+
+        <ModalBookingSuccess open={isSuccessModalOpen} />
       </>
     </>
   );

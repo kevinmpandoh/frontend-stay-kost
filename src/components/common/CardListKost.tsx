@@ -1,19 +1,10 @@
 "use client";
 
 import Image from "next/image";
-import {
-  Heart,
-  ChevronLeft,
-  ChevronRight,
-  Star,
-  MapPin,
-  // Wifi,
-  // Utensils,
-  // ParkingCircle,
-  // LucideIcon,
-} from "lucide-react";
+import { Heart, ChevronLeft, ChevronRight, Star, MapPin } from "lucide-react";
 import { useState } from "react";
 import Link from "next/link";
+import { useSwipeable } from "react-swipeable";
 
 import { FACILITY_ICONS } from "@/constants/facilities";
 
@@ -36,6 +27,7 @@ interface KostCardProps {
   rating?: number;
   transactions?: number;
   isLoading?: boolean; // ✅ tambahkan props loading
+  score?: number;
 }
 
 const KostCard = ({
@@ -51,6 +43,7 @@ const KostCard = ({
   rating,
   transactions,
   isLoading = false,
+  score,
 }: KostCardProps) => {
   const [currentImage, setCurrentImage] = useState(0);
   const { wishlist, add, remove } = useWishlist();
@@ -80,6 +73,13 @@ const KostCard = ({
     }
   };
 
+  const handlers = useSwipeable({
+    onSwipedLeft: handleNext,
+    onSwipedRight: handlePrev,
+    preventScrollOnSwipe: true,
+    trackMouse: false, // kalau mau bisa drag di desktop juga → true
+  });
+
   if (isLoading) {
     return <KostCardSkeleton />;
   }
@@ -88,7 +88,7 @@ const KostCard = ({
     <div
       className={`group relative max-w-sm overflow-hidden rounded-lg border bg-white shadow-md lg:max-w-[260px] ${claasName}`}
     >
-      <div className="relative h-48 w-full overflow-hidden">
+      <div {...handlers} className="relative h-48 w-full overflow-hidden">
         {/* Image Slider */}
         <div
           className="flex h-full w-full transition-transform duration-500 ease-in-out"
@@ -106,7 +106,12 @@ const KostCard = ({
             />
           ))}
         </div>
-
+        {/* Skor Rekomendasi */}
+        {typeof score === "number" && (
+          <div className="absolute top-2 left-2 cursor-default rounded-md bg-white px-2 py-1 text-xs font-semibold shadow-md">
+            Skor: {score.toFixed(2)}
+          </div>
+        )}
         {user?.role === "tenant" && (
           <div
             onClick={(e) => {
@@ -117,7 +122,9 @@ const KostCard = ({
           >
             <Heart
               className={`h-5 w-5 cursor-pointer ${
-                isWishlisted ? "fill-red-500 text-red-500" : "text-gray-600"
+                isWishlisted
+                  ? "fill-primary-600 text-primary-600"
+                  : "text-gray-600"
               }`}
             />
           </div>

@@ -29,7 +29,7 @@ const DownloadAppSection = () => {
           <div className="flex gap-4">
             {/* Tombol Google Play */}
             <Link
-              href="#"
+              href="/coming-soon"
               // className="bg-black text-white rounded-lg px-4 py-3 flex items-center gap-3 shadow hover:bg-gray-800 transition"
             >
               <Image
@@ -43,7 +43,7 @@ const DownloadAppSection = () => {
 
             {/* Tombol App Store */}
             <Link
-              href="#"
+              href="/coming-soon"
               // className="bg-black text-white rounded-lg px-4 py-3 flex items-center gap-3 shadow hover:bg-gray-800 transition"
             >
               <Image

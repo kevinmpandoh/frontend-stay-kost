@@ -5,6 +5,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { toast } from "sonner";
 import { useUser } from "@/features/user/hooks/useUser";
 import { useAuthStore } from "@/stores/auth.store";
+import { usePreference } from "@/features/preference/hooks/usePreference";
 
 export default function AuthCallbackPage() {
   const router = useRouter();
@@ -14,6 +15,7 @@ export default function AuthCallbackPage() {
   const { userCurrent } = useUser();
 
   const { setUser } = useAuthStore();
+  const { preferences } = usePreference();
 
   const isProcessing = useRef(false); // ⬅️ guard
 
@@ -30,15 +32,17 @@ export default function AuthCallbackPage() {
 
         const user = data.data;
 
-        console.log(user, "USER DI USE EFFECRT");
-
         if (user) {
           setUser(user);
 
           toast.success("Login Google berhasil");
 
           if (user.role === "tenant") {
-            router.replace("/");
+            if (preferences.data && !preferences.isLoading) {
+              router.push("/");
+            } else {
+              router.replace("/preferences");
+            }
           } else if (user.role === "owner") {
             router.replace("/dashboard/owner");
           } else {
@@ -62,8 +66,9 @@ export default function AuthCallbackPage() {
   }, [searchParams, router, setUser, userCurrent]);
 
   return (
-    <div className="flex h-screen items-center justify-center">
-      <p>Sedang memproses login...</p>
+    <div className="flex h-screen flex-col items-center justify-center">
+      <div className="border-primary mb-4 h-10 w-10 animate-spin rounded-full border-4 border-t-transparent" />
+      <p>Sedang memproses login Google...</p>
     </div>
   );
 }

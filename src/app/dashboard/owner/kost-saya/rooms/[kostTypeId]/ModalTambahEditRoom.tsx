@@ -15,6 +15,9 @@ import { Controller, useForm } from "react-hook-form";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { roomService } from "@/features/room/services/room.service";
 import { useEffect } from "react";
+import { toast } from "sonner";
+import { AxiosError } from "axios";
+import { APIError } from "@/utils/handleAxiosError";
 
 type FormValues = {
   nomor_kamar: string;
@@ -86,6 +89,15 @@ export const ModalTambahEditRoom = ({
       queryClient.invalidateQueries({ queryKey: ["owner-room", kostTypeId] });
       reset();
       onClose(); // tutup modal setelah sukses
+    },
+    onError: (error: any) => {
+      if (error instanceof APIError) {
+        toast.error(error?.message || "Gagal mengubah data kamar");
+        return;
+      }
+      toast.error(
+        error?.response?.data?.message || "Gagal mengubah data kamar",
+      );
     },
   });
 

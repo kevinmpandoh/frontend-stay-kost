@@ -27,6 +27,9 @@ import { useConfirm } from "@/hooks/useConfirmModal";
 import BackLink from "@/components/common/BackLink";
 import { useSubscription } from "@/features/subscription/hooks/useSubscription";
 import { useModalStore } from "@/stores/modal.store";
+import { AxiosError } from "axios";
+import { toast } from "sonner";
+import { APIError } from "@/utils/handleAxiosError";
 // import { ConfirmDeleteModal } from "./ConfirmDeleteModal";
 
 const KetersediaanKamarPage = () => {
@@ -58,6 +61,8 @@ const KetersediaanKamarPage = () => {
     enabled: !!kostTypeId,
   });
 
+  console.log(rooms, "ROOMS");
+
   useEffect(() => {
     setPage(1);
   }, [search, filterStatus]);
@@ -66,6 +71,15 @@ const KetersediaanKamarPage = () => {
     mutationFn: (roomId: string) => roomService.deleteRoom(roomId),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["owner-room", kostTypeId] });
+    },
+    onError: (error: any) => {
+      if (error instanceof APIError) {
+        toast.error(error?.message || "Gagal menyimpan data kamar");
+        return;
+      }
+      toast.error(
+        error?.response?.data?.message || "Gagal menghapus data kamar",
+      );
     },
   });
 

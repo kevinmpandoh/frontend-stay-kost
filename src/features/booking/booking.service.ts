@@ -7,6 +7,12 @@ export const bookingService = {
     const result = await api.post("/bookings", data);
     return result.data;
   },
+
+  cancelBooking: async (id: string) => {
+    const result = await api.patch(`/bookings/${id}/cancel`);
+    return result.data;
+  },
+
   getTenantBookings: async () => {
     const response = await api.get(`/bookings/tenant`);
     return response.data.data ?? null;

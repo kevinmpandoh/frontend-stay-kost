@@ -176,7 +176,7 @@ const Navbar = () => {
                   <Dropdown
                     isOpen={showDropdown}
                     onClose={() => closeDropdown}
-                    className="shadow-theme-lg dark:bg-gray-dark absolute right-0 mt-[17px] flex w-[320px] flex-col rounded-2xl border border-gray-200 bg-white px-4 py-6 dark:border-gray-800"
+                    className="dark:bg-gray-dark absolute right-0 mt-[17px] flex w-[320px] flex-col rounded-2xl border border-gray-200 bg-white px-4 py-6 dark:border-gray-800"
                   >
                     <div className="flex items-center gap-2">
                       <Image
@@ -279,7 +279,7 @@ const Navbar = () => {
               </div>
             ) : user && (user.role === "owner" || user.role === "admin") ? (
               <div
-                className={`shadow-theme-md w-full items-center justify-between gap-4 px-5 lg:flex lg:justify-end lg:px-0 lg:shadow-none`}
+                className={`w-full items-center justify-between gap-4 px-5 lg:flex lg:justify-end lg:px-0 lg:shadow-none`}
               >
                 <div className="relative">
                   <button
@@ -320,7 +320,7 @@ const Navbar = () => {
                   <Dropdown
                     isOpen={showDropdown}
                     onClose={closeDropdown}
-                    className="shadow-theme-lg dark:bg-gray-dark absolute right-0 mt-[17px] flex w-[280px] flex-col rounded-2xl border border-gray-200 bg-white px-4 py-6 dark:border-gray-800"
+                    className="dark:bg-gray-dark absolute right-0 mt-[17px] flex w-[280px] flex-col rounded-2xl border border-gray-200 bg-white px-4 py-6 dark:border-gray-800"
                   >
                     <div className="mb-4 flex items-center gap-2">
                       <Image

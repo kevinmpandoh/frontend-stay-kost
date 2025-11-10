@@ -42,12 +42,12 @@ const statusColors: Record<string, { bg: string; text: string }> = {
   [BookingStatus.APPROVED]: { bg: "bg-green-100", text: "text-green-800" },
   [BookingStatus.REJECTED]: { bg: "bg-red-100", text: "text-red-800" },
   [BookingStatus.WAITING_FOR_PAYMENT]: {
-    bg: "bg-blue-100",
-    text: "text-blue-800",
+    bg: "bg-warning-100",
+    text: "text-warning-800",
   },
   [BookingStatus.WAITING_FOR_CHECKIN]: {
-    bg: "bg-purple-100",
-    text: "text-purple-800",
+    bg: "bg-warning-100",
+    text: "text-warning-800",
   },
   [BookingStatus.ACTIVE]: { bg: "bg-green-200", text: "text-green-900" },
   [BookingStatus.WAITING_FOR_CHECKOUT]: {
@@ -55,7 +55,7 @@ const statusColors: Record<string, { bg: string; text: string }> = {
     text: "text-orange-800",
   },
   [BookingStatus.COMPLETED]: { bg: "bg-gray-100", text: "text-gray-800" },
-  [BookingStatus.CANCELLED]: { bg: "bg-red-200", text: "text-red-900" },
+  [BookingStatus.CANCELLED]: { bg: "bg-gray-100", text: "text-gray-800" },
   "Sedang Menyewa": { bg: "bg-green-200", text: "text-green-900" },
   success: { bg: "bg-green-200", text: "text-green-900" },
 

@@ -13,7 +13,7 @@ import { useCreateKostStore } from "@/stores/createKost.store";
 
 const ModalSuccessSubmit = () => {
   const { isSubmitSuccess, setIsSubmitSuccess } = useEditKostModalStore();
-  const { kostId } = useCreateKostStore();
+  const { kostId, reset } = useCreateKostStore();
   const router = useRouter();
   return (
     <Dialog open={isSubmitSuccess} onOpenChange={setIsSubmitSuccess}>
@@ -21,13 +21,13 @@ const ModalSuccessSubmit = () => {
         <DialogHeader>
           <DialogTitle>Edit Berhasil</DialogTitle>
         </DialogHeader>
-        <h1 className="text-2xl font-bold mb-2">
-          Data Tipe Kost berhasil disimpan
+        <h1 className="mb-2 text-2xl font-bold">
+          Data Tipe Kamar berhasil disimpan
         </h1>
 
         <h3>
-          Silakan lanjutkan untuk mengedit tipe kost lainnya atau klik Selesai
-          Edit untuk kembali ke halaman utama.
+          Silakan Klik Lanjut Edit untuk melanjutkan mengedit data tipe kamar
+          atau klik Selesai Edit untuk kembali ke halaman daftar tipe kamar.
         </h3>
         <DialogFooter className="flex flex-row justify-end gap-3">
           <Button variant="outline" onClick={() => setIsSubmitSuccess(false)}>
@@ -36,6 +36,7 @@ const ModalSuccessSubmit = () => {
           <Button
             onClick={() => {
               setIsSubmitSuccess(false);
+              reset();
               router.push(`/dashboard/owner/kost-saya/${kostId}`); // Atau halaman setelah selesai edit
             }}
           >

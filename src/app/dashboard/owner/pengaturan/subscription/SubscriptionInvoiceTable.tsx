@@ -68,7 +68,13 @@ export default function SubscriptionInvoiceTable({
                       item.status === "cancelled" && "bg-red-100 text-red-700",
                     )}
                   >
-                    {item.status}
+                    {item.status === "paid"
+                      ? "Lunas"
+                      : item.status === "expired"
+                        ? "Kadaluarsa"
+                        : item.status === "cancelled"
+                          ? "Dibatalkan"
+                          : ""}
                   </Badge>
                 </TableCell>
               </TableRow>

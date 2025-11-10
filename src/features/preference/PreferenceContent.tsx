@@ -37,7 +37,7 @@ export default function PreferenceContent() {
   const [step, setStep] = useState(0);
   const router = useRouter();
 
-  const { savePreferences } = usePreference();
+  const { preferences, savePreferences } = usePreference();
   const { location, price, kostType, kostFacilities, roomFacilities, reset } =
     usePreferenceStore();
   const isStepValid =
@@ -46,6 +46,7 @@ export default function PreferenceContent() {
     (step === 2 && !!kostType) ||
     (step === 3 && kostFacilities.length > 0 && roomFacilities.length > 0);
 
+  console.log(preferences, "PREFERENCE");
   console.log(
     isStepValid,
     step,

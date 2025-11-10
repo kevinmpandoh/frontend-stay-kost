@@ -19,7 +19,7 @@ export function ReviewModal({
 }) {
   return (
     <Dialog open={open} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-2xl max-h-[90vh] p-6">
+      <DialogContent className="max-h-[90vh] px-0 py-4 sm:max-w-2xl md:px-6">
         <DialogHeader>
           <DialogTitle>Semua Ulasan</DialogTitle>
         </DialogHeader>

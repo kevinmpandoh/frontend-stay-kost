@@ -119,7 +119,7 @@ const UpgradeSubscriptionModal = ({
                       <div
                         key={d.duration}
                         className={cn(
-                          "cursor-pointer rounded-lg border-2 p-3 text-center",
+                          "cursor-pointer rounded-lg border-2 p-3 text-center md:w-[150px]",
                           selectedDuration === d.duration
                             ? "border-primary-500 bg-primary-50"
                             : "hover:border-gray-400",

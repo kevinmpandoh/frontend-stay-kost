@@ -87,7 +87,7 @@ const LoginModal = () => {
       <DialogContent className="md:max-w-lg">
         <DialogHeader>
           <DialogTitle className="mt-2 text-center text-xl font-semibold">
-            <AppLogo className="mx-auto h-20 w-20" />
+            <AppLogo className="mx-auto h-28 w-28" />
             Login sebagai
           </DialogTitle>
         </DialogHeader>

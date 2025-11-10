@@ -185,7 +185,7 @@ export default function KostFilterModal() {
 
   return (
     <Dialog open={openFilter} onOpenChange={closeModal}>
-      <DialogContent className="max-h-[90vh] overflow-y-auto md:max-w-lg">
+      <DialogContent className="max-h-[85vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle className="text-2xl font-semibold">
             {(activeKey && filterConfig[activeKey]?.title) || "Filter Kost"}

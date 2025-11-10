@@ -1,14 +1,16 @@
 import { KostOwnerService } from "@/features/kost/services/kostOwner.service";
 import { roomTypeService } from "@/features/roomType/services/roomType.service";
 import { useCreateKostStore } from "@/stores/createKost.store";
+import { useEditKostModalStore } from "@/stores/editKostModal";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 
 export const useKostType = ({ kostTypeId }: { kostTypeId?: string }) => {
   const queryClient = useQueryClient();
-  const { setFacilitiesKostType, setCurrentStep, setProgressStep } =
+  const { setFacilitiesKostType, setCurrentStep, setProgressStep, reset } =
     useCreateKostStore();
   const router = useRouter();
+  const { setIsSubmitSuccess } = useEditKostModalStore();
 
   const {
     data: getRoomTypeDetail,
@@ -27,6 +29,7 @@ export const useKostType = ({ kostTypeId }: { kostTypeId?: string }) => {
       roomTypeService.create(kostId, data),
 
     onSuccess: (res) => {
+      console.log(res, "RES TAMBAH");
       if (res.data.kostStatus === "draft") {
         setProgressStep(6);
         setCurrentStep(6);
@@ -62,7 +65,6 @@ export const useKostType = ({ kostTypeId }: { kostTypeId?: string }) => {
       } else {
         if (res.roomTypeStatus === "draft") {
           setCurrentStep(2);
-          setProgressStep(2);
           router.replace(
             `/dashboard/kost-type/create?kost_id=${res.kostId}&kost_type_id=${res.roomTypeId}&step=2`,
           );
@@ -70,7 +72,8 @@ export const useKostType = ({ kostTypeId }: { kostTypeId?: string }) => {
             queryKey: ["kost", res.kostId],
           });
         } else {
-          router.push(`/dashboard/owner/kost-saya/${res.kostId}`);
+          setIsSubmitSuccess(true);
+          // router.push(`/dashboard/owner/kost-saya/${res.kostId}`);
         }
 
         queryClient.invalidateQueries({
@@ -96,14 +99,21 @@ export const useKostType = ({ kostTypeId }: { kostTypeId?: string }) => {
           queryKey: ["kost", res.data.kostId],
         });
       } else {
-        setCurrentStep(3);
-        setProgressStep(3);
-        router.replace(
-          `/dashboard/kost-type/create?kost_id=${res.data.kostId}&kost_type_id=${res.data.roomTypeId}&step=3`,
-        );
-        queryClient.invalidateQueries({
-          queryKey: ["roomType", res.data.roomTypeId],
-        });
+        if (res.data.roomTypeStatus === "draft") {
+          setCurrentStep(3);
+
+          queryClient.invalidateQueries({
+            queryKey: ["roomType", res.data.roomTypeId],
+          });
+          router.replace(
+            `/dashboard/kost-type/create?kost_id=${res.data.kostId}&kost_type_id=${res.data.roomTypeId}&step=3`,
+          );
+        } else {
+          queryClient.invalidateQueries({
+            queryKey: ["roomType", res.data.roomTypeId],
+          });
+          setIsSubmitSuccess(true);
+        }
       }
     },
   });
@@ -122,15 +132,21 @@ export const useKostType = ({ kostTypeId }: { kostTypeId?: string }) => {
           queryKey: ["kost", res.data.kostId],
         });
       } else {
-        setCurrentStep(4);
-        setProgressStep(4);
-        router.replace(
-          `/dashboard/kost-type/create?kost_id=${res.data.kostId}&kost_type_id=${res.data.roomTypeId}&step=4`,
-        );
-        queryClient.invalidateQueries({
-          queryKey: ["roomType", res.data.roomTypeId],
-        });
-        //  setIsSubmitSuccess(true);
+        if (res.data.roomTypeStatus === "draft") {
+          setCurrentStep(4);
+
+          queryClient.invalidateQueries({
+            queryKey: ["roomType", res.data.roomTypeId],
+          });
+          router.replace(
+            `/dashboard/kost-type/create?kost_id=${res.data.kostId}&kost_type_id=${res.data.roomTypeId}&step=4`,
+          );
+        } else {
+          queryClient.invalidateQueries({
+            queryKey: ["roomType", res.data.roomTypeId],
+          });
+          setIsSubmitSuccess(true);
+        }
       }
       queryClient.invalidateQueries({ queryKey: ["photo-kost", kostTypeId] });
     },
@@ -145,15 +161,23 @@ export const useKostType = ({ kostTypeId }: { kostTypeId?: string }) => {
         KostOwnerService.createKostTypePrice(kostTypeId, data),
       onSuccess: (res) => {
         if (res.data.kost.status === "draft") {
+          reset();
           router.push(`/dashboard/owner/kost-saya`);
           queryClient.invalidateQueries({
             queryKey: ["kost", res.data.kostId],
           });
         } else {
-          router.push(`/dashboard/owner/kost-saya/${res.data.kost._id}`);
-          queryClient.invalidateQueries({
-            queryKey: ["roomType", kostTypeId],
-          });
+          if (res.data.status === "draft") {
+            queryClient.invalidateQueries({
+              queryKey: ["roomType", res.data._id],
+            });
+            router.push(`/dashboard/owner/kost-saya/${res.data.kost._id}`);
+          } else {
+            queryClient.invalidateQueries({
+              queryKey: ["roomType", res.data._id],
+            });
+            setIsSubmitSuccess(true);
+          }
         }
       },
     });

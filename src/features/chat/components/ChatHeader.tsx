@@ -3,6 +3,7 @@ import { X } from "lucide-react";
 import Image from "next/image";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useChatPopupStore } from "@/stores/chatPopup.store";
+import { Button } from "@/components/ui/button";
 // import { useChatPopupStore } from "@/stores/chatPopup.store";
 
 interface ChatHeaderProps {
@@ -28,7 +29,7 @@ const ChatHeader = ({ name, image, isLoading }: ChatHeaderProps) => {
     );
   }
   return (
-    <div className="flex items-center justify-between border-b border-gray-200 py-4 sm:px-6">
+    <div className="flex w-full items-center justify-between border-b border-gray-200 py-4 sm:px-6">
       <div className="mr-4 flex items-center space-x-4">
         <Image
           src={image}
@@ -44,12 +45,13 @@ const ChatHeader = ({ name, image, isLoading }: ChatHeaderProps) => {
           >
             {name}
           </p>
-          <p className="text-sm text-gray-400">Reply to message</p>
+          {/* <p className="text-sm text-gray-400">Reply to messagee</p> */}
         </div>
       </div>
       <button
+        type="button"
         aria-label="Close chat"
-        className="text-gray-400 hover:text-gray-600 focus:outline-none"
+        className="mr-4 cursor-pointer text-gray-400 hover:text-gray-600 focus:outline-none"
         onClick={closePopup}
       >
         <X />

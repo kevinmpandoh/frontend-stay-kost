@@ -42,19 +42,6 @@ export const useInvoice = ({ bookingId, invoiceNumber }: UseInvoiceProps) => {
     refetchOnWindowFocus: false,
   });
 
-  const {
-    data: payment,
-    isLoading: loadingPayment,
-    refetch: refetchPayment,
-  } = useQuery({
-    queryKey: ["billing", "payment"],
-    queryFn: () =>
-      invoice
-        ? invoiceService.getBillingPayment(invoice.id)
-        : Promise.resolve(null),
-    enabled: !!invoice?.id && invoice?.hasPayment === true,
-  });
-
   const { mutate: createPayment, isPending: creatingPayment } = useMutation({
     mutationFn: ({
       invoiceNumber,
@@ -77,7 +64,6 @@ export const useInvoice = ({ bookingId, invoiceNumber }: UseInvoiceProps) => {
       queryClient.invalidateQueries({
         queryKey: ["invoice-payment"],
       });
-      refetchPayment();
     },
   });
 
@@ -89,8 +75,6 @@ export const useInvoice = ({ bookingId, invoiceNumber }: UseInvoiceProps) => {
     errorInvoice,
     unpaidBilling,
     loadingUnpaidBilling,
-    payment,
-    loadingPayment,
     createPayment,
     creatingPayment,
 

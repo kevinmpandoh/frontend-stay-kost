@@ -41,17 +41,10 @@ const StepHarga = () => {
     setOnNext(
       handleSubmit((data) => {
         if (!kostTypeId) return;
-        saveKostTypePrice(
-          {
-            kostTypeId,
-            data: { price: data.harga_perbulan },
-          },
-          {
-            onSuccess: () => {
-              reset();
-            },
-          },
-        );
+        saveKostTypePrice({
+          kostTypeId,
+          data: { price: data.harga_perbulan },
+        });
       }),
     );
   }, [

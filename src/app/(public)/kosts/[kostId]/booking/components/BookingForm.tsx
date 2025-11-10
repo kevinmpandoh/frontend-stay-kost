@@ -13,46 +13,18 @@ import {
 
 import { useBookingStore } from "@/features/booking/booking.store";
 import { Button } from "@/components/ui/button";
-import { useTenantBooking } from "@/features/booking/hooks/useTenantBooking";
 import { useUser } from "@/features/user/hooks/useUser";
 import { Label } from "@/components/ui/label";
 import DatePicker from "./DatePicker";
 import { Textarea } from "@/components/ui/textarea";
-
 interface BookingFormProps {
-  kostId: string; // id kost yang mau di-booking
+  onSubmitBooking: (data: BookingFormData) => void;
 }
 
-const BookingForm = ({ kostId }: BookingFormProps) => {
+const BookingForm = ({ onSubmitBooking }: BookingFormProps) => {
   const { startDate } = useBookingStore();
-
-  const { createBooking, creating } = useTenantBooking();
   const { userCurrent } = useUser();
-
   const { data: user } = userCurrent;
-
-  const onSubmit = async (data: BookingFormData) => {
-    const date = new Date(data.startDate);
-
-    // Tetap dalam zona waktu lokal (misal GMT+8)
-    const yyyy = date.getFullYear();
-    const mm = String(date.getMonth() + 1).padStart(2, "0"); // bulan 0-based
-    const dd = String(date.getDate()).padStart(2, "0");
-
-    const localDate = `${yyyy}-${mm}-${dd}`;
-
-    try {
-      createBooking({
-        duration: data.duration,
-        roomType: kostId,
-        startDate: localDate,
-        note: data.note,
-      });
-    } catch (error) {
-      console.error(error);
-      // Bisa kasih toast error atau alert kalau mau
-    }
-  };
 
   const { register, handleSubmit, control } = useForm<BookingFormData>({
     resolver: zodResolver(bookingSchema),
@@ -104,7 +76,7 @@ const BookingForm = ({ kostId }: BookingFormProps) => {
 
       <h2 className="text-2xl font-semibold">Durasi & Tanggal Penyewaan</h2>
 
-      <form onSubmit={handleSubmit(onSubmit)} className="mt-6 space-y-4">
+      <form onSubmit={handleSubmit(onSubmitBooking)} className="mt-6 space-y-4">
         <div className="grid grid-cols-2 items-end gap-10">
           <div className="space-y-2">
             <Label className="text-lg font-medium text-gray-700">
@@ -167,13 +139,8 @@ const BookingForm = ({ kostId }: BookingFormProps) => {
           />
         </div>
 
-        <Button
-          size={"lg"}
-          type="submit"
-          disabled={creating}
-          className={`w-full`}
-        >
-          {creating ? "Mengajukan..." : "Ajukan Sewa"}
+        <Button type="submit" size="lg" className="w-full">
+          Ajukan Sewa
         </Button>
       </form>
     </>

@@ -12,6 +12,7 @@ import { useEffect } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useKostType } from "@/features/roomType/hooks/useKostType";
 import { useRouter } from "next/navigation";
+import { useEditKostModalStore } from "@/stores/editKostModal";
 
 export const presetUkuran = ["3 X 3", "3 X 4", "Lainnya"] as const;
 
@@ -245,7 +246,7 @@ const StepTipeKost = () => {
           <Label className="text-xl">Jumlah keseluruhan Kamar</Label>
           <Input
             type="number"
-            placeholder="10"
+            placeholder="Contoh: 10"
             {...register("totalKamar", { valueAsNumber: true })}
           />
           {errors.totalKamar && (
@@ -257,7 +258,7 @@ const StepTipeKost = () => {
           <Label className="text-xl">Jumlah Kamar yang terisi</Label>
           <Input
             type="number"
-            placeholder="2"
+            placeholder="Contoh: 2"
             {...register("kamarTerisi", { valueAsNumber: true })}
           />
           {errors.kamarTerisi && (

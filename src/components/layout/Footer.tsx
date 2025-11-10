@@ -2,7 +2,7 @@ import { Facebook, Instagram, Mail, MapPin, Phone } from "lucide-react";
 import Link from "next/link";
 import { AppLogo } from "../common/AppLogo";
 
-import { APP_CONFIG } from "@/constants/contact";
+import { APP_CONFIG } from "@/constants/app";
 
 const Footer = () => {
   return (
@@ -21,32 +21,29 @@ const Footer = () => {
 
         {/* Navigasi - Penyewa */}
         <div>
-          <h4 className="mb-3 font-semibold text-white">Untuk Penyewa</h4>
+          <h4 className="mb-3 font-semibold text-white">Stay Kost</h4>
           <ul className="space-y-2 text-sm text-gray-200">
             <li>
               <Link href="/kosts">Cari Kost</Link>
             </li>
             <li>
-              <Link href="/user/wishlist">Wishlist</Link>
+              <Link href="/about">Tentang Kami</Link>
             </li>
             <li>
-              <Link href="/">Bantuan</Link>
+              <Link href="/help">Bantuan</Link>
             </li>
           </ul>
         </div>
 
         {/* Navigasi - Pemilik */}
         <div>
-          <h4 className="mb-3 font-semibold text-white">Untuk Pemilik</h4>
+          <h4 className="mb-3 font-semibold text-white">Kebijakan</h4>
           <ul className="space-y-2 text-sm text-gray-200">
             <li>
-              <Link href="/login">Daftarkan Kost</Link>
+              <Link href="/privacy-policy">Kebijakan dan Privasi</Link>
             </li>
             <li>
-              <Link href="/dashboard/owner">Dashboard Pemilik</Link>
-            </li>
-            <li>
-              <Link href="/">Bantuan</Link>
+              <Link href="/terms-and-conditions">Syarat dan Ketentuan</Link>
             </li>
           </ul>
         </div>

@@ -40,14 +40,31 @@ export const useTenantBooking = () => {
     onSuccess: () => {
       setSuccess(true);
       queryClient.invalidateQueries({ queryKey: ["booking"] });
-      router.push("/booking-success");
+      // router.push("/booking-success");
     },
     onError: (err) => {
       if (err instanceof AxiosError) {
         toast.error(
-          err.response?.data.message || "Terjadi kesalahan. Silahakn coba lagi",
+          err.response?.data.message ||
+            "Terjadi kesalahan saat mengajukan sewa.. Silahakn coba lagi",
         );
+      } else {
+        toast.error("Kesalahan Tak Terduga. Silahkan coba lagi");
       }
+    },
+  });
+
+  const cancelBooking = useMutation({
+    mutationFn: bookingService.cancelBooking,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["bookings"] }); // Refresh booking list
+      toast.success("Pengajuan Sewa berhasil dibatalkan.");
+    },
+    onError: (err: any) => {
+      console.log(err);
+      toast.error(
+        err.response.data.message || "Terjadi kesalahan. Silahakn coba lagi",
+      );
     },
   });
 
@@ -97,6 +114,7 @@ export const useTenantBooking = () => {
   return {
     createBooking: add,
     creating,
+    cancelBooking,
     booking,
     isLoading,
     checkIn,

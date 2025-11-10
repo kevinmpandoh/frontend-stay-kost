@@ -1,10 +1,10 @@
 "use client";
 
-// import { useKeenSlider } from "keen-slider/react";
 import "keen-slider/keen-slider.min.css";
 import { useState } from "react";
 import { X, ChevronLeft, ChevronRight } from "lucide-react";
 import Image from "next/image";
+import { useSwipeable } from "react-swipeable";
 
 interface Photo {
   _id: string;
@@ -25,21 +25,23 @@ export function KostImageGallery({ photos }: KostImageGalleryProps) {
     setIsModalOpen(true);
   };
 
-  const closePreview = () => {
-    setIsModalOpen(false);
-  };
+  const closePreview = () => setIsModalOpen(false);
 
-  const next = () => {
-    setActiveIndex((prev) => (prev + 1) % photos.length);
-  };
-
-  const prev = () => {
+  const next = () => setActiveIndex((prev) => (prev + 1) % photos.length);
+  const prev = () =>
     setActiveIndex((prev) => (prev - 1 + photos.length) % photos.length);
-  };
+
+  // ✅ Swipe handler untuk mobile
+  const swipeHandlers = useSwipeable({
+    onSwipedLeft: next,
+    onSwipedRight: prev,
+    preventScrollOnSwipe: true,
+    trackMouse: false, // kalau mau bisa drag di desktop, ubah ke true
+  });
 
   return (
     <>
-      {/* Desktop view */}
+      {/* 🖥️ Desktop view */}
       <div className="hidden grid-cols-9 gap-2 overflow-hidden rounded-2xl sm:grid sm:h-[280px] lg:h-[380px]">
         <div className="relative col-span-5" onClick={() => openPreview(0)}>
           <Image
@@ -47,6 +49,7 @@ export function KostImageGallery({ photos }: KostImageGalleryProps) {
             alt="Kost utama"
             fill
             className="rounded object-cover"
+            loading="lazy"
           />
         </div>
 
@@ -62,44 +65,61 @@ export function KostImageGallery({ photos }: KostImageGalleryProps) {
                 alt={`Kost ${photo.kategori}`}
                 fill
                 className="rounded object-cover"
+                loading="lazy"
               />
             </div>
           ))}
         </div>
       </div>
 
-      {/* Mobile view: swipeable gallery */}
-      <div className="relative aspect-[4/3] overflow-hidden rounded-xl sm:hidden">
-        <Image
-          src={photos[activeIndex].url}
-          alt={`Kost mobile ${activeIndex + 1}`}
-          fill
-          className="w-[80%] object-cover"
-          onClick={() => openPreview(activeIndex)}
-        />
+      {/* 📱 Mobile view: swipeable gallery */}
+      <div
+        {...swipeHandlers}
+        className="relative aspect-[4/3] overflow-hidden rounded-xl sm:hidden"
+        onClick={() => openPreview(activeIndex)}
+      >
+        <div
+          className="flex h-full w-full transition-transform duration-500 ease-in-out"
+          style={{ transform: `translateX(-${activeIndex * 100}%)` }}
+        >
+          {photos.map((photo) => (
+            <div key={photo._id} className="relative h-full min-w-full">
+              <Image
+                src={photo.url}
+                alt={`Kost mobile ${photo.kategori}`}
+                fill
+                className="object-cover"
+                loading="lazy" // ✅ lazy load
+                priority={false}
+              />
+            </div>
+          ))}
+        </div>
+
+        {/* Indicator (bottom right) */}
         <div className="absolute right-2 bottom-2 rounded bg-black/60 px-2 py-1 text-sm text-white">
           {activeIndex + 1} / {photos.length}
         </div>
       </div>
 
-      {/* Modal preview manual */}
+      {/* 🖼️ Modal preview */}
       {isModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/90">
-          {/* Gambar */}
+          {/* Gambar preview */}
           <div className="relative h-[80vh] w-full max-w-5xl px-6">
             <Image
               src={photos[activeIndex].url}
               alt={`Preview ${activeIndex + 1}`}
               fill
               className="object-contain"
+              loading="lazy"
             />
-
-            {/* Index (pojok kanan bawah) */}
             <div className="absolute right-6 bottom-4 rounded bg-black/60 px-3 py-1 text-sm text-white">
               {activeIndex + 1} / {photos.length}
             </div>
           </div>
-          {/* Close */}
+
+          {/* Tombol close */}
           <button
             onClick={closePreview}
             className="absolute top-6 right-6 cursor-pointer rounded-full bg-white/90 p-2 text-black shadow"
@@ -107,7 +127,7 @@ export function KostImageGallery({ photos }: KostImageGalleryProps) {
             <X className="h-6 w-6 md:h-8 md:w-8" />
           </button>
 
-          {/* Navigation arrows (di layar, bukan gambar) */}
+          {/* Navigasi manual */}
           <button
             onClick={prev}
             className="absolute top-1/2 left-4 -translate-y-1/2 rounded-full bg-black/50 p-3 text-white hover:bg-black/70"

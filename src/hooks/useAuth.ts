@@ -117,6 +117,7 @@ export const useAuth = () => {
   const verifyOTP = useMutation({
     mutationFn: authService.verifyOTP,
     onSuccess: (data) => {
+      console.log("VERIFIED OTP", data);
       toast.success("Pendafaran berhasil");
       setUser(data.user);
       clearRegisterInfo();

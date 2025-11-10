@@ -81,7 +81,7 @@ const JoinAsOwnerSection = () => {
             ))}
           </ul>
           <Button size={"lg"} asChild>
-            <Link href="/daftar-pemilik">Daftarkan Kost Sekarang</Link>
+            <Link href="/register">Daftarkan Kost Sekarang</Link>
           </Button>
         </div>
 

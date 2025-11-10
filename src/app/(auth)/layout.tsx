@@ -1,3 +1,4 @@
+// app/(auth)/layout.tsx
 export const dynamic = "force-dynamic";
 
 import AuthProtected from "@/components/HOC/AuthProtected";

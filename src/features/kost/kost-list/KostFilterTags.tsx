@@ -6,7 +6,6 @@ import {
   Tags,
   BadgePercent,
   Building2,
-  Gavel,
   Star,
   XCircle,
 } from "lucide-react";
@@ -16,7 +15,7 @@ import { Badge } from "@/components/ui/badge";
 import { useKostFilterStore } from "../store/kostFilter.store";
 
 const filterItems: {
-  key: "sort" | "price" | "facilities" | "type" | "rules" | "rating";
+  key: "sort" | "price" | "facilities" | "type" | "rating";
   label: string;
   icon: React.ElementType;
 }[] = [
@@ -24,7 +23,7 @@ const filterItems: {
   { key: "price", label: "Harga", icon: BadgePercent },
   { key: "facilities", label: "Fasilitas", icon: Tags },
   { key: "type", label: "Jenis Kost", icon: Building2 },
-  { key: "rules", label: "Aturan Kost", icon: Gavel },
+  // { key: "rules", label: "Aturan Kost", icon: Gavel },
   { key: "rating", label: "Rating", icon: Star },
 ];
 
@@ -38,14 +37,14 @@ export default function KostFilterTags() {
   const roomFacilities = searchParams.get("roomFacilities")?.split(",") || [];
   const facilities = [...kostFacilities, ...roomFacilities]; // gabung keduanya
   const type = searchParams.get("kostType")?.split(",").filter(Boolean) || [];
-  const rules = searchParams.get("rules")?.split(",").filter(Boolean) || [];
+  // const rules = searchParams.get("rules")?.split(",").filter(Boolean) || [];
 
   const activeFilters = {
     sort: !!searchParams.get("sort"),
     price: !!searchParams.get("minPrice") || !!searchParams.get("maxPrice"),
     facilities: facilities.length,
     type: type.length,
-    rules: rules.length,
+    // rules: rules.length,
     rating: !!searchParams.get("rating"),
   };
 
@@ -72,8 +71,8 @@ export default function KostFilterTags() {
         return facilities.length;
       case "type":
         return type.length;
-      case "rules":
-        return rules.length;
+      // case "rules":
+      //   return rules.length;
       default:
         return 0;
     }
@@ -91,20 +90,20 @@ export default function KostFilterTags() {
             variant={isActive ? "outline" : "outline"}
             size={"lg"}
             className={`text-md relative flex items-center gap-1 ${
-              isActive ? "text-primary" : "text-slate-600"
+              isActive ? "text-primary-600" : "text-slate-600"
             } `}
             onClick={() => openModal(key as any)}
           >
             <Icon
               className={`h-4 w-4 ${
-                isActive ? "text-primary" : "text-slate-600"
+                isActive ? "text-primary-500" : "text-slate-600"
               } `}
             />
             {label}
             {badgeCount > 0 && (
               <Badge
                 variant="default"
-                className="bg-primary absolute -top-1 -right-2 px-1 py-0 text-xs text-white"
+                className="bg-primary-500 absolute -top-1 -right-2 px-1 py-0 text-xs text-white"
               >
                 {badgeCount}
               </Badge>

@@ -7,7 +7,7 @@ export function getNotificationLink(notif: any) {
       if (notif.role === "owner")
         return `/dashboard/owner/pengajuan-sewa/${notif.metadata?.bookingId}`;
       if (notif.role === "tenant")
-        return `/user/kost-saya?${notif.metadata?.bookingId}`;
+        return `/user/pengajuan-sewa?${notif.metadata?.bookingId}`;
       break;
 
     case "payment":

@@ -25,6 +25,12 @@ const kategoriList: Photo["category"][] = [
   "kamar_mandi",
 ];
 
+const categoryOptions: { label: string; value: Photo["category"] }[] = [
+  { label: "Depan Kamar", value: "depan_kamar" },
+  { label: "Dalam Kamar", value: "dalam_kamar" },
+  { label: "Kamar Mandi", value: "kamar_mandi" },
+];
+
 export default function StepFotoTipeKost() {
   const [uploadingKategori, setUploadingKategori] = useState<
     Photo["category"] | null
@@ -101,12 +107,6 @@ export default function StepFotoTipeKost() {
       submitPhotoRoom(
         { kostTypeId },
         {
-          onSuccess: (res) => {
-            setCurrentStep(8);
-            router.replace(
-              `/dashboard/tambah-kost?kost_id=${res.data.kostId}&step=8`,
-            );
-          },
           onError: (err: any) => {
             toast.error(err.message || "Gagal mengirim foto");
           },
@@ -144,24 +144,24 @@ export default function StepFotoTipeKost() {
   return (
     <div className="space-y-8">
       <h1 className="mb-6 text-2xl font-semibold">Foto Tipe Kamar Anda</h1>
-      {kategoriList.map((category) => (
-        <div key={category}>
-          <h2 className="mb-2 font-semibold">{category}</h2>
+      {categoryOptions.map((category) => (
+        <div key={category.label}>
+          <h2 className="mb-2 font-semibold">{category.label}</h2>
           <div className="flex flex-wrap gap-3">
-            {groupedPhotos[category]?.map((photo) => (
+            {groupedPhotos[category.value]?.map((photo) => (
               <div
                 key={photo._id}
-                className="relative h-28 w-28 overflow-hidden rounded border"
+                className="relative h-48 w-48 overflow-hidden rounded border"
               >
                 <Image
                   src={photo.url}
-                  alt={category}
+                  alt={category.value}
                   className="h-full w-full object-cover"
-                  width={112}
-                  height={112}
+                  width={280}
+                  height={280}
                 />
                 <button
-                  onClick={() => handleDelete(category, photo._id)}
+                  onClick={() => handleDelete(category.value, photo._id)}
                   disabled={deletingPhotoId === photo._id}
                   className={cn(
                     "absolute top-1 right-1 rounded-full bg-white/70 p-0.5",
@@ -174,19 +174,20 @@ export default function StepFotoTipeKost() {
               </div>
             ))}
 
-            {groupedPhotos[category]?.length < MAX_PHOTOS_PER_CATEGORY && (
-              <label className="flex h-28 w-28 cursor-pointer items-center justify-center rounded border-2 border-dashed text-gray-500 hover:bg-gray-50">
-                {uploadingKategori === category ? (
-                  <Loader2 className="h-5 w-5 animate-spin" />
+            {groupedPhotos[category.value]?.length <
+              MAX_PHOTOS_PER_CATEGORY && (
+              <label className="flex h-48 w-48 cursor-pointer items-center justify-center rounded border-2 border-dashed text-gray-500 hover:bg-gray-50">
+                {uploadingKategori === category.value ? (
+                  <Loader2 className="h-8 w-8 animate-spin" />
                 ) : (
                   <ImagePlus />
                 )}
                 <input
                   type="file"
                   accept="image/*"
-                  onChange={(e) => handleUpload(e, category)}
+                  onChange={(e) => handleUpload(e, category.value)}
                   className="hidden"
-                  disabled={uploadingKategori === category}
+                  disabled={uploadingKategori === category.value}
                 />
               </label>
             )}

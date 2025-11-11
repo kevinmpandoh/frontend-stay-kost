@@ -14,7 +14,7 @@ export function PaymentSummary({ invoice }: { invoice: Invoice }) {
 
   return (
     <aside
-      className={`${invoice.type === "booking" ? "max-w-md" : "max-w-sm"} self-start rounded-lg border border-gray-200 p-6 select-text`}
+      className={`w-full max-w-sm self-start rounded-lg border border-gray-200 p-6 select-text`}
     >
       {invoice.type === "booking" ? (
         <>
@@ -86,21 +86,16 @@ export function PaymentSummary({ invoice }: { invoice: Invoice }) {
       </h4>
 
       <dl className="mb-6 space-y-3 text-base text-gray-800">
-        {invoice.type === "booking" ? (
-          <div className="flex justify-between">
-            <dt>Biaya sewa per bulan</dt>
-            <dd className="font-semibold">
-              Rp {invoice?.amount.toLocaleString("id-ID")}
-            </dd>
-          </div>
-        ) : (
-          <div className="flex justify-between">
-            <dt>Biaya Langganan</dt>
-            <dd className="font-semibold">
-              Rp {invoice?.amount.toLocaleString("id-ID")}
-            </dd>
-          </div>
-        )}
+        <div className="flex justify-between">
+          <dt>
+            {invoice.type === "booking"
+              ? "Biaya sewa per bulan"
+              : "Biaya Langganan"}
+          </dt>
+          <dd className="font-semibold">
+            Rp {invoice?.amount.toLocaleString("id-ID")}
+          </dd>
+        </div>
 
         {/* Kalau mau tambahin biaya layanan tetap bisa */}
         <div className="flex justify-between">

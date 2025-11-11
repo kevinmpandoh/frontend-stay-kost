@@ -26,15 +26,19 @@ const AuthProtected: React.FC<ProtectedRouteProps> = ({ children }) => {
         if (user?.role === "admin") {
           router.push("/dashboard/admin");
         } else if (user?.role === "tenant") {
+          console.log("MASUK TENANT");
+          console.log(preferences?.data, "PREFERENES DATA");
+          console.log(preferences?.isLoading, "PREFERENES LOADING");
+
           if (!preferences?.data && !preferences?.isLoading) {
             router.push("/preferences");
           } else {
-            router.push("/123123");
+            router.push("/");
           }
         } else if (user?.role === "owner") {
           router.push("/dashboard/owner");
         } else {
-          router.push("/tes");
+          router.push("/");
         }
         return;
       }

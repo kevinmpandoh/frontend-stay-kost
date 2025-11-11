@@ -174,7 +174,7 @@ const RentalRequestCard: React.FC<Props> = ({ data, onCancel, onCheckIn }) => {
       {/* Footer */}
       <div className="mt-3 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
-          {countdown && status === "waiting_for_payment" && (
+          {countdown && data.status === "waiting_for_payment" && (
             <div className="rounded-lg bg-yellow-50 px-3 py-2 text-xs text-yellow-800 sm:text-sm">
               Sisa waktu pembayaran:{" "}
               <span className="font-semibold">{countdown}</span>
@@ -216,13 +216,13 @@ const RentalRequestCard: React.FC<Props> = ({ data, onCancel, onCheckIn }) => {
             </Button>
           )}
 
-          {status === "waiting_for_checkin" && (
+          {data.status === "waiting_for_checkin" && (
             <Button onClick={() => onCheckIn?.(data.id)} disabled={!canCheckIn}>
               {canCheckIn ? "Check-In Sekarang" : "Belum Bisa Check-In"}
             </Button>
           )}
 
-          {status === "active" && (
+          {data.status === "active" && (
             <Button asChild>
               <Link href="/user/kost-saya">Kost Saya</Link>
             </Button>

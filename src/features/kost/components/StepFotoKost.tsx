@@ -9,6 +9,7 @@ import { useCreateKostStore } from "@/stores/createKost.store";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useOwnerKost } from "../hooks/useOwnerKost";
+import imageCompression from "browser-image-compression";
 
 const categoryOptions: { label: string; value: Photo["category"] }[] = [
   { label: "Tampak Depan", value: "tampak_depan" },
@@ -76,30 +77,47 @@ export default function StepFotoKost() {
     }
 
     setUploadingKategori(category);
+    try {
+      if (!kostId) {
+        toast.error("Kost ID tidak ditemukan");
+        return;
+      }
 
-    if (!kostId) {
-      toast.error("Kost ID tidak ditemukan");
-      return;
-    }
-    const formData = new FormData();
-    formData.append("photo", file);
-    formData.append("category", category);
-    formData.append("kostId", kostId);
+      // ✅ 1. Kompres file dulu sebelum upload
+      const compressedFile = await imageCompression(file, {
+        maxSizeMB: 1, // target maksimal 1MB
+        maxWidthOrHeight: 1920, // resize otomatis
+        useWebWorker: true, // performa lebih baik
+      });
+      const formData = new FormData();
+      formData.append("photo", compressedFile);
+      formData.append("category", category);
+      formData.append("kostId", kostId);
 
-    uploadPhoto(
-      { kostId, formData },
-      {
-        onSuccess: () => {
-          toast.success("Foto berhasil diunggah");
-          setUploadingKategori(null);
-          setFieldErrors((prev) => {
-            const newErrors = { ...prev };
-            delete newErrors[category];
-            return newErrors;
-          });
+      uploadPhoto(
+        { kostId, formData },
+        {
+          onSuccess: () => {
+            toast.success("Foto berhasil diunggah");
+            setUploadingKategori(null);
+            setFieldErrors((prev) => {
+              const newErrors = { ...prev };
+              delete newErrors[category];
+              return newErrors;
+            });
+          },
+          onError: (err: any) => {
+            console.error(err);
+            toast.error(err.message || "Terjadi kesalahan saat upload");
+          },
         },
-      },
-    );
+      );
+    } catch (err: any) {
+      console.error(err);
+      toast.error(err.message || "Terjadi kesalahan saat upload");
+    } finally {
+      setUploadingKategori(null);
+    }
   };
 
   useEffect(() => {

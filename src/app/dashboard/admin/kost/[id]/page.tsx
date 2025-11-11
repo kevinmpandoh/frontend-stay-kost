@@ -5,7 +5,7 @@ import { useQuery } from "@tanstack/react-query";
 import Image from "next/image";
 import { useState } from "react";
 import { Badge } from "@/components/ui/badge";
-import { ChevronRight, X } from "lucide-react";
+import { ChevronLeft, ChevronRight, X } from "lucide-react";
 import BackLink from "@/components/common/BackLink";
 import { kostAdminService } from "@/features/kost/services/kostAdmin.service";
 import { StatusBadge } from "@/components/common/StatusBadge";
@@ -295,7 +295,7 @@ export default function AdminKostDetailPage() {
                             }
                             className="absolute top-1/2 left-2 -translate-y-1/2 rounded-full bg-white/80 px-1 py-1 shadow"
                           >
-                            <ChevronRight size={20} />
+                            <ChevronLeft size={20} />
                           </button>
                           <button
                             onClick={() =>

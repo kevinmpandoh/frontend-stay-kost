@@ -18,11 +18,7 @@ export default function BackLink({
   const router = useRouter();
 
   const handleBack = () => {
-    if (window.history.length > 1) {
-      router.back();
-    } else {
-      router.push(fallbackUrl);
-    }
+    router.push(fallbackUrl);
   };
 
   // mapping size ke style

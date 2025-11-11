@@ -90,7 +90,10 @@ export default function BookingTenant({ kostId }: BookingTenantProps) {
       <>
         {/* Kiri - Form */}
         <div className="mr-8 flex-1 space-y-6 rounded-2xl p-6">
-          <BackLink label="Kembali ke detail kost" />
+          <BackLink
+            label="Kembali ke detail kost"
+            fallbackUrl={`/kosts/${kostId}`}
+          />
 
           <BookingForm onSubmitBooking={handleFormSubmit} />
         </div>

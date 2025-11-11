@@ -9,6 +9,7 @@ import { usePhotoRoom } from "@/features/photo-room/hooks/usePhotoRoom";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useKostType } from "@/features/roomType/hooks/useKostType";
+import imageCompression from "browser-image-compression";
 
 type Photo = {
   _id: string;
@@ -85,8 +86,14 @@ export default function StepFotoTipeKost() {
       toast.error("Tipe Kost tidak ditemukan");
       return;
     }
+
+    const compressedFile = await imageCompression(file, {
+      maxSizeMB: 1, // target maksimal 1MB
+      maxWidthOrHeight: 1920, // resize otomatis
+      useWebWorker: true, // performa lebih baik
+    });
     const formData = new FormData();
-    formData.append("photo", file);
+    formData.append("photo", compressedFile);
     formData.append("category", category);
     formData.append("roomTypeId", kostTypeId);
 

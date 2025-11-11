@@ -13,12 +13,13 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useKostType } from "@/features/roomType/hooks/useKostType";
 import { useRouter } from "next/navigation";
 import { useEditKostModalStore } from "@/stores/editKostModal";
+import { APIError } from "@/utils/handleAxiosError";
 
 export const presetUkuran = ["3 X 3", "3 X 4", "Lainnya"] as const;
 
 export const tipeKostSchema = z
   .object({
-    namaTipe: z.string().min(1, "Nama tipe kost wajib diisi"),
+    name: z.string().min(1, "Nama tipe kost wajib diisi"),
 
     ukuran: z.enum(presetUkuran, {
       message: "Ukuran kamar wajib dipilih",
@@ -69,6 +70,7 @@ const StepTipeKost = () => {
     handleSubmit,
     watch,
     setValue,
+    setError,
     formState: { errors },
   } = useForm<TipeKostForm>({
     resolver: zodResolver(tipeKostSchema),
@@ -81,7 +83,7 @@ const StepTipeKost = () => {
 
   useEffect(() => {
     if (kostType && Object.keys(kostType).length > 0) {
-      setValue("namaTipe", kostType.nama_tipe || "");
+      setValue("name", kostType.nama_tipe || "");
       setValue("totalKamar", kostType.jumlah_kamar || 0);
       setValue("kamarTerisi", kostType.jumlah_terisi || 0);
 
@@ -121,7 +123,7 @@ const StepTipeKost = () => {
             : data.ukuran;
 
         const formData = {
-          name: data.namaTipe,
+          name: data.name,
           size: finalUkuran,
           total_rooms: data.totalKamar,
           total_rooms_occupied: data.kamarTerisi,
@@ -134,16 +136,61 @@ const StepTipeKost = () => {
             {
               onSuccess: () => {
                 setKostType({
-                  nama_tipe: data.namaTipe,
+                  nama_tipe: data.name,
                   ukuran_kamar: finalUkuran,
                   jumlah_kamar: data.totalKamar, // array string
                   jumlah_terisi: data.kamarTerisi,
                 });
               },
+              onError: (error) => {
+                if (error instanceof APIError) {
+                  if (error.details && typeof error.details === "object") {
+                    Object.entries(error.details).forEach(
+                      ([field, message]) => {
+                        setError(field as keyof TipeKostForm, {
+                          type: "manual",
+                          message: message as string,
+                        });
+                      },
+                    );
+                  } else {
+                    // fallback jika error tidak punya details (misalnya error umum)
+                    setError("root", {
+                      type: "manual",
+                      message: error.message || "Terjadi kesalahan",
+                    });
+                  }
+                }
+              },
             },
           );
         } else {
-          create({ data: formData, kostId: kostId! });
+          create(
+            { data: formData, kostId: kostId! },
+            {
+              onError: (error) => {
+                if (error instanceof APIError) {
+                  console.log("OK");
+                  if (error.details && typeof error.details === "object") {
+                    Object.entries(error.details).forEach(
+                      ([field, message]) => {
+                        setError(field as keyof TipeKostForm, {
+                          type: "manual",
+                          message: message as string,
+                        });
+                      },
+                    );
+                  } else {
+                    // fallback jika error tidak punya details (misalnya error umum)
+                    setError("root", {
+                      type: "manual",
+                      message: error.message || "Terjadi kesalahan",
+                    });
+                  }
+                }
+              },
+            },
+          );
         }
       }),
     );
@@ -157,6 +204,7 @@ const StepTipeKost = () => {
     setKostType,
     kostTypeId,
     router,
+    setError,
   ]);
 
   return (
@@ -165,19 +213,19 @@ const StepTipeKost = () => {
         <h2 className="text-2xl font-bold">Lengkapi Data tipe kost anda</h2>
 
         {/* Nama Kost */}
-        <div className="mb-6 max-w-lg">
+        <div className="mb-6 max-w-lg space-y-2">
           <Label className="text-xl">Nama Tipe Kost</Label>
           <Input
-            {...register("namaTipe")}
+            {...register("name")}
             type="text"
-            error={errors.namaTipe ? true : false}
+            error={errors.name ? true : false}
           />
-          {errors.namaTipe && (
-            <p className="text-sm text-red-500">{errors.namaTipe.message}</p>
+          {errors.name && (
+            <p className="text-sm text-red-500">{errors.name.message}</p>
           )}
 
           <p className="mt-1 text-sm text-[#7A7A7A]">
-            Saran: Kost (spasi) Nama kost
+            Saran: Tipe A, Tipe VIP, Tipe Kayu, dll.
           </p>
         </div>
 

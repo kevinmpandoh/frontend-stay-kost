@@ -4,6 +4,7 @@ import { useCreateKostStore } from "@/stores/createKost.store";
 import { useEditKostModalStore } from "@/stores/editKostModal";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 
 export const useKostType = ({ kostTypeId }: { kostTypeId?: string }) => {
   const queryClient = useQueryClient();
@@ -29,7 +30,6 @@ export const useKostType = ({ kostTypeId }: { kostTypeId?: string }) => {
       roomTypeService.create(kostId, data),
 
     onSuccess: (res) => {
-      console.log(res, "RES TAMBAH");
       if (res.data.kostStatus === "draft") {
         setProgressStep(6);
         setCurrentStep(6);
@@ -47,9 +47,6 @@ export const useKostType = ({ kostTypeId }: { kostTypeId?: string }) => {
           queryKey: ["roomType", res.data.roomTypeId],
         });
       }
-    },
-    onError: (err: any) => {
-      console.log(err, "ERROR");
     },
   });
   const { mutateAsync: edit, isPending: isEditing } = useMutation({
@@ -150,9 +147,9 @@ export const useKostType = ({ kostTypeId }: { kostTypeId?: string }) => {
       }
       queryClient.invalidateQueries({ queryKey: ["photo-kost", kostTypeId] });
     },
-    onError: (err: any) => {
-      console.log(err, "ERROR");
-    },
+    // onError: (err: any) => {
+    //   console.log(err, "ERROR");
+    // },
   });
 
   const { mutate: saveKostTypePrice, isPending: savingKostTypePrice } =
@@ -160,8 +157,9 @@ export const useKostType = ({ kostTypeId }: { kostTypeId?: string }) => {
       mutationFn: ({ kostTypeId, data }: { kostTypeId: string; data: any }) =>
         KostOwnerService.createKostTypePrice(kostTypeId, data),
       onSuccess: (res) => {
+        reset();
+        console.log(res, "RES");
         if (res.data.kost.status === "draft") {
-          reset();
           router.push(`/dashboard/owner/kost-saya`);
           queryClient.invalidateQueries({
             queryKey: ["kost", res.data.kostId],

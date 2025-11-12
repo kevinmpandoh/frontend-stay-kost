@@ -37,8 +37,12 @@ export const useUser = () => {
 
   const updateBankAccount = useMutation({
     mutationFn: userService.updateBankAccount,
-    onSuccess: () => {
-      toast.success("Akun Bank berhasil diubah");
+    onSuccess: (data) => {
+      if (data?.warning) {
+        toast.warning(data.warning);
+      } else {
+        toast.success("Akun Bank berhasil diubah");
+      }
       queryClient.invalidateQueries({ queryKey: ["user-current"] });
     },
     onError: (error) => {

@@ -12,7 +12,7 @@ export const userService = {
   },
   updateBankAccount: async (data: any) => {
     const response = await api.put(`/users/bank-account`, data);
-    return response.data;
+    return response.data.data;
   },
 
   getBanks: async () => {

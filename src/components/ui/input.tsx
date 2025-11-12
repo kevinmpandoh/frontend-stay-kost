@@ -31,6 +31,7 @@ function Input({
         {leftIcon && (
           <button
             type="button"
+            tabIndex={-1}
             onClick={onLeftIconClick}
             className={cn(
               "text-muted-foreground hover:text-foreground absolute left-3 focus:outline-none",
@@ -63,6 +64,7 @@ function Input({
         {rightIcon && (
           <button
             type="button"
+            tabIndex={-1}
             onClick={onRightIconClick}
             className={cn(
               "text-muted-foreground hover:text-foreground absolute right-3 focus:outline-none",

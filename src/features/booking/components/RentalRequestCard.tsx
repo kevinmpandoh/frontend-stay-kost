@@ -72,16 +72,21 @@ const RentalRequestCard: React.FC<Props> = ({ data, onCancel, onCheckIn }) => {
 
   // Countdown Pembayaran
   useEffect(() => {
+    console.log("DATA STATUS & DEADLINE:", data.status, data.paymentDeadline);
     if (data.status !== "waiting_for_payment" || !data.paymentDeadline) return;
 
-    const expire = parse(
-      data.paymentDeadline,
-      "d MMMM yyyy HH:mm",
-      new Date(),
-      {
-        locale: ind,
-      },
-    );
+    // const expire = parse(
+    //   data.paymentDeadline,
+    //   "d MMMM yyyy HH:mm",
+    //   new Date(),
+    //   {
+    //     locale: ind,
+    //   },
+    // );
+
+    const expire = new Date(data.paymentDeadline);
+
+    console.log("PAYMENT DEADLINE:", data.paymentDeadline, expire);
     const interval = setInterval(() => {
       const now = new Date();
       const diff = differenceInSeconds(expire, now);

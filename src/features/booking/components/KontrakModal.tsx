@@ -116,12 +116,6 @@ export const KontrakModal = ({
                     {data.stopRequest.stopDate}
                   </span>
                   .
-                  {data.stopRequest.status === "pending_approval" &&
-                    " Tunggu pemilik kost untuk menyetujuinya."}
-                  {data.stopRequest.status === "rejected" &&
-                    " Permintaan kamu ditolak oleh pemilik kost."}
-                  {data.stopRequest.status === "approved" &&
-                    " Permintaan kamu sudah disetujui."}
                 </p>
               </div>
             </div>
@@ -147,9 +141,9 @@ export const KontrakModal = ({
               Ajukan Berhenti Sewa
             </Button>
 
-            {/* <Button variant="outline" size="lg" className="w-full sm:flex-1">
-          Download Kontrak PDF
-        </Button> */}
+            <Button variant="outline" size="lg" className="w-full sm:flex-1">
+              Perpanjang Kontrak Sewa
+            </Button>
           </div>
 
           {/* Modal Berhenti Sewa */}

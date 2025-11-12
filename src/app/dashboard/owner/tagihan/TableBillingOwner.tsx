@@ -18,6 +18,7 @@ const TableBillingOwner = ({
   billings: any;
   status: string;
 }) => {
+  console.log(status);
   return (
     <>
       <Table>

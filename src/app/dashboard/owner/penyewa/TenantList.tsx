@@ -1,5 +1,4 @@
 "use client";
-import { useOwnerBooking } from "@/features/booking/hooks/useOwnerBooking";
 import React from "react";
 import TenantCard from "./TenantCard";
 import SearchInput from "@/components/common/SearchInput";

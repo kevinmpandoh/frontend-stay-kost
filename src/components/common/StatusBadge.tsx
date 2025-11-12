@@ -24,6 +24,9 @@ const statusLabels: Record<string, string> = {
   [BookingStatus.WAITING_FOR_CHECKOUT]: "Menunggu Check-out",
   [BookingStatus.COMPLETED]: "Selesai",
   [BookingStatus.CANCELLED]: "Dibatalkan",
+  "Sedang Menyewa": "Sedang Menyewa",
+  "Akan Masuk": "Akan Masuk",
+  "Akan Keluar": "Akan Keluar",
 
   // Invoice
   //   [InvoiceStatus.PAID]: "Dibayar",
@@ -57,7 +60,8 @@ const statusColors: Record<string, { bg: string; text: string }> = {
   [BookingStatus.COMPLETED]: { bg: "bg-gray-100", text: "text-gray-800" },
   [BookingStatus.CANCELLED]: { bg: "bg-gray-100", text: "text-gray-800" },
   "Sedang Menyewa": { bg: "bg-green-200", text: "text-green-900" },
-  success: { bg: "bg-green-200", text: "text-green-900" },
+  "Akan Masuk": { bg: "bg-blue-100", text: "text-blue-800" },
+  "Akan Keluar": { bg: "bg-orange-100", text: "text-orange-800" },
 
   //   // Invoice
   //   [InvoiceStatus.PAID]: { bg: "bg-green-100", text: "text-green-800" },

@@ -48,6 +48,9 @@ const BillingOwner = () => {
     (b: any) => b.status === "paid" && b.payout?.visibleFailedReason,
   ) as any;
 
+  console.log("PAYOUT ISSUE:", payoutIssue);
+  console.log("BILLINGS:", billings);
+
   return (
     <>
       <PageHeader title="Tagihan Sewa Kost" />
@@ -62,10 +65,13 @@ const BillingOwner = () => {
         {/* 🚨 Alert jika ada payout bermasalah */}
         {payoutIssue && (
           <div className="mb-6">
-            <Alert variant="destructive" className="border-red-300 bg-red-50">
+            <Alert
+              variant="warning"
+              className="border-warning-300 bg-warning-50 text-warning-600"
+            >
               <TriangleAlert className="h-6 w-6" />
               <AlertTitle className="text-lg font-semibold">
-                Pembayaran tidak dapat diproses
+                Ada masalah dengan pencairan pembayaran tagihan ini
               </AlertTitle>
               <AlertDescription>
                 {payoutIssue.payout.visibleFailedReason}

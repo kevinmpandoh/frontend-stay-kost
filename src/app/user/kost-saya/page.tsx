@@ -32,6 +32,8 @@ export default function KostSayaPage() {
     reviewKost,
   } = useTenantBooking();
 
+  console.log("ACTIVE BOOKING:", data);
+
   const confirm = useConfirm();
   const { startChat } = useChat();
 
@@ -151,8 +153,13 @@ export default function KostSayaPage() {
               }`}
             >
               <p className="text-base font-semibold sm:text-lg">
-                Sewa kamu akan segera berakhir
+                {data.stopRequest.status === "pending_approval"
+                  ? "Permintaan Berhenti Sewa Sedang Diproses"
+                  : data.stopRequest.status === "approved"
+                    ? "Permintaan Berhenti Sewa Disetujui"
+                    : "Permintaan Berhenti Sewa Ditolak"}
               </p>
+
               <p className="text-sm sm:text-base">
                 Kamu telah mengajukan berhenti sewa pada{" "}
                 <span className="font-semibold">

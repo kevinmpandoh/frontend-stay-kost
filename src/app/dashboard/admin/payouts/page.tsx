@@ -36,7 +36,8 @@ const statusList = [
 const AdminPayout = () => {
   const [selectedDetail, setSelectedDetail] = useState<any | null>(null);
 
-  const { payouts, isLoading, retryPayout } = useAdminPayouts();
+  const { payouts, isLoading, retryPayout, checkStatusPayout } =
+    useAdminPayouts();
   const confirm = useConfirm();
 
   const handleRetryPayout = async (payoutId: string) => {
@@ -49,6 +50,22 @@ const AdminPayout = () => {
 
     if (ok) {
       retryPayout.mutate(payoutId, {
+        onSuccess: () => {
+          setSelectedDetail(null);
+        },
+      });
+    }
+  };
+
+  const handleCheckStatusPayout = async (payoutId: string) => {
+    const ok = await confirm({
+      title: "Cek Status Payout Pemilik Kost?",
+      description: `Apakah Anda yakin ingin mengecek status payout pemilik kost?`,
+      confirmText: "Terima",
+      cancelText: "Batal",
+    });
+    if (ok) {
+      checkStatusPayout.mutate(payoutId, {
         onSuccess: () => {
           setSelectedDetail(null);
         },
@@ -189,6 +206,7 @@ const AdminPayout = () => {
         onClose={() => setSelectedDetail(null)}
         data={selectedDetail}
         onRetry={handleRetryPayout}
+        onCheckStatus={handleCheckStatusPayout}
         loading={retryPayout.isPending}
       />
     </>

@@ -38,9 +38,27 @@ export const useAdminPayouts = () => {
     },
   });
 
+  const checkStatusPayout = useMutation({
+    mutationFn: payoutService.checkStatusPayout,
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ["admin-payouts"],
+      });
+      toast.success("Cek status payout berhasil");
+    },
+    onError: (error) => {
+      if (error instanceof AxiosError)
+        toast.error(
+          error?.response?.data?.message ||
+            "Gagal mengecek status payout. silahkan coba lagi",
+        );
+    },
+  });
+
   return {
     payouts: payoutsQuery.data,
     isLoading: payoutsQuery.isLoading,
     retryPayout,
+    checkStatusPayout,
   };
 };

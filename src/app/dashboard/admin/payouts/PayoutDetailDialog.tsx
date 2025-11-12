@@ -22,6 +22,7 @@ interface PayoutDetailDialogProps {
   onClose: () => void;
   data: any; // payout data
   onRetry?: (id: string) => void; // callback retry/kirim
+  onCheckStatus?: (id: string) => void; // callback cek status
   loading?: boolean;
 }
 
@@ -30,6 +31,7 @@ export const PayoutDetailDialog: React.FC<PayoutDetailDialogProps> = ({
   onClose,
   data,
   onRetry,
+  onCheckStatus,
   loading,
 }) => {
   if (!data) return null;
@@ -208,6 +210,16 @@ export const PayoutDetailDialog: React.FC<PayoutDetailDialogProps> = ({
                 : data.status === "failed"
                   ? "Retry Payout"
                   : "Kirim Payout"}
+            </Button>
+          )}
+
+          {data.status === "processed" && (
+            // Cek Status Payout sudah SUCCESS/FAILED
+            <Button
+              onClick={() => onCheckStatus && onCheckStatus(data._id)}
+              disabled={loading}
+            >
+              {loading ? "Memproses..." : "Cek Status Payout"}
             </Button>
           )}
         </DialogFooter>

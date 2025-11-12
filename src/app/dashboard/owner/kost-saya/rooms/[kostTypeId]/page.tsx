@@ -61,8 +61,6 @@ const KetersediaanKamarPage = () => {
     enabled: !!kostTypeId,
   });
 
-  console.log(rooms, "ROOMS");
-
   useEffect(() => {
     setPage(1);
   }, [search, filterStatus]);

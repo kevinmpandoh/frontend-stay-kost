@@ -10,8 +10,6 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const kost = await kostService.getKostDetail(params.kostId);
 
-  console.log("Kost for metadata:", kost);
-
   return {
     title: `${kost.name} - Kost ${kost.type} di ${kost.address.city} | Stay Kost`,
     description: kost.description

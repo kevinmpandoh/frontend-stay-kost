@@ -158,7 +158,7 @@ export const useKostType = ({ kostTypeId }: { kostTypeId?: string }) => {
         KostOwnerService.createKostTypePrice(kostTypeId, data),
       onSuccess: (res) => {
         reset();
-        console.log(res, "RES");
+
         if (res.data.kost.status === "draft") {
           router.push(`/dashboard/owner/kost-saya`);
           queryClient.invalidateQueries({

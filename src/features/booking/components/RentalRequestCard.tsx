@@ -149,9 +149,6 @@ const RentalRequestCard: React.FC<Props> = ({ data, onCancel, onCheckIn }) => {
 
   const timeLeft = useCountdown(data.paymentDeadline ?? null);
 
-  console.log("RENTAL REQUEST CARD DATA:", data);
-  console.log("TIME LEFT:", timeLeft);
-
   return (
     <div className="mb-6 max-w-3xl rounded-lg border border-gray-300 bg-white p-4 shadow-sm transition hover:shadow-md">
       {/* Header */}

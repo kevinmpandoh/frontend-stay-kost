@@ -46,17 +46,6 @@ export default function PreferenceContent() {
     (step === 2 && !!kostType) ||
     (step === 3 && kostFacilities.length > 0 && roomFacilities.length > 0);
 
-  console.log(preferences, "PREFERENCE");
-  console.log(
-    isStepValid,
-    step,
-    price,
-    location,
-    kostType,
-    kostFacilities.length,
-    roomFacilities.length,
-  );
-
   const handleSave = () => {
     if (
       !location ||

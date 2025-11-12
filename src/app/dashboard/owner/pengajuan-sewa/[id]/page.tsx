@@ -32,7 +32,6 @@ export default function PengajuanDetailPage() {
 
   const { startChat } = useChat();
 
-  console.log(data, "DATA");
   if (isLoading) {
     return <div className="p-6">Loading...</div>;
   }

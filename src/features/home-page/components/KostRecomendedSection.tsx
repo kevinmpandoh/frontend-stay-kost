@@ -25,8 +25,6 @@ const KostRecomendedSection = () => {
 
   const { preferenceKost } = usePreference();
 
-  console.log(preferenceKost, "PREFERENCE KOST");
-
   if (preferenceKost.isLoading) {
     return (
       <div className="mt-8 grid gap-4 px-36 md:grid-cols-2 lg:grid-cols-5">

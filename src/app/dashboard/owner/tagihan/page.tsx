@@ -48,9 +48,6 @@ const BillingOwner = () => {
     (b: any) => b.status === "paid" && b.payout?.visibleFailedReason,
   ) as any;
 
-  console.log("PAYOUT ISSUE:", payoutIssue);
-  console.log("BILLINGS:", billings);
-
   return (
     <>
       <PageHeader title="Tagihan Sewa Kost" />

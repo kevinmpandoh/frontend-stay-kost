@@ -117,7 +117,6 @@ export const useAuth = () => {
   const verifyOTP = useMutation({
     mutationFn: authService.verifyOTP,
     onSuccess: (data) => {
-      console.log("VERIFIED OTP", data);
       toast.success("Pendafaran berhasil");
       setUser(data.user);
       clearRegisterInfo();
@@ -164,7 +163,6 @@ export const useAuth = () => {
   const logout = useMutation({
     mutationFn: authService.logout,
     onSuccess: () => {
-      console.log("DIJALANKAN");
       setUser(null);
       router.push("/");
       // queryClient.removeQueries(); // optional: hapus semua cache

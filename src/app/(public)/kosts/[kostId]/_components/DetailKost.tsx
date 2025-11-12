@@ -47,7 +47,6 @@ const DetailKost = ({ kostId }: DetailKostProps) => {
     );
   }
   const handleBookingCLick = (tanggalMasuk: string) => {
-    console.log(isAuthenticated, "HOO");
     if (!isAuthenticated) {
       open();
       return;

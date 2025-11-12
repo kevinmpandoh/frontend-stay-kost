@@ -24,7 +24,6 @@ api.interceptors.response.use(
           return api.request(error.config);
         }
       } catch (refreshError) {
-        console.log(refreshError, "TES");
         // await axios.post(
         //   `${process.env.NEXT_PUBLIC_API_URL}/auth/logout`,
         //   {},

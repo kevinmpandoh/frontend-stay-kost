@@ -56,8 +56,6 @@ const SidebarUser = () => {
   const pathname = usePathname();
   const { user } = useAuthStore();
 
-  console.log(user, "UISER");
-
   return (
     <aside className="top-[125px] flex h-full flex-col gap-6 lg:sticky lg:w-2/5">
       <div

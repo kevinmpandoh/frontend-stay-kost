@@ -36,6 +36,43 @@ interface Props {
   onCheckIn?: (id: string) => void;
 }
 
+// === Countdown Hook ===
+function useCountdown(expiredAt: string | null) {
+  const calculateTimeLeft = () => {
+    if (!expiredAt) return null;
+    const difference = +new Date(expiredAt) - +new Date();
+    if (difference <= 0) return null;
+    return {
+      hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
+      minutes: Math.floor((difference / 1000 / 60) % 60),
+      seconds: Math.floor((difference / 1000) % 60),
+    };
+  };
+
+  const [timeLeft, setTimeLeft] = useState(calculateTimeLeft());
+
+  useEffect(() => {
+    const calculateTimeLeft = () => {
+      if (!expiredAt) return null;
+      const difference = +new Date(expiredAt) - +new Date();
+      if (difference <= 0) return null;
+      return {
+        hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
+        minutes: Math.floor((difference / 1000 / 60) % 60),
+        seconds: Math.floor((difference / 1000) % 60),
+      };
+    };
+
+    const timer = setInterval(() => {
+      setTimeLeft(calculateTimeLeft());
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, [expiredAt]);
+
+  return timeLeft;
+}
+
 const RentalRequestCard: React.FC<Props> = ({ data, onCancel, onCheckIn }) => {
   const [countdown, setCountdown] = useState("");
   const [canCheckIn, setCanCheckIn] = useState(false);
@@ -71,42 +108,46 @@ const RentalRequestCard: React.FC<Props> = ({ data, onCancel, onCheckIn }) => {
   }, [data.tanggalMasuk]);
 
   // Countdown Pembayaran
-  useEffect(() => {
-    console.log("DATA STATUS & DEADLINE:", data.status, data.paymentDeadline);
-    if (data.status !== "waiting_for_payment" || !data.paymentDeadline) return;
+  // useEffect(() => {
+  //   console.log("DATA STATUS & DEADLINE:", data.status, data.paymentDeadline);
+  //   if (data.status !== "waiting_for_payment" || !data.paymentDeadline) return;
 
-    // const expire = parse(
-    //   data.paymentDeadline,
-    //   "d MMMM yyyy HH:mm",
-    //   new Date(),
-    //   {
-    //     locale: ind,
-    //   },
-    // );
+  //   // const expire = parse(
+  //   //   data.paymentDeadline,
+  //   //   "d MMMM yyyy HH:mm",
+  //   //   new Date(),
+  //   //   {
+  //   //     locale: ind,
+  //   //   },
+  //   // );
 
-    const expire = new Date(data.paymentDeadline);
+  //   const expire = new Date(data.paymentDeadline);
 
-    console.log("PAYMENT DEADLINE:", data.paymentDeadline, expire);
-    const interval = setInterval(() => {
-      const now = new Date();
-      const diff = differenceInSeconds(expire, now);
-      if (diff <= 0) {
-        setCountdown("Waktu habis");
-        clearInterval(interval);
-      } else {
-        const h = Math.floor(diff / 3600)
-          .toString()
-          .padStart(2, "0");
-        const m = Math.floor((diff % 3600) / 60)
-          .toString()
-          .padStart(2, "0");
-        const s = (diff % 60).toString().padStart(2, "0");
-        setCountdown(`${h}:${m}:${s}`);
-      }
-    }, 1000);
+  //   console.log("PAYMENT DEADLINE:", data.paymentDeadline, expire);
+  //   const interval = setInterval(() => {
+  //     const now = new Date();
+  //     const diff = differenceInSeconds(expire, now);
+  //     if (diff <= 0) {
+  //       setCountdown("Waktu habis");
+  //       clearInterval(interval);
+  //     } else {
+  //       const h = Math.floor(diff / 3600)
+  //         .toString()
+  //         .padStart(2, "0");
+  //       const m = Math.floor((diff % 3600) / 60)
+  //         .toString()
+  //         .padStart(2, "0");
+  //       const s = (diff % 60).toString().padStart(2, "0");
+  //       setCountdown(`${h}:${m}:${s}`);
+  //     }
+  //   }, 1000);
 
-    return () => clearInterval(interval);
-  }, [data.status, data.paymentDeadline]);
+  //   return () => clearInterval(interval);
+  // }, [data.status, data.paymentDeadline]);
+
+  const formatTimeUnit = (val: number) => String(val).padStart(2, "0");
+
+  const timeLeft = useCountdown(data.paymentDeadline ?? null);
 
   return (
     <div className="mb-6 max-w-3xl rounded-lg border border-gray-300 bg-white p-4 shadow-sm transition hover:shadow-md">
@@ -179,10 +220,14 @@ const RentalRequestCard: React.FC<Props> = ({ data, onCancel, onCheckIn }) => {
       {/* Footer */}
       <div className="mt-3 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
-          {countdown && data.status === "waiting_for_payment" && (
+          {timeLeft && data.status === "waiting_for_payment" && (
             <div className="rounded-lg bg-yellow-50 px-3 py-2 text-xs text-yellow-800 sm:text-sm">
               Sisa waktu pembayaran:{" "}
-              <span className="font-semibold">{countdown}</span>
+              <span className="font-semibold">
+                {formatTimeUnit(timeLeft.hours)}:
+                {formatTimeUnit(timeLeft.minutes)}:
+                {formatTimeUnit(timeLeft.seconds)}
+              </span>
             </div>
           )}
 

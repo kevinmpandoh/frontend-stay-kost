@@ -119,7 +119,10 @@ const TableBillingOwner = ({
                       : "-"} */}
 
                     {billing.isDueToday ? (
-                      <Badge className="bg-warning-100 text-warning-600 text-sm">
+                      <Badge
+                        variant={"outline"}
+                        className="bg-warning-100 text-warning-600 text-sm"
+                      >
                         Jatuh tempo hari ini
                       </Badge>
                     ) : // <span className="text-yellow-600 dark:text-yellow-400">
@@ -130,7 +133,7 @@ const TableBillingOwner = ({
                         Terlambat {billing.daysLate} hari
                       </Badge>
                     ) : (
-                      <Badge className="text-gray-800 dark:text-white/90">
+                      <Badge className="bg-primary-200 text-gray-800 dark:text-white/90">
                         Tenggat {billing.daysRemaining} hari lagi
                       </Badge>
                     )}
@@ -148,7 +151,7 @@ const TableBillingOwner = ({
               )}
 
               <TableCell className="text-right">
-                Rp {billing.total.toLocaleString("id-ID")}
+                Rp {billing.total?.toLocaleString("id-ID") || 0}
               </TableCell>
             </TableRow>
           ))}

@@ -141,9 +141,9 @@ export const KontrakModal = ({
               Ajukan Berhenti Sewa
             </Button>
 
-            <Button variant="outline" size="lg" className="w-full sm:flex-1">
+            {/* <Button variant="outline" size="lg" className="w-full sm:flex-1">
               Perpanjang Kontrak Sewa
-            </Button>
+            </Button> */}
           </div>
 
           {/* Modal Berhenti Sewa */}

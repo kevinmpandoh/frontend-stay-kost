@@ -8,7 +8,8 @@ type Billing = {
   dueDate: string;
   status: "paid" | "unpaid";
   monthNumber: number;
-  amount: number;
+  baseAmount: number;
+  totalAmount: number;
   daysRemaining: number;
   isDueToday: boolean;
   isLate: boolean;
@@ -71,7 +72,7 @@ const BillingCard: React.FC<Props> = ({ billing }) => {
         <div className="text-right">
           <p className="text-sm text-gray-500">Total Pembayaran</p>
           <p className="text-lg font-semibold text-gray-900">
-            Rp {billing?.amount.toLocaleString("id-ID")}
+            Rp {billing?.totalAmount?.toLocaleString("id-ID") || 0}
           </p>
         </div>
       </div>

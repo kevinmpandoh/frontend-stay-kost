@@ -75,7 +75,7 @@ const TableBillingAdmin = ({ invoices }: { invoices: any }) => {
               </TableCell>
               <TableCell>{invoice.dueDate}</TableCell>
               <TableCell className="text-right">
-                Rp {invoice.amount?.toLocaleString("id-ID") || "-"}
+                Rp {invoice.baseAmount?.toLocaleString("id-ID") || "-"}
               </TableCell>
             </TableRow>
           ))}

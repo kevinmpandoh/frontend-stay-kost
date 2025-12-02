@@ -15,10 +15,12 @@ export default function KostSidebarCard({
   price,
   kostId,
   handleBookingClick,
+  serviceFeeTenant,
   availableRooms,
 }: {
   price: number;
   kostId: string;
+  serviceFeeTenant: number;
   handleBookingClick: (tanggalMasuk: string) => void;
   availableRooms: number;
 }) {
@@ -122,12 +124,12 @@ export default function KostSidebarCard({
           <span>Rp{price.toLocaleString("id-ID")}</span>
         </div>
         <div className="flex justify-between">
-          <span>Biaya Admin</span>
-          <span>Rp10.000</span>
+          <span>Biaya Layanan</span>
+          <span>Rp{serviceFeeTenant.toLocaleString("id-ID")}</span>
         </div>
         <div className="flex justify-between border-t pt-2 text-lg font-semibold">
           <span>Total</span>
-          <span>Rp {(price + 10000).toLocaleString("id-ID")}</span>
+          <span>Rp {(price + serviceFeeTenant).toLocaleString("id-ID")}</span>
         </div>
       </div>
 

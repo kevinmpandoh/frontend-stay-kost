@@ -100,6 +100,7 @@ const DetailKost = ({ kostId }: DetailKostProps) => {
             <KostSidebarCard
               price={kost.price}
               kostId={kost.id}
+              serviceFeeTenant={kost.serviceFeeTenant}
               handleBookingClick={handleBookingCLick}
               availableRooms={kost.availableRooms}
             />

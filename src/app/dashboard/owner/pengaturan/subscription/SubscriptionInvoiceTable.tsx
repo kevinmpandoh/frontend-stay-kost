@@ -17,7 +17,8 @@ interface Invoice {
   id: string;
   packageName: string;
   packageDuration: string;
-  totalPrice: number;
+  baseAmount: number;
+  totalAmount: number;
   createdAt: string;
   status: string;
 }
@@ -38,6 +39,8 @@ export default function SubscriptionInvoiceTable({
   const startIndex = (page - 1) * pageSize;
   const currentData = invoices.slice(startIndex, startIndex + pageSize);
 
+  console.log(invoices);
+
   return (
     <div className="space-y-3">
       <div className="overflow-x-auto rounded-lg border">
@@ -57,7 +60,7 @@ export default function SubscriptionInvoiceTable({
                 <TableCell>{item.packageName}</TableCell>
                 <TableCell>{item.packageDuration}</TableCell>
                 <TableCell>
-                  Rp {item.totalPrice.toLocaleString("id-ID")}
+                  Rp {item.baseAmount.toLocaleString("id-ID")}
                 </TableCell>
                 <TableCell>{item.createdAt}</TableCell>
                 <TableCell>

@@ -9,6 +9,8 @@ const PengajuanSewaPage = () => {
   const { booking, isLoading, cancelBooking, checkIn } = useTenantBooking();
   const confirm = useConfirm();
 
+  console.log(booking);
+
   if (isLoading) {
     return <p className="text-gray-500">Loading...</p>;
   }

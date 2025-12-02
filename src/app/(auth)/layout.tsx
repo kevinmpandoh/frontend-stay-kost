@@ -14,7 +14,9 @@ export default async function AuthLayout({
 
   return (
     <>
-      <AuthProtected>{children}</AuthProtected>
+      {/* <AuthProtected> */}
+      {children}
+      {/* </AuthProtected> */}
     </>
   );
 }

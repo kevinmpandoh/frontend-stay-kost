@@ -105,7 +105,7 @@ const KostRecomendedSection = () => {
                       images={kost.photos}
                       facilities={kost.facilities}
                       availableRooms={kost.rooms}
-                      score={kost.skor}
+                      // score={kost.skor}
                     />
                   </div>
                 );

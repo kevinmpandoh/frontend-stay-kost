@@ -26,6 +26,8 @@ const BillingOwner = () => {
     month: monthParam,
   });
 
+  console.log(billings);
+
   const handleFilter = (key: string, value: string) => {
     const params = new URLSearchParams(searchParams.toString());
     if (value === "all" || value === "") {

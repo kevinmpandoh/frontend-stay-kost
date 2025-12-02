@@ -4,7 +4,8 @@ import Image from "next/image";
 import { Invoice } from "../types/invoice.type";
 
 export function PaymentSummary({ invoice }: { invoice: Invoice }) {
-  if (!invoice || invoice.amount == null) {
+  console.log(invoice);
+  if (!invoice || invoice.totalAmount == null) {
     return (
       <div className="p-4 text-sm text-red-500">
         Data tagihan tidak lengkap.
@@ -65,7 +66,7 @@ export function PaymentSummary({ invoice }: { invoice: Invoice }) {
             <Badge>Langganan Paket</Badge>
             <h3 className="mt-2 text-lg font-bold">{invoice?.packageName}</h3>
             <p className="text-sm text-gray-600">
-              Berlaku {invoice?.packageDuration} hari
+              Berlaku {invoice?.packageDuration} Bulan
             </p>
           </div>
 
@@ -93,14 +94,16 @@ export function PaymentSummary({ invoice }: { invoice: Invoice }) {
               : "Biaya Langganan"}
           </dt>
           <dd className="font-semibold">
-            Rp {invoice?.amount.toLocaleString("id-ID")}
+            Rp {invoice?.baseAmount.toLocaleString("id-ID")}
           </dd>
         </div>
 
         {/* Kalau mau tambahin biaya layanan tetap bisa */}
         <div className="flex justify-between">
           <dt>Biaya Layanan</dt>
-          <dd className="font-semibold">Rp 0</dd>
+          <dd className="font-semibold">
+            Rp {invoice.serviceFeeTenant.toLocaleString("id-ID") || 0}
+          </dd>
         </div>
       </dl>
 
@@ -109,7 +112,7 @@ export function PaymentSummary({ invoice }: { invoice: Invoice }) {
       <div className="flex justify-between text-xl font-bold text-gray-700 select-text">
         <span>Total Pembayaran</span>
         <span className="text-primary-600">
-          Rp {invoice?.amount.toLocaleString("id-ID")}
+          Rp {invoice?.totalAmount.toLocaleString("id-ID")}
         </span>
       </div>
     </aside>

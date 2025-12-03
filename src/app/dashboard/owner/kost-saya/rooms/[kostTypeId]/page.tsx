@@ -115,7 +115,7 @@ const KetersediaanKamarPage = () => {
 
   return (
     <div className="space-y-6 p-6">
-      <BackLink fallbackUrl="/" />
+      <BackLink fallbackUrl={`/dashboard/owner/kost-saya/`} />
       <h1 className="text-2xl font-bold">Atur Ketersediaan Kamar</h1>
 
       <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-center">

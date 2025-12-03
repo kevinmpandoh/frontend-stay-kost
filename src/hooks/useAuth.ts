@@ -121,7 +121,7 @@ export const useAuth = () => {
       setUser(data.user);
       clearRegisterInfo();
       if (data.user.role === "owner") {
-        router.push("/dashboard");
+        router.push("/dashboard/owner");
       }
       if (data.user.role === "tenant") {
         router.push("/preferences");

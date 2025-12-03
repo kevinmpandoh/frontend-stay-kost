@@ -48,7 +48,7 @@ const BookingSidebar = ({ kost }: BookingSidebarProps) => {
 
       <div className="text-md mb-4 flex justify-between">
         <span>Biaya Layanan</span>
-        <span>Rp 0</span>
+        <span>Rp 2000</span>
       </div>
       <hr className="mb-4 border-gray-200" />
       <div className="flex justify-between text-lg font-semibold">

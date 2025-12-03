@@ -43,7 +43,7 @@ const BookingForm = ({ onSubmitBooking }: BookingFormProps) => {
       <hr className="my-8 border-gray-200" />
 
       <div className="mb-3 flex items-center justify-between">
-        <h2 className="text-2xl font-semibold">Informasi Peneywa</h2>
+        <h2 className="text-2xl font-semibold">Informasi Penyewa</h2>
       </div>
 
       <div className="grid grid-cols-2 gap-6">

@@ -175,7 +175,7 @@ export default function ModalBookingConfirmation({
             <div className="text-end">
               <p className="text-lg font-semibold">Biaya Sewa</p>
               <p className="text-primary text-xl font-bold">
-                Rp {kost.price.toLocaleString("id-ID")}{" "}
+                Rp {(kost.price + 2000).toLocaleString("id-ID")}{" "}
                 <span className="text-muted-foreground text-base font-normal">
                   / bulan
                 </span>

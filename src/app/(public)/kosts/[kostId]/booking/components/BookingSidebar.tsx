@@ -53,7 +53,7 @@ const BookingSidebar = ({ kost }: BookingSidebarProps) => {
       <hr className="mb-4 border-gray-200" />
       <div className="flex justify-between text-lg font-semibold">
         <span>Total Pembayaran</span>
-        <span>Rp{total.toLocaleString("id-ID")}</span>
+        <span>Rp{(kost.price + 2000).toLocaleString("id-ID")}</span>
       </div>
     </div>
   );

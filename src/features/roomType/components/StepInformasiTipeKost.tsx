@@ -16,10 +16,17 @@ import { useEditKostModalStore } from "@/stores/editKostModal";
 import { APIError } from "@/utils/handleAxiosError";
 
 export const presetUkuran = ["3 X 3", "3 X 4", "Lainnya"] as const;
+export const presetTipeKamar = [
+  "Kayu",
+  "Beton",
+  "Semi Beton",
+  "Lainnya",
+] as const;
 
 export const tipeKostSchema = z
   .object({
-    name: z.string().min(1, "Nama tipe kost wajib diisi"),
+    name: z.string().min(1, "Nama tipe kamar wajib diisi"),
+    customName: z.string().optional(),
 
     ukuran: z.enum(presetUkuran, {
       message: "Ukuran kamar wajib dipilih",
@@ -53,7 +60,16 @@ export const tipeKostSchema = z
   .refine((data) => data.kamarTerisi <= data.totalKamar, {
     message: "Kamar terisi tidak boleh melebihi total kamar",
     path: ["kamarTerisi"],
-  });
+  })
+  .refine(
+    (data) =>
+      data.name !== "Lainnya" ||
+      (data.customName && data.customName.trim() !== ""),
+    {
+      message: "Isi nama tipe kamar jika memilih 'Lainnya'",
+      path: ["customName"],
+    },
+  );
 
 // type TipeKostForm = yup.InferType<typeof schema>;
 export type TipeKostForm = z.infer<typeof tipeKostSchema>;
@@ -210,22 +226,45 @@ const StepTipeKost = () => {
   return (
     <>
       <div className="space-y-6">
-        <h2 className="text-2xl font-bold">Lengkapi Data tipe kost anda</h2>
+        <h2 className="text-2xl font-bold">Lengkapi Data tipe kamar anda</h2>
 
-        {/* Nama Kost */}
+        {/* Nama Kamar */}
         <div className="mb-6 max-w-lg space-y-2">
-          <Label className="text-xl">Nama Tipe Kost</Label>
-          <Input
+          <Label className="text-xl">Nama Tipe Kamar</Label>
+          {/* Select */}
+          <select
             {...register("name")}
-            type="text"
-            error={errors.name ? true : false}
-          />
+            className="w-full rounded-md border px-3 py-2"
+          >
+            {presetTipeKamar.map((tipe) => (
+              <option key={tipe} value={tipe}>
+                {tipe}
+              </option>
+            ))}
+          </select>
+
           {errors.name && (
             <p className="text-sm text-red-500">{errors.name.message}</p>
           )}
 
+          {/* Jika pilih Lainnya → tampilkan input text */}
+          {watch("name") === "Lainnya" && (
+            <div className="mt-3 space-y-1">
+              <Input
+                {...register("customName")}
+                placeholder="Isi nama tipe kamar"
+                error={errors.customName ? true : false}
+              />
+              {errors.customName && (
+                <p className="text-sm text-red-500">
+                  {errors.customName.message}
+                </p>
+              )}
+            </div>
+          )}
+
           <p className="mt-1 text-sm text-[#7A7A7A]">
-            Saran: Tipe A, Tipe VIP, Tipe Kayu, dll.
+            Pilihan: Kayu, Beton, Semi Beton, atau ketik manual.
           </p>
         </div>
 

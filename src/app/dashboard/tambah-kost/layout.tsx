@@ -18,8 +18,8 @@ const stepsGroup = [
     items: ["Informasi Kost", "Alamat Kost", "Fasilitas Kost", "Foto Kost"],
   },
   {
-    title: "Tipe Kost",
-    items: ["Informasi Tipe Kost", "Fasilitas Kamar", "Foto Kamar", "Harga"],
+    title: "Tipe Kamar",
+    items: ["Informasi Tipe Kamar", "Fasilitas Kamar", "Foto Kamar", "Harga"],
   },
 ];
 

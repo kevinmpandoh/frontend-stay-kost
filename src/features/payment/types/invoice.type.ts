@@ -4,7 +4,6 @@ export type InvoiceBase = {
   baseAmount: number;
   totalAmount: number;
   serviceFeeTenant: number;
-  serviceFeeOwner: number;
   status: "unpaid" | "paid" | "expired";
   dueDate: string;
   payment: Payment | null;

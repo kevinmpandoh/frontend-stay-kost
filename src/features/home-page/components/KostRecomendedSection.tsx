@@ -99,7 +99,7 @@ const KostRecomendedSection = () => {
                     <KostCard
                       id={kost.id}
                       title={kost.kostName}
-                      location={kost.address}
+                      location={kost.address || "Minahasa"}
                       type={kost.kostType}
                       price={kost.price}
                       images={kost.photos}
